@@ -38,4 +38,8 @@ class AdminController extends Controller
       Session::flush();
       return redirect('/admin')->with('flash_success_msg','logout successfull');
     }
+
+    public function settings(){
+        return view('admin.settings');
+    }
 }
