@@ -13,7 +13,7 @@ class AdminController extends Controller
         $data=$request->input();
         if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'admin'=>'1'])){
         //  echo "succes";die;
-        Session::put('adminSession',$data['email']);
+        //Session::put('adminSession',$data['email']);
         return redirect('/admin/dashboard');
         }
         else{
@@ -25,12 +25,12 @@ class AdminController extends Controller
     }
 
     public function dashboard(){
-      if(Session::has('adminSession')){
+      //if(Session::has('adminSession')){
         //perform all dashboard rask
-      }
-      else{
-          return redirect('/admin')->with('flash_err_msg','Please login to access...');
-      }
+    //  }
+    //  else{
+    //      return redirect('/admin')->with('flash_err_msg','Please login to access...');
+    //  }
       return view('admin.dashboard');
     }
 
