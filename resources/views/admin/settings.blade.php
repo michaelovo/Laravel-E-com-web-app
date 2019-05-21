@@ -10,7 +10,7 @@
   </div>
   <div class="container-fluid"><hr>
 
-
+        @include('includes.msg')
 
       <div class="row-fluid">
         <div class="span12">
@@ -19,7 +19,9 @@
               <h5>Update password</h5>
             </div>
             <div class="widget-content nopadding">
-              <form class="form-horizontal" method="post" action="#" name="password_validate" id="password_validate" novalidate="novalidate">
+
+              <form class="form-horizontal" method="post" action="{{url('/admin/update-pwd')}}" name="password_validate" id="password_validate" novalidate="novalidate">
+                 {{csrf_field()}}
 
                 <div class="control-group">
                   <label class="control-label">Current Password</label>

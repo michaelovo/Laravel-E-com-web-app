@@ -1,7 +1,8 @@
 
 $(document).ready(function(){
 // Starts --- Compares current password with newly entered password and with confirm_pwd field
-	$("#new_pwd").click(function(){
+//$("#new_pwd").click(function(){
+	$("#current_pwd").keyup(function(){
 		var current_pwd = $("#current_pwd").val();
 		$.ajax({
 			type:'get',
