@@ -1,5 +1,25 @@
 
 $(document).ready(function(){
+// Starts --- Compares current password with newly entered password and with confirm_pwd field
+	$("#new_pwd").click(function(){
+		var current_pwd = $("#current_pwd").val();
+		$.ajax({
+			type:'get',
+			url:'/admin/check-pwd',
+			data:{current_pwd:current_pwd},
+			success:function(resp){
+				if(resp=="false"){
+					$("#pwdChk").html("<font color='red'> current password is incorrect</font>");
+				}else if (resp=="true"){
+						$("#pwdChk").html("<font color='green'> current password is correct</font>");
+				}
+			},error:function(){
+					alert("error");
+				}
+
+		});
+	});
+	// End --- Compares current password with newly entered password and with confirm_pwd field
 
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 
