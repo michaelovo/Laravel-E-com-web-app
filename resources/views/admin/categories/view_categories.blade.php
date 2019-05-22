@@ -38,7 +38,7 @@
                   <td>{{$category->url}}</td>
                   <td class="center">
                     <div class="fl">
-                      <a href="#" class=" icon icon-edit btn btn-primary"></a> 
+                      <a href="{{url('/admin/edit-category/'.$category->id)}}" class=" icon icon-edit btn btn-primary"></a> 
                       <a href="#" class=" icon icon-trash btn btn-danger"></a>
 
                       
