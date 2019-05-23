@@ -24,6 +24,7 @@
                 <tr>
                   <th>id</th>
                   <th>name</th>
+                  <th>level</th>
                   <th>description</th>
                   <th>url</th>
                   <th>Actions</th>
@@ -34,6 +35,7 @@
                 <tr class="gradeX">
                   <td>{{$loop->index + 1}}</td>
                   <td>{{$category->name}}</td>
+                  <td>{{$category->parent_id}}</td>
                   <td>{{$category->description}}</td>
                   <td>{{$category->url}}</td>
                   <td class="center">

@@ -15,13 +15,14 @@ class CategoryController extends Controller
 
         	$category =new Category;
         	$category->name = $data['category_name'];
+            $category->parent_id = $data['parent_id']; // to insrt subcatgory into db
         	$category->description = $data['description'];
         	$category->url = $data['url'];
         	$category->save();
         	 return redirect('/admin/view-category')->with('flash_categoryadd_success_msg','New category Added successfully!');       	
     	}
-    	
-    	return view('admin.categories.add_category');
+    	$levels = Category::where(['parent_id'=>0])->get();
+    	return view('admin.categories.add_category')->with(compact('levels'));
     }
 
     // FUNCTION TO RETRIEVE AND DISPLAY DATA FROM DB ON VIEW-CATEGORY BLADE FILE
@@ -44,7 +45,8 @@ class CategoryController extends Controller
 
         //retrieve and display data for editing from db on edit-category blade file
              $categoryDetails = Category::where(['id'=>$id])->first();
-            return view('admin.categories.edit_category')->with(compact('categoryDetails'));
+             $levels = Category::where(['parent_id'=>0])->get(); // for adding subcategories to display list
+            return view('admin.categories.edit_category')->with(compact('categoryDetails','levels'));
         }
 
         //FUNCTION TO DELETE CATEGORY

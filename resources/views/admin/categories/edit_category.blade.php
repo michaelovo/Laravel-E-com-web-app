@@ -30,6 +30,20 @@
                 </div>
               </div>
 
+            <div class="control-group">
+                <label class="control-label">Category Level</label>
+                <div class="controls">
+                  <select name="parent_id" style="width:220px;">
+                    <option value="0">Main catgories</option>
+                    <!--starts--- to auto-select parent category along when editing-->
+                    @foreach($levels as $val)
+                    <option value="{{$val->id}}" @if($val->id == $categoryDetails->parent_id) selected @endif>{{$val->name}}</option>
+                    @endforeach
+                     <!--end--- to auto-select parent category along when editing-->
+                  </select>
+                </div>
+              </div>
+
               <div class="control-group">
                 <label class="control-label">Description</label>
                 <div class="controls">
