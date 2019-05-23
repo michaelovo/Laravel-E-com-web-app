@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Image;
 use Auth;
 use Session;
 use App\Product;
@@ -37,7 +39,30 @@ class ProductsController extends Controller
              //End --If description field is empty or not, submit data
 
         	$product->price = $data['price'];
-        	$product->image = '';
+
+        	// Start ---- Image upload
+        	
+        	if($request->hasFile('image')){
+        		//echo $image_tmp = Input::file('image');die;
+        		$image_tmp = Input::file('image');
+        		if($image_tmp->isValid()){
+        			$extension = $image_tmp->getClientOriginalExtension();
+        			$filename =rand(111,99999).'.'.$extension;
+        			$large_image_path = 'images/backend_images/products/large/'.$filename;
+        			$medium_image_path = 'images/backend_images/products/medium/'.$filename;
+        			$small_image_path = 'images/backend_images/products/small/'.$filename;
+
+        			//RESIZE IMAGE
+        			Image::make($image_tmp)->save($large_image_path);
+        			Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+        			Image::make($image_tmp)->resize(300,300)->save($small_image_path);
+
+        			//STORE IMAGE NAME IN 'products' TABLE
+        			$product->image = $filename;
+
+        		}
+        	}
+        	// End ---- Image upload
         	$product->save();
         	 return redirect()->back()->with('flash_success_msg','New product Added successfully!');
         	  	

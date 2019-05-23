@@ -20,7 +20,7 @@
             </div>
             <div class="widget-content nopadding">
 
-              <form class="form-horizontal" method="post" action="{{url('/admin/add-product')}}" name="add_product" id="add_product" novalidate="novalidate">
+              <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/add-product')}}" name="add_product" id="add_product" novalidate="novalidate">
               	  {{csrf_field()}}
 
                <div class="control-group" >
