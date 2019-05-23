@@ -11,6 +11,14 @@
         
       </ul>
     </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+      <span>Products</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="{{url('/admin/add-product')}}"><i class="icon icon-plus-sign"></i>Add product</a></li>
+        <li><a href="{{url('/admin/view-products')}}"><i class="icon icon-eye-open"></i>View Products</a></li>
+        
+      </ul>
+    </li>
     <li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
     <li><a href="interface.html"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-cog"></i> <span>Settings</span> <span class="label label-important">1</span></a>

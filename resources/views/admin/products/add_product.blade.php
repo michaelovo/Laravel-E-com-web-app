@@ -23,6 +23,17 @@
               <form class="form-horizontal" method="post" action="{{url('/admin/add-product')}}" name="add_product" id="add_product" novalidate="novalidate">
               	  {{csrf_field()}}
 
+               <div class="control-group" >
+              <label class="control-label">Main/Sub categories</label>
+              <div class="controls" >
+                <!--start-- Retrieve and display category/subcategory from 'categories' table-->
+                <select name="category_id" id="category_id" style="width:220px;">
+                  <?php echo  $categories_dropdown; ?>
+                </select>
+                 <!--start-- Retrieve and display category/subcategory from 'categories' table-->
+              </div>
+            </div>
+
               <div class="control-group">
                 <label class="control-label">Name</label>
                 <div class="controls">
@@ -62,16 +73,6 @@
               </div>
 
              
-
-             <div class="control-group" >
-              <label class="control-label">Main/Sub categories</label>
-              <div class="controls" style="width:245px;">
-                <select >
-                  <?php echo  $categories_dropdown; ?>
-                </select>
-              </div>
-            </div>
-
              <div class="control-group">
                 <label class="control-label">Image</label>
                 <div class="controls">
