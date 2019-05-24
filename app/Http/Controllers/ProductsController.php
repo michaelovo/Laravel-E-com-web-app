@@ -33,11 +33,11 @@ class ProductsController extends Controller
             $product->product_color = $data['product_color'];
             
             //Start --If description field is empty or not, submit data
-            if(!empty($data['description'])){
-        		$product->description = '';
-            }
+           // if(!empty($data['description'])){
+        		//$product->description = '';
+            //}
              //End --If description field is empty or not, submit data
-
+             $product->description = $data['description'];
         	$product->price = $data['price'];
 
         	// Start ---- Image upload
@@ -64,7 +64,9 @@ class ProductsController extends Controller
         	}
         	// End ---- Image upload
         	$product->save();
-        	 return redirect()->back()->with('flash_success_msg','New product Added successfully!');
+        	// return redirect()->back()->with('flash_success_msg','New product Added successfully!');
+        	  return redirect('/admin/view-product')->with('flash_success_msg','New Product Added successfully!');
+   
         	  	
     	}
     	// End -- Insert into products table in db
@@ -84,8 +86,18 @@ class ProductsController extends Controller
     	 	
     	 }
     	 // End -- Retrieve and display main categories and subcategories from 'categories' table
-    	 return view('admin.products.add_product')->with(compact('categories_dropdown'));
-    	
+    	 return view('admin.products.add_product')->with(compact('categories_dropdown'));	
     }
     
+    // FUNCTION TO RETRIEVE AND DISPLAY DATA FROM 'products' table in DB ON VIEW-PRODUCTS BLADE FILE
+    public function viewproducts(){
+        $products = Product::get();
+        //To retrieve and display category name from 'categories' table on view_products blade files
+        foreach ($products as $key => $value) {
+        	$category_name = Category::where(['id'=>$value->category_id])->first();
+        	$products[$key]->category_name = $category_name->name;
+        	
+        }
+        return view('admin.products.view_products')->with(compact('products'));
+    }
 }

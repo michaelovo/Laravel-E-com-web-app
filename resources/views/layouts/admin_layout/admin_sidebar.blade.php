@@ -15,7 +15,7 @@
       <span>Products</span> <span class="label label-important">2</span></a>
       <ul>
         <li><a href="{{url('/admin/add-product')}}"><i class="icon icon-plus-sign"></i>Add product</a></li>
-        <li><a href="{{url('/admin/view-products')}}"><i class="icon icon-eye-open"></i>View Products</a></li>
+        <li><a href="{{url('/admin/view-product')}}"><i class="icon icon-eye-open"></i>View Products</a></li>
         
       </ul>
     </li>
