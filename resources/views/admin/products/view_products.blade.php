@@ -29,7 +29,7 @@
                   <th>Product name</th>
                   <th>Product code</th>
                   <th>Product color</th>
-                  <th>description</th>
+                  <!--th>description</th-->
                   <th>Price</th>
                   <th>Product Image</th>
                   <th>Actions</th>
@@ -45,7 +45,7 @@
                   <td>{{$product->product_name}}</td>
                   <td>{{$product->product_code}}</td>
                   <td>{{$product->product_color}}</td>
-                  <td>{{$product->description}}</td>
+                  
                   <td>{{$product->price}}</td>
                   <td>
                     @if(!empty($product->image))
@@ -53,20 +53,41 @@
                     <img src="{{asset('images/backend_images/products/small/'.$product->image)}}" style="width:60px;">
                 
                   @endif
-
                   </td>
+
                   <td class="center">
                     <div class="fl">
                       <a href="{{url('/admin/edit-product/'.$product->id)}}" class=" icon icon-edit btn btn-primary"></a> 
-                      <a id ="delCat" href="{{url('/admin/delete-product/'.$product->id)}}" class=" icon icon-trash btn btn-danger"></a>
-                        
                       
-                   </div>
-                    
-                    
-                  </td>
-                 
-                </tr>
+                      <a href="#myModal{{$product->id}}" data-toggle="modal" class=" icon icon-eye-open btn btn-success"></a> 
+
+                      <a id ="delCat" href="{{url('/admin/delete-product/'.$product->id)}}" class=" icon icon-trash btn btn-danger"></a>                                            
+                   </div>                                      
+                  </td>                
+              </tr>
+
+                <!--Start..... Product details modal class--->
+                  <div id="myModal{{$product->id}}" class="modal hide">
+                    <div class="modal-header">
+                      <button data-dismiss="modal" class="close" type="button">×</button>
+                      <h3>{{$product->product_name}} full details</h3>
+                    </div>
+                    <div class="modal-body">
+                      <p> 
+                        Product id: {{$product->id}}<br>
+                        Category id: {{$product->category_id}}<br>                               Category name: {{$product->category_name}}<br>                               Product Code: {{$product->product_code}}<br>                               Product Color:  {{$product->product_color}} <br>                           Price:  {{$product->price}}<br>
+                        Description:  {{$product->description}}<br>          
+                      </p>
+                       Image:
+                      <br>
+                       @if(!empty($product->image))
+
+                    <img src="{{asset('images/backend_images/products/large/'.$product->image)}}">
+                
+                  @endif
+                    </div>
+                  </div>
+                <!--End..... Product details modal class--->
               @endforeach
      
                
@@ -77,7 +98,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> 
 @endsection
-
-

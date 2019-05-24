@@ -59,8 +59,8 @@
 <script src="{{asset('js/backend_js/matrix.tables.js')}}"></script>
 
 <script src="{{asset('js/backend_js/jquery.uniform.js')}}"></script>
-<!--script src="{{asset('js/backend_js/matrix.tables.js')}}"></script>
-<script src="{{asset('js/backend_js/matrix.tables.js')}}"></script-->
+<script src="{{asset('js/backend_js/matrix.popover.js')}}"></script>
+<!--script src="{{asset('js/backend_js/matrix.tables.js')}}"></script-->
 
 
 
