@@ -100,4 +100,62 @@ class ProductsController extends Controller
         }
         return view('admin.products.view_products')->with(compact('products'));
     }
+
+
+
+     // EDIT/ UPDATE PRODUCTS FUNCTION
+     public function  editProduct(Request $request, $id=null){
+        // start of update Product
+        
+        if($request->ismethod('post')){
+            $data=$request->all();
+            //echo "<pre>"; print_r($data); die;
+            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'price'=>$data['price']]);
+
+            return redirect('/admin/view-product')->with('flash_success_msg','Product Updated successfully!');
+        }
+        // end of update Product
+		
+        //retrieve and display data for editing from db on edit-category blade file
+             $productDetails = Product::where(['id'=>$id])->first(); //get product details
+            
+    	// start -- Retrieve and display main categories and subcategories from 'categories' table
+    	 $categories = Category::where(['parent_id'=>0])->get();
+    	 $categories_dropdown ="<option value='' selected disabled>selected</option>";
+    	 foreach ($categories as $cat) {
+    	 	// Start ...Compare and auto-select category for product
+    	 	if($cat->id==$productDetails->category_id){
+    	 		$selected ="selected";
+    	 	}else{
+    	 		$selected ="";
+    	 	}
+    	 // End ...Compare and auto-select category for product
+    	 $categories_dropdown .="<option value='".$cat->id."' ".$selected.">".$cat->name."</option>";
+	    	 $sub_categories = Category::where(['parent_id'=>$cat->id])->get();
+	    	 foreach ($sub_categories as $sub_cat) {
+	    	 	// Start ...Compare and auto-select subcategory for product
+	    	 	if($sub_cat->id==$productDetails->category_id){
+    	 			$selected ="selected";
+	    	 	}else{
+	    	 		$selected ="";
+	    	 	}
+	    	 	// End ...Compare and auto-select category for product
+	    	 	$categories_dropdown .="<option value='".$sub_cat->id."'>&nbsp;--&nbsp".$sub_cat->name."</option>";
+
+	    	 }
+    	 	
+    	 }
+    	 // End -- Retrieve and display main categories and subcategories from 'categories' table
+            return view('admin.products.edit_product')->with(compact('productDetails','categories_dropdown'));//,'levels'));
+        }
+
+        /*
+        //FUNCTION TO DELETE PRODUCT
+        public function deleteProduct(Request $request, $id=null){
+            if(!empty($id)){
+                Product::where(['id'=>$id])->delete();
+            return redirect()->back()->with('flash_success_msg','Product Deleted successfully!');
+            }
+
+        } */
 }

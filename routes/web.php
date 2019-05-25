@@ -37,6 +37,8 @@ Route::group(['middleware'=>['auth']],function(){
   //Admin product route
    Route::match(['get','post'],'/admin/add-product','ProductsController@addProduct');
    Route::get('/admin/view-product','ProductsController@viewProducts');
+   Route::match(['get','post'],'/admin/edit-product/{id}','ProductsController@editProduct');
+   //Route::match(['get','post'],'/admin/delete-product/{id}','ProductsController@deleteProduct');
 
 });
 
