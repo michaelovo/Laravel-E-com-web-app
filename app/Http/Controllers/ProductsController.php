@@ -149,7 +149,7 @@ class ProductsController extends Controller
             return view('admin.products.edit_product')->with(compact('productDetails','categories_dropdown'));//,'levels'));
         }
 
-        /*
+        
         //FUNCTION TO DELETE PRODUCT
         public function deleteProduct(Request $request, $id=null){
             if(!empty($id)){
@@ -157,5 +157,5 @@ class ProductsController extends Controller
             return redirect()->back()->with('flash_success_msg','Product Deleted successfully!');
             }
 
-        } */
+        }
 }
