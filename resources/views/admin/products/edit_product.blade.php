@@ -20,7 +20,7 @@
             </div>
             <div class="widget-content nopadding">
 
-              <form class="form-horizontal" method="post" action="{{url('/admin/edit-product/'.$productDetails->id)}}" name="edit_product" id="edit_product" novalidate="novalidate">
+              <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/edit-product/'.$productDetails->id)}}" name="edit_product" id="edit_product" novalidate="novalidate">
               	  {{csrf_field()}}
 
 
@@ -73,17 +73,22 @@
               <div class="control-group">
                 <label class="control-label">Image</label>
                 <div class="controls">
-                   <input type="file" name="image" id="image" value="{{$productDetails->image}}">
-                    
+                   <input type="file" name="image" id="image">
+                    <input type="hidden" name="current_image" value="{{$productDetails->image}}">
+
+                     <!--Start---Not to displayed broken image icon when image is not available on edit_product blade file when editing-->
+                    @if(!empty($productDetails->image))
+                   <!--start---To display product image from db on this edit_product blade file when editing-->
+                    <img src="{{ asset('/images/backend_images/products/small/'.$productDetails->image) }}" style="width:30px;"> 
+                     <!--End---To display product image from db on this edit_product blade file when editing-->
+
+                      <!--Start---To delete displayed product image from edit_product blade file when editing-->
+                    | <a href="{{url('/admin/delete-product-image/'.$productDetails->id)}}"> Delete </a>
+                     <!--End---To delete displayed product image from edit_product blade file when editing-->
+                    @endif
+                    <!--End---Not to displayed broken image icon when image is not available on edit_product blade file when editing-->
                 </div>
               </div>
-
-           
-
-             
-
-                         
-             
 
               <div class="form-actions">
                 <input type="submit" value="Update product" class="btn btn-success">

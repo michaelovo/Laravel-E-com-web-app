@@ -33,15 +33,19 @@ class ProductsController extends Controller
             $product->product_color = $data['product_color'];
             
             //Start --If description field is empty or not, submit data
-           // if(!empty($data['description'])){
-        		//$product->description = '';
-            //}
+            /*
+            * use this if this field is not validated @edit_product function in matrix.form_validation.js
+	            if(!empty($data['description'])){
+	            	 $product->description = $data['description'];
+	            }else{
+	            	 $product->description ='';
+	            }
+            */
              //End --If description field is empty or not, submit data
-             $product->description = $data['description'];
+            
         	$product->price = $data['price'];
-
-        	// Start ---- Image upload
         	
+        	// Start ---- Image upload        	
         	if($request->hasFile('image')){
         		//echo $image_tmp = Input::file('image');die;
         		$image_tmp = Input::file('image');
@@ -65,13 +69,10 @@ class ProductsController extends Controller
         	// End ---- Image upload
         	$product->save();
         	// return redirect()->back()->with('flash_success_msg','New product Added successfully!');
-        	  return redirect('/admin/view-product')->with('flash_success_msg','New Product Added successfully!');
-   
-        	  	
+        	  return redirect('/admin/view-product')->with('flash_success_msg','New Product Added successfully!');        	  	
     	}
     	// End -- Insert into products table in db
-
-    	
+	
 
     	// start -- Retrieve and display main categories and subcategories from 'categories' table
     	 $categories = Category::where(['parent_id'=>0])->get();
@@ -89,6 +90,8 @@ class ProductsController extends Controller
     	 return view('admin.products.add_product')->with(compact('categories_dropdown'));	
     }
     
+
+
     // FUNCTION TO RETRIEVE AND DISPLAY DATA FROM 'products' table in DB ON VIEW-PRODUCTS BLADE FILE
     public function viewproducts(){
         $products = Product::get();
@@ -105,14 +108,43 @@ class ProductsController extends Controller
 
      // EDIT/ UPDATE PRODUCTS FUNCTION
      public function  editProduct(Request $request, $id=null){
-        // start of update Product
-        
+        // start of update Product        
         if($request->ismethod('post')){
             $data=$request->all();
             //echo "<pre>"; print_r($data); die;
-            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'price'=>$data['price']]);
 
-            return redirect('/admin/view-product')->with('flash_success_msg','Product Updated successfully!');
+            // Start ---- Image upload
+        	/*
+        		If we upload new image from edit product form then 'if' part will work and
+        		new image will get uploaded, otherwise we will pick current_image name name
+        		again from form. In both cases we will update varaiable '$filename' that can
+        		have current or new image name
+
+        	*/
+        	if($request->hasFile('image')){
+        		//echo $image_tmp = Input::file('image');die;
+        		$image_tmp = Input::file('image');
+        		if($image_tmp->isValid()){
+        			$extension = $image_tmp->getClientOriginalExtension();
+        			$filename =rand(111,99999).'.'.$extension;
+        			$large_image_path = 'images/backend_images/products/large/'.$filename;
+        			$medium_image_path = 'images/backend_images/products/medium/'.$filename;
+        			$small_image_path = 'images/backend_images/products/small/'.$filename;
+
+        			//RESIZE IMAGE
+        			Image::make($image_tmp)->save($large_image_path);
+        			Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+        			Image::make($image_tmp)->resize(300,300)->save($small_image_path);        			
+        		}
+        	}else{
+        		$filename = $data['current_image'];
+        	}        	
+        	// End ---- Image upload       	
+
+            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'price'=>$data['price'],'image'=>$filename]);
+
+            //return redirect()->back()->with('flash_success_msg','Product Updated successfully!');
+             return redirect('/admin/view-product')->with('flash_success_msg','Product Updated successfully!');
         }
         // end of update Product
 		
@@ -158,4 +190,13 @@ class ProductsController extends Controller
             }
 
         }
+
+        //FUNCTION TO DELETE PRODUCT IMAGE
+        public function deleteProductImage($id=null){
+                Product::where(['id'=>$id])->update(['image'=>'']);
+            return redirect()->back()->with('flash_success_msg','Product Image Deleted successfully!');
+            }
+
+
+        
 }
