@@ -42,7 +42,7 @@ class ProductsController extends Controller
 	            }
             */
              //End --If description field is empty or not, submit data
-            
+            $product->description =$data['product_color'];
         	$product->price = $data['price'];
         	
         	// Start ---- Image upload        	
@@ -183,11 +183,11 @@ class ProductsController extends Controller
 
         
         //FUNCTION TO DELETE PRODUCT
-        public function deleteProduct(Request $request, $id=null){
-            if(!empty($id)){
+        public function deleteProduct($id=null){
+            //if(!empty($id)){
                 Product::where(['id'=>$id])->delete();
             return redirect()->back()->with('flash_success_msg','Product Deleted successfully!');
-            }
+            //}
 
         }
 

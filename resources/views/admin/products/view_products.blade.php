@@ -61,7 +61,7 @@
                       
                       <a href="#myModal{{$product->id}}" data-toggle="modal" class=" icon icon-eye-open btn btn-success"></a> 
 
-                      <a id ="delCat" href="{{url('/admin/delete-product/'.$product->id)}}" class=" icon icon-trash btn btn-danger"></a>                                            
+                      <a rel="{{$product->id}}" rel1="delete-product" <?php /*href="{{url('/admin/delete-product/'.$product->id)}}"*/?> href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord"></a>                                            
                    </div>                                      
                   </td>                
               </tr>

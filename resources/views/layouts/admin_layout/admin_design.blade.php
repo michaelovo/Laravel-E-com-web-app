@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="{{asset('font/backend_font/font-awesome/css/font-awesome.css')}}" />
 
 <link rel="stylesheet" href="{{asset('css/backend_css/select2.css')}}" />
-<!--link rel="stylesheet" href="{{asset('css/backend_css/uniform.css')}}" /-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css" />
 
 <link rel="stylesheet" href="{{asset('css/backend_css/jquery.gritter.css')}}" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
@@ -60,7 +60,7 @@
 
 <script src="{{asset('js/backend_js/jquery.uniform.js')}}"></script>
 <script src="{{asset('js/backend_js/matrix.popover.js')}}"></script>
-<!--script src="{{asset('js/backend_js/matrix.tables.js')}}"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
 
 
 
