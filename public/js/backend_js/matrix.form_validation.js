@@ -243,7 +243,7 @@ $(document).ready(function(){
 	});
 
 
-	// Alert when click on delete button for Product
+	// Start ---- sweetAlert for Delete Product
 	$(".deleteRecord").click(function(){
 		var id = $(this).attr('rel');
 		var deleteFunction = $(this).attr('rel1');
@@ -261,14 +261,18 @@ $(document).ready(function(){
 		},
 			function(){
 				window.location.href="/admin/"+deleteFunction+"/"+id;
-				
+
 			});
 		
 	});
+	// End ---- sweetAlert for Delete Product
+
 	/*$("#delProduct").click(function(){
 		if(confirm('Are you sure you want to delete this Product ?')){
 			return true; 
 		} 
 		return false;
 	}); */
+
+
 });

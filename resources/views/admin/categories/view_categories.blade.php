@@ -41,7 +41,10 @@
                   <td class="center">
                     <div class="fl">
                       <a href="{{url('/admin/edit-category/'.$category->id)}}" class=" icon icon-edit btn btn-primary"></a> 
-                      <a id ="delCat" href="{{url('/admin/delete-category/'.$category->id)}}" class=" icon icon-trash btn btn-danger"></a>
+
+                       <a rel="{{$category->id}}" rel1="delete-category" <?php /*href="{{url('/admin/delete-category/'.$category->id)}}"*/?> href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord"></a>   
+
+                      <!--a id ="delCat" href="{{url('/admin/delete-category/'.$category->id)}}" class=" icon icon-trash btn btn-danger"></a-->
                         
                       
                    </div>
