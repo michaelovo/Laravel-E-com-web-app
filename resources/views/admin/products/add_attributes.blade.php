@@ -6,7 +6,7 @@
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Attributes</a> <a href="#" class="current">Add attributes</a> </div>
-    <h1>Attributess</h1>
+    <h1>Product Attributes</h1>
   </div>
   <div class="container-fluid"><hr>
 
@@ -63,6 +63,52 @@
           </div>
         </div>
       </div>
+
+      <!--Start--- View attributes datatable -->
+      <div class="row-fluid">
+        <div class="span12">    
+          <div class="widget-box">
+            @include('includes.msg')
+            <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+              <h5>View attributes</h5>
+            </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered data-table">
+              <thead>
+                <tr>
+                  <th>Attribute id</th>
+                  <th>SKU</th>
+                  <th>Size</th>
+                  <th>Price</th>
+                  <th>Stock</th> 
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($productDetails['attributes'] as $attribute)
+                <tr class="gradeX">
+                  
+                  <td>{{$attribute->id}}</td>
+                  <td>{{$attribute->sku}}</td>
+                  <td>{{$attribute->size}}</td>
+                  <td>{{$attribute->price}}</td>
+                  <td>{{$attribute->stock}}</td>               
+                
+                  <td class="center">
+                     <div class="fl">
+                      <a rel="{{$attribute->id}}" rel1="delete-product" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord"></a>
+                   </div>                                      
+                  </td>                
+                </tr>
+                @endforeach               
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--End--- View attributes datatable -->
+
+    </div>
     </div>
   </div>
 </div>
