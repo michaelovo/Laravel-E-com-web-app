@@ -20,44 +20,44 @@
             </div>
             <div class="widget-content nopadding">
 
-              <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/add-attributes/'.$productDetails->id)}}" name="add_atrributes" id="add_atrributes" novalidate="novalidate">
+              <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/add-attributes/'.$productDetails->id)}}" name="add_atrributes" id="add_atrributes">
               	  {{csrf_field()}}
-                <input type="hidden" name="product_id" value="{{$productDetails->id}}"/>
-              <div class="control-group">
-                <label class="control-label">Product Name</label>
-                 <label class="control-label"><strong>{{$productDetails->product_name}}</strong></label>
-              </div>
-              
-              <div class="control-group">
-                <label class="control-label">Product Code</label>
-                 <label class="control-label"><strong>{{$productDetails->product_code}}</strong></label>
-              </div>
-              
-              <div class="control-group">
-                <label class="control-label">Product color</label>
-                 <label class="control-label"><strong>{{$productDetails->product_color}}</strong></label>
-                
-              </div>    
-              <!--  Start ---- To add multiple fields\remove  -->
-              <div class="control-group">   
-                <div class="controls">
-                  <div class="field_wrapper">
-                    <div>
-                        <input type="text" name="sku[]" id="sku" placeholder="sku" style="width:120px;" />
-                        <input type="text" name="size[]" id="size" placeholder="size"  style="width:120px;" />
-                        <input type="text" name="price[]" id="price" placeholder="price"  style="width:120px;" />
-                        <input type="text" name="stock[]" id="stock" placeholder="stock"  style="width:120px;" />
-                        <a href="javascript:void(0);" class="add_button icon icon-plus-sign" title="Add field">Add</a>
-                    </div>
-                  </div>                  
+                  <input type="hidden" name="product_id" value="{{$productDetails->id}}"/>
+                <div class="control-group">
+                  <label class="control-label">Product Name</label>
+                   <label class="control-label"><strong>{{$productDetails->product_name}}</strong></label>
                 </div>
-              </div>
-               <!-- // End ---- To add multiple fields\remove -->
-        
-            
-              <div class="form-actions">
-                <input type="submit" value="Add atrributes" class="btn btn-success">
-              </div>
+                
+                <div class="control-group">
+                  <label class="control-label">Product Code</label>
+                   <label class="control-label"><strong>{{$productDetails->product_code}}</strong></label>
+                </div>
+                
+                <div class="control-group">
+                  <label class="control-label">Product color</label>
+                   <label class="control-label"><strong>{{$productDetails->product_color}}</strong></label>
+                  
+                </div>    
+                <!--  Start ---- To add multiple fields\remove  -->
+                <div class="control-group">   
+                  <div class="controls">
+                    <div class="field_wrapper">
+                      <div>
+                          <input type="text" name="sku[]" id="sku" placeholder="sku" style="width:120px;" required="required" />
+                          <input type="text" name="size[]" id="size" placeholder="size"  style="width:120px;" required="required" />
+                          <input type="text" name="price[]" id="price" placeholder="price"  style="width:120px;" required="required" />
+                          <input type="text" name="stock[]" id="stock" placeholder="stock"  style="width:120px;" required="required" />
+                          <a href="javascript:void(0);" class="add_button icon icon-plus-sign" title="Add field">Add</a>
+                      </div>
+                    </div>                  
+                  </div>
+                </div>
+                 <!-- // End ---- To add multiple fields\remove -->
+          
+              
+                <div class="form-actions">
+                  <input type="submit" value="Add atrributes" class="btn btn-success">
+                </div>
             </form>
             </div>
           </div>
