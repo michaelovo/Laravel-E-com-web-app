@@ -77,20 +77,19 @@ class ProductsController extends Controller
     	// start -- Retrieve and display main categories and subcategories from 'categories' table
     	 $categories = Category::where(['parent_id'=>0])->get();
     	 $categories_dropdown ="<option value='' selected disabled>selected</option>";
-    	 foreach ($categories as $cat) {
-    	 $categories_dropdown .="<option value='".$cat->id."'>".$cat->name."</option>";
-	    	 $sub_categories = Category::where(['parent_id'=>$cat->id])->get();
-	    	 foreach ($sub_categories as $sub_cat) {
-	    	 	$categories_dropdown .="<option value='".$sub_cat->id."'>&nbsp;--&nbsp".$sub_cat->name."</option>";
+	    	foreach ($categories as $cat) {
+		    	 $categories_dropdown .="<option value='".$cat->id."'>".$cat->name."</option>";
+			    	 $sub_categories = Category::where(['parent_id'=>$cat->id])->get();
+			    	 foreach ($sub_categories as $sub_cat) {
+			    	 	$categories_dropdown .="<option value='".$sub_cat->id."'>&nbsp;--&nbsp".$sub_cat->name."</option>";
 
-	    	 }
-    	 	
-    	 }
+			    	 }
+		
+	    	}
     	 // End -- Retrieve and display main categories and subcategories from 'categories' table
     	 return view('admin.products.add_product')->with(compact('categories_dropdown'));	
     }
     
-
 
     // FUNCTION TO RETRIEVE AND DISPLAY DATA FROM 'products' table in DB ON VIEW-PRODUCTS BLADE FILE
     public function viewproducts(){
@@ -105,9 +104,8 @@ class ProductsController extends Controller
     }
 
 
-
      // EDIT/ UPDATE PRODUCTS FUNCTION
-     public function  editProduct(Request $request, $id=null){
+    public function  editProduct(Request $request, $id=null){
         // start of update Product        
         if($request->ismethod('post')){
             $data=$request->all();
@@ -154,7 +152,7 @@ class ProductsController extends Controller
     	// start -- Retrieve and display main categories and subcategories from 'categories' table
     	 $categories = Category::where(['parent_id'=>0])->get();
     	 $categories_dropdown ="<option value='' selected disabled>selected</option>";
-    	 foreach ($categories as $cat) {
+    	foreach ($categories as $cat) {
     	 	// Start ...Compare and auto-select category for product
     	 	if($cat->id==$productDetails->category_id){
     	 		$selected ="selected";
@@ -176,27 +174,31 @@ class ProductsController extends Controller
 
 	    	 }
     	 	
-    	 }
+    	}
     	 // End -- Retrieve and display main categories and subcategories from 'categories' table
             return view('admin.products.edit_product')->with(compact('productDetails','categories_dropdown'));//,'levels'));
-        }
+    }
 
         
         //FUNCTION TO DELETE PRODUCT
-        public function deleteProduct($id=null){
+    public function deleteProduct($id=null){
             //if(!empty($id)){
                 Product::where(['id'=>$id])->delete();
             return redirect()->back()->with('flash_success_msg','Product Deleted successfully!');
             //}
 
-        }
+    }
 
         //FUNCTION TO DELETE PRODUCT IMAGE
-        public function deleteProductImage($id=null){
-                Product::where(['id'=>$id])->update(['image'=>'']);
+    public function deleteProductImage($id=null){
+        Product::where(['id'=>$id])->update(['image'=>'']);
             return redirect()->back()->with('flash_success_msg','Product Image Deleted successfully!');
-            }
+    }
 
-
-        
+ 	public function  addAttributes(Request $request, $id=null){
+ 		$productDetails = Product::where(['id'=>$id])->first();
+            //return redirect()->back()->with('flash_success_msg','Product Image Deleted successfully!');
+ 		return view('admin.products.add_attributes')->with(compact('productDetails'));//,'categories_dropdown'));//,'levels'));
+    }
+       
 }
