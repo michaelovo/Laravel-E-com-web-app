@@ -9,6 +9,7 @@ use Auth;
 use Session;
 use App\Product;
 use App\Category;
+use App\ProductsAttribute;
 
 class ProductsController extends Controller
 {
@@ -195,10 +196,29 @@ class ProductsController extends Controller
             return redirect()->back()->with('flash_success_msg','Product Image Deleted successfully!');
     }
 
+    	 //START FUNCTION TO ADD PRODUCT ATTRIBUTES
  	public function  addAttributes(Request $request, $id=null){
  		$productDetails = Product::where(['id'=>$id])->first();
-            //return redirect()->back()->with('flash_success_msg','Product Image Deleted successfully!');
- 		return view('admin.products.add_attributes')->with(compact('productDetails'));//,'categories_dropdown'));//,'levels'));
+ 		if($request->ismethod('post')){
+    		$data=$request->all();
+    		//echo "<pre>"; print_r($data); die;
+    		foreach ($data['sku'] as $key => $val) {
+    			if(!empty($val)){
+    				$attribute = new ProductsAttribute;
+    				$attribute->product_id =$id;
+    				$attribute->sku =$val;
+    				$attribute->size = $data['size'][$key];
+    				$attribute->price = $data['price'][$key];
+    				$attribute->stock = $data['stock'][$key];
+    				$attribute->save();
+    			}
+    			
+    		}
+    		 return redirect('/admin/add-attributes/'.$id)->with('flash_success_msg','Product Atrributes Added successfully!');
+    	}
+           
+ 		return view('admin.products.add_attributes')->with(compact('productDetails'));
     }
+    	 //END FUNCTION TO ADD PRODUCT ATTRIBUTES
        
 }
