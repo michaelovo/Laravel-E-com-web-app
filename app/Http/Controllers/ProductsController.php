@@ -222,5 +222,14 @@ class ProductsController extends Controller
  		return view('admin.products.add_attributes')->with(compact('productDetails'));
     }
     	 //END FUNCTION TO ADD PRODUCT ATTRIBUTES
-       
+
+
+           //START--FUNCTION TO DELETE PRODUCT ATTRIBUTES
+    public function deleteAttributes($id=null){
+        if(!empty($id)){
+            ProductsAttribute::where(['id'=>$id])->delete();
+            return redirect()->back()->with('flash_success_msg','Product Attribute Deleted successfully!');
+        }
+            //END--FUNCTION TO DELETE PRODUCT ATTRIBUTES
+    }
 }

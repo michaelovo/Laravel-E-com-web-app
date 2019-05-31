@@ -96,7 +96,7 @@
                 
                   <td class="center">
                      <div class="fl">
-                      <a rel="{{$attribute->id}}" rel1="delete-product" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord"></a>
+                      <a rel="{{$attribute->id}}" rel1="delete-attribute" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord"></a>
                    </div>                                      
                   </td>                
                 </tr>
