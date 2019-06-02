@@ -22,7 +22,8 @@
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>id</th>
+                  <th>Sn</th>
+                  <th>Category id</th>
                   <th>name</th>
                   <th>level</th>
                   <th>description</th>
@@ -34,6 +35,7 @@
                 @foreach($categories as $category)
                 <tr class="gradeX">
                   <td>{{$loop->index + 1}}</td>
+                  <td>{{$category->id}}</td>
                   <td>{{$category->name}}</td>
                   <td>{{$category->parent_id}}</td>
                   <td>{{$category->description}}</td>
