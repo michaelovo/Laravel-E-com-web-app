@@ -14,10 +14,13 @@ class IndexController extends Controller
     	$productsAll = Product::inRandomOrder()->get(); //Random order
 
     	
-    	$Categories = Category::where(['parent_id'=>0])->get(); // get all categories and subcategories
+    	// get all categories and subcategories along with the 'categories' relationship
+    	$categories = Category::with('categories')->where(['parent_id'=>0])->get();
     	//$Categories = json_decode(json_encode($Categories));
  		//echo "<pre>"; print_r($Categories); die;
- 		// $sub_categories = Category::where(['parent_id'=>$cat->id])->get();
+ 		
+ 		/*
+ 		//* START BASIC APPROACH WITHOUT RELATIONSHIP
  		$categories_menu="";
 	    	foreach ($Categories as $cat) {
 	    		$categories_menu.="<div class='panel-heading'>
@@ -41,7 +44,11 @@ class IndexController extends Controller
 								</div>";		
 	    	 	
 	    	}
-        return view('index')->with(compact('productsAll','categories_menu'));
+	    	
+			//return view('index')->with(compact('productsAll','categories_menu'));
+		//* END BASIC APPROACH WITHOUT RELATIONSHIP
+	    	*/
+        return view('index')->with(compact('productsAll','categories'));
     	
            
     }
