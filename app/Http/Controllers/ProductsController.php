@@ -230,6 +230,18 @@ class ProductsController extends Controller
             ProductsAttribute::where(['id'=>$id])->delete();
             return redirect()->back()->with('flash_success_msg','Product Attribute Deleted successfully!');
         }
-            //END--FUNCTION TO DELETE PRODUCT ATTRIBUTES
+           
     }
+         //END--FUNCTION TO DELETE PRODUCT ATTRIBUTES
+
+
+           //START--CATEGORY LISTING FUNCTION
+    public function products($url=null){
+        // get all categories and subcategories along with the 'categories' relationship
+        $categories = Category::with('categories')->where(['parent_id'=>0])->get();
+        $categoriesDetails = Category::where(['url'=>$url])->first(); //get all categories  by url
+        $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->get();
+        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories'));         
+    }
+         //END--CATEGORY LISTING FUNCTION
 }

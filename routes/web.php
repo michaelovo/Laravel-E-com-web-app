@@ -14,8 +14,13 @@
 /*Route::get('/', function () {
     return view('welcome');
 });*/
+// Start----frontend route
 
+// Index route
 Route::get('/', 'IndexController@index');
+
+
+// End----frontend rou
 
 //Route::get('/admin','AdminController@login');
 Route::match(['get','post'],'/admin','AdminController@login');
@@ -23,6 +28,9 @@ Route::match(['get','post'],'/admin','AdminController@login');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Category Listing page route
+Route::get('/products/{url}', 'ProductsController@products');
 
 Route::group(['middleware'=>['auth']],function(){
   Route::get('/admin/dashboard','AdminController@dashboard');
