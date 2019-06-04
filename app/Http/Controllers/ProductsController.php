@@ -240,7 +240,25 @@ class ProductsController extends Controller
         // get all categories and subcategories along with the 'categories' relationship
         $categories = Category::with('categories')->where(['parent_id'=>0])->get();
         $categoriesDetails = Category::where(['url'=>$url])->first(); //get all categories  by url
-        $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->get();
+
+        //start --- check category/subcategory url
+        if($categoriesDetails->parent_id==0){
+            //if url is main category url
+            $subcategories = Category::where(['parent_id'=>$categoriesDetails->id])->get();
+            $cat_id="";
+            foreach ($subcategories as $subcat) {
+                $cat_id.=$subcat->id.",";
+                # code...
+            }
+            //echo $cat_id; die;
+        $productsAll = Product::whereIn('category_id',array($cat_id))->get();
+
+        }else{
+             //if url is sub category url
+            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->get();
+
+        }
+         //end --- check category/subcategory url
         return view('products.listing')->with(compact('categoriesDetails','productsAll','categories'));         
     }
          //END--CATEGORY LISTING FUNCTION
