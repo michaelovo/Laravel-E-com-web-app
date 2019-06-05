@@ -237,8 +237,8 @@ class ProductsController extends Controller
 
            //START--CATEGORY LISTING FUNCTION
     public function products($url=null){
-        // show 404 page if category url does not exist
-        $countCategory = Category::where(['url'=>$url])->count();
+        // show 404 page if category url does not exist or category status is disabled
+        $countCategory = Category::where(['url'=>$url,'status'=>1])->count();
         //echo $countCategory; die;
         if($countCategory==0){
             abort(404);

@@ -96,7 +96,10 @@ $mainCategories = Controller::mainCategories();
                     <ul role="menu" class="sub-menu">
                       <!--- This include/call the main categories and their url when clicked to the header--->
                     @foreach($mainCategories as $cat)
-                      <li><a href="{{asset('/products/'.$cat->url)}}">{{$cat->name}} </a></li>
+                    <!--To hide disabled category from header menu-->
+                      @if($cat->status=="1")
+                        <li><a href="{{asset('/products/'.$cat->url)}}">{{$cat->name}} </a></li>
+                      @endif
                     @endforeach                
                     
                     </ul>

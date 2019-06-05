@@ -11,6 +11,8 @@
 							<div class="panel panel-default">
 								<!--START-- MAIN CATEGORIES-->
 								@foreach($categories as $cat)
+								 <!--To hide disabled category from left sidebar-->
+								@if($cat->status=="1")
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordian" href="#{{$cat->id}}">
@@ -24,13 +26,17 @@
 									<div class="panel-body">
 										<ul>
 											@foreach($cat->categories as $subcat)
-											<li><a href="{{asset('/products/'.$subcat->url)}}">{{$subcat->name}} </a></li>
+											 <!--To hide disabled subcategory from left sidebar-->
+												@if($subcat->status=="1")
+													<li><a href="{{asset('/products/'.$subcat->url)}}">{{$subcat->name}} </a></li>
+												@endif
 											@endforeach
 											
 										</ul>
 									</div>
 									<!-- END--SUB CATEGORIES-->
 								</div>
+								@endif
 								@endforeach
 								<!-- END --MAIN CATEGORIES-->
 							</div>
