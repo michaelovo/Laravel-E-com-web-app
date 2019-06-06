@@ -291,4 +291,14 @@ class ProductsController extends Controller
         return view('products.listing')->with(compact('categoriesDetails','productsAll','categories'));         
     }
          //END--CATEGORY LISTING FUNCTION
+
+     // 
+    public function product($id=null){
+       //get product details
+        $productDetails = Product::where(['id'=>$id])->first();
+        
+        // get all categories and subcategories along with the 'categories' relationship
+        $categories = Category::with('categories')->where(['parent_id'=>0])->get();
+       return view('products.detail')->with(compact('productDetails','categories'));
+    }
 }

@@ -28,6 +28,7 @@
                   <th>level</th>
                   <th>description</th>
                   <th>url</th>
+                  <th>status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -40,6 +41,7 @@
                   <td>{{$category->parent_id}}</td>
                   <td>{{$category->description}}</td>
                   <td>{{$category->url}}</td>
+                   <td>{{$category->status}}</td>
                   <td class="center">
                     <div class="fl">
                       <a href="{{url('/admin/edit-category/'.$category->id)}}" class=" icon icon-edit btn btn-primary"></a> 
