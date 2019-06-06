@@ -35,6 +35,10 @@ Route::get('/products/{url}', 'ProductsController@products');
 //product detail page route
 Route::get('/product/{id}', 'ProductsController@product');
 
+//get product attribute price
+Route::get('/get-product-price', 'ProductsController@getProductPrice');
+
+
 Route::group(['middleware'=>['auth']],function(){
   Route::get('/admin/dashboard','AdminController@dashboard');
   Route::get('/admin/settings','AdminController@settings');
