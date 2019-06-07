@@ -228,6 +228,34 @@ class ProductsController extends Controller
             return redirect()->back()->with('flash_success_msg','Product Image Deleted successfully!');
     }
 
+    //START ----FUNCTION TO DELETE PRODUCT ALTERNATE IMAGE
+    public function deleteAltImage($id=null){
+        //get product image name
+        $productImage =ProductsImage::where(['id'=>$id])->first();
+            //echo $productImage->image; die;
+        //get product image paths
+        $large_image_path = 'images/backend_images/products/large/';
+        $medium_image_path = 'images/backend_images/products/medium/';
+        $small_image_path = 'images/backend_images/products/small/';
+
+        //delete large image if not exist in folder
+        if(file_exists($large_image_path.$productImage->image)){
+            unlink($large_image_path.$productImage->image);
+        }
+        //delete medium image if not exist in folder
+        if(file_exists($medium_image_path.$productImage->image)){
+            unlink($medium_image_path.$productImage->image);
+        }
+        //delete small image if not exist in folder
+        if(file_exists($small_image_path.$productImage->image)){
+            unlink($small_image_path.$productImage->image);
+        }
+        // delete image from product table
+        ProductsImage::where(['id'=>$id])->delete();
+            return redirect()->back()->with('flash_success_msg','Product Alternate Image Deleted successfully!');
+    }
+    //END ----FUNCTION TO DELETE PRODUCT ALTERNATE IMAGE
+
     	 //START FUNCTION TO ADD PRODUCT ATTRIBUTES
  	public function  addAttributes(Request $request, $id=null){
  		$productDetails = Product::with('attributes')->where(['id'=>$id])->first();
@@ -276,7 +304,7 @@ class ProductsController extends Controller
             $data = $request->all();
             
             if($request->hasFile('image')){
-                 $files = $request->file('image');
+                $files = $request->file('image');
                 foreach ($files as $file) {
 
                    //Upload image after resize
@@ -298,11 +326,11 @@ class ProductsController extends Controller
                     $image->save();
                 }
                  return redirect('/admin/add-images/'.$id)->with('flash_success_msg','Product Alternate image(s) Added successfully!');
-
             }
         }
-           
-        return view('admin.products.add_images')->with(compact('productDetails'));
+        // get all images of product from db
+        $productsImages = ProductsImage::where(['product_id'=>$id])->get();
+        return view('admin.products.add_images')->with(compact('productDetails','productsImages'));
     }
          //END FUNCTION TO ADD PRODUCT ALTERNATE IMAGES
 

@@ -70,6 +70,20 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- Alternate product image info -->
+                @foreach($productsImages as $image)
+                  <tr class="gradeX">
+                    <td>{{$image->id}}</td>
+                    <td>{{$image->product_id}}</td>
+                    <td><img src="{{asset('images/backend_images/products/small/'.$image->image)}}" style="width:200px;">
+                    </td>
+                             
+                    <td class="center">
+                      <a rel="{{$image->id}}" rel1="delete-alt-image" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord" title="Delete Alt Image">
+                      </a>                                    
+                    </td>                
+                  </tr>
+                @endforeach      
                              
               </tbody>
             </table>
