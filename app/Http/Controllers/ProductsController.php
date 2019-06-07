@@ -236,6 +236,16 @@ class ProductsController extends Controller
     		//echo "<pre>"; print_r($data); die;
     		foreach ($data['sku'] as $key => $val) {
     			if(!empty($val)){
+                    //SKU check to prevent duplicate
+                    $attrCountSKU = ProductsAttribute::where('sku',$val)->count();
+                    if($attrCountSKU >0){
+                        return redirect('/admin/add-attributes/'.$id)->with('flash_err_msg','SKU already exist! Please try another SKU');
+                    }
+                    //Size check to prevent duplicate
+                    $attrCountSize = ProductsAttribute::where(['product_id'=>$id,'size'=>$data['size'][$key]])->count();
+                    if($attrCountSize >0){
+                        return redirect('/admin/add-attributes/'.$id)->with('flash_err_msg','"'.$data['size'][$key].' " Size already exist for this product! Please try another Size');
+                    }
     				$attribute = new ProductsAttribute;
     				$attribute->product_id =$id;
     				$attribute->sku =$val;
