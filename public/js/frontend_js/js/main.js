@@ -29,10 +29,11 @@ $(document).ready(function(){
 	});
 });
 
+// Change product price according to selected size
 $(document).ready(function(){
-	//alert("test");
 	$("#selSize").change(function(){
 		var idSize = $(this).val();
+		// if no size is selected, no alert 'error' msg
 		if(idSize==""){
 			return false;
 		}

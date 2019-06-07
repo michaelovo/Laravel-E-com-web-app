@@ -32,17 +32,18 @@ class ProductsController extends Controller
             $product->category_id = $data['category_id']; // to insrt subcatgory into db
             $product->product_code = $data['product_code'];
             $product->product_color = $data['product_color'];
+            //$product->care = $data['care'];
             
-            //Start --If description field is empty or not, submit data
-            /*
-            * use this if this field is not validated @edit_product function in matrix.form_validation.js
-	            if(!empty($data['description'])){
-	            	 $product->description = $data['description'];
+            //Start --If care field is empty or not, submit data
+            
+            // use this if this field is not validated @edit_product function in matrix.form_validation.js
+	            if(!empty($data['care'])){
+	            	 $product->care = $data['care'];
 	            }else{
-	            	 $product->description ='';
+	            	 $product->care ='';
 	            }
-            */
-             //End --If description field is empty or not, submit data
+            
+             //End --If care field is empty or not, submit data
             $product->description =$data['product_color'];
         	$product->price = $data['price'];
         	
@@ -94,7 +95,7 @@ class ProductsController extends Controller
 
     // FUNCTION TO RETRIEVE AND DISPLAY DATA FROM 'products' table in DB ON VIEW-PRODUCTS BLADE FILE
     public function viewproducts(){
-        $products = Product::get();
+        $products = Product::orderby('id','asc')->get();
         //To retrieve and display category name from 'categories' table on view_products blade files
         foreach ($products as $key => $value) {
         	$category_name = Category::where(['id'=>$value->category_id])->first();
@@ -111,6 +112,11 @@ class ProductsController extends Controller
         if($request->ismethod('post')){
             $data=$request->all();
             //echo "<pre>"; print_r($data); die;
+            //Start --This compare users to either select main/subcategory field when adding product
+            if(empty($data['category_id'])){
+                 return redirect()->back()->with('flash_err_msg','Please select one of either Main or Subcategory!. Thank you!');
+            }               
+             //End --This compare users to either select main/subcategory field when adding product
 
             // Start ---- Image upload
         	/*
@@ -138,9 +144,12 @@ class ProductsController extends Controller
         	}else{
         		$filename = $data['current_image'];
         	}        	
-        	// End ---- Image upload       	
+        	// End ---- Image upload   
+            if(empty($data['care'])){
+                $data['care'] ='';
+            }    	
 
-            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'price'=>$data['price'],'image'=>$filename]);
+            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'image'=>$filename]);
 
             //return redirect()->back()->with('flash_success_msg','Product Updated successfully!');
              return redirect('/admin/view-product')->with('flash_success_msg','Product Updated successfully!');
@@ -303,6 +312,8 @@ class ProductsController extends Controller
         $categories = Category::with('categories')->where(['parent_id'=>0])->get();
        return view('products.detail')->with(compact('productDetails','categories'));
     }
+
+    // get product prices according to selected size
     public function getProductPrice(Request $request){
         $data = $request->all();
         //echo "<pre>"; print_r($data);die;

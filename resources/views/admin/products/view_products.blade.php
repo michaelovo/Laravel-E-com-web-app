@@ -78,7 +78,8 @@
                       <p> 
                         Product id: {{$product->id}}<br>
                         Category id: {{$product->category_id}}<br>                               Category name: {{$product->category_name}}<br>                               Product Code: {{$product->product_code}}<br>                               Product Color:  {{$product->product_color}} <br>                           Price:  {{$product->price}}<br>
-                        Description:  {{$product->description}}<br>          
+                        Description:  {{$product->description}}<br>  
+                        Material & care:  {{$product->care}}<br>          
                       </p>
                        Image:
                       <br>

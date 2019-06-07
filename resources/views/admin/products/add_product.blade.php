@@ -64,6 +64,13 @@
                 </div>
               </div>
 
+               <div class="control-group">
+                <label class="control-label">Material & Care</label>
+                <div class="controls">
+                  <textarea name="care" id="care"></textarea> 
+                </div>
+              </div>
+
 
               <div class="control-group">
                 <label class="control-label"> Price</label>
