@@ -57,13 +57,15 @@
 
                   <td class="center">
                     <div class="fl">
-                      <a href="{{url('/admin/edit-product/'.$product->id)}}" class=" icon icon-edit btn btn-primary"></a> 
+                      <a href="{{url('/admin/edit-product/'.$product->id)}}" class=" icon icon-edit btn btn-primary" title="Edit product"></a> 
                       
-                      <a href="#myModal{{$product->id}}" data-toggle="modal" class=" icon icon-eye-open btn btn-success"></a> 
+                      <a href="#myModal{{$product->id}}" data-toggle="modal" class=" icon icon-eye-open btn btn-success" title="View product"></a> 
 
-                      <a href="{{url('/admin/add-attributes/'.$product->id)}}"  class=" icon icon-plus-sign btn btn-success"></a> 
+                      <a href="{{url('/admin/add-attributes/'.$product->id)}}"  class=" icon icon-plus-sign btn btn-success" title="Add Attibutes"></a> 
 
-                      <a rel="{{$product->id}}" rel1="delete-product" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord"></a>                                            
+                       <a href="{{url('/admin/add-images/'.$product->id)}}"  class=" icon icon-th-list btn btn-info" title="Add Images"></a> 
+
+                      <a rel="{{$product->id}}" rel1="delete-product" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord" title="Delete product"></a>                                            
                    </div>                                      
                   </td>                
               </tr>
