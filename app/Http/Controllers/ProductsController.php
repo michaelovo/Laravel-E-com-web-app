@@ -396,7 +396,7 @@ class ProductsController extends Controller
     }
          //END--CATEGORY LISTING FUNCTION
 
-     // 
+     // GET PRODUCT DETAILS
     public function product($id=null){
        //get product details
         $productDetails = Product::with('attributes')->where(['id'=>$id])->first();
@@ -408,7 +408,10 @@ class ProductsController extends Controller
 
         //get product alternate images
         $productsAltImages = ProductsImage::where('product_id',$id)->get();
-       return view('products.detail')->with(compact('productDetails','categories','productsAltImages'));
+
+        //get total stock of the product
+        $total_stock = ProductsAttribute::where('product_id',$id)->sum('stock');
+       return view('products.detail')->with(compact('productDetails','categories','productsAltImages','total_stock'));
     }
 
     // get product prices according to selected size
