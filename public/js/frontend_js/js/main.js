@@ -31,6 +31,7 @@ $(document).ready(function(){
 
 // Change product price according to selected size
 $(document).ready(function(){
+	// Change product price according to selected size
 	$("#selSize").change(function(){
 		var idSize = $(this).val();
 		// if no size is selected, no alert 'error' msg
@@ -48,6 +49,14 @@ $(document).ready(function(){
 			}
 
 		});
+
+	});
+
+	//Replace main image with alternate image on click
+	$(".changeImage").click(function(){
+		var image = $(this).attr('src');
+		//alert(image);
+		$(".mainImage").attr('src',image);
 
 	});
 

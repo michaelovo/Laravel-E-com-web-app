@@ -391,7 +391,10 @@ class ProductsController extends Controller
         
         // get all categories and subcategories along with the 'categories' relationship
         $categories = Category::with('categories')->where(['parent_id'=>0])->get();
-       return view('products.detail')->with(compact('productDetails','categories'));
+
+        //get product alternate images
+        $productsAltImages = ProductsImage::where('product_id',$id)->get();
+       return view('products.detail')->with(compact('productDetails','categories','productsAltImages'));
     }
 
     // get product prices according to selected size
