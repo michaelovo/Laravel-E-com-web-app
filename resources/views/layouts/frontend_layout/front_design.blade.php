@@ -16,6 +16,7 @@
     <link href="{{asset('css/frontend_css/css/animate.css')}}" rel="stylesheet">
   <link href="{{asset('css/frontend_css/css/main.css')}}" rel="stylesheet">
   <link href="{{asset('css/frontend_css/css/responsive.css')}}" rel="stylesheet">
+   <link href="{{asset('css/frontend_css/css/easyzoom.css')}}" rel="stylesheet"><!--easyzoom-->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -63,7 +64,11 @@
 <script src="{{asset('js/frontend_js/js/jquery.scrollUp.min.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/price-range.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/jquery.prettyPhoto.js')}}"></script>
+<script src="{{asset('js/frontend_js/js/easyzoom.js')}}"></script><!---easyzoom-->
 <script src="{{asset('js/frontend_js/js/main.js')}}"></script>
+
+
+
 
 
 

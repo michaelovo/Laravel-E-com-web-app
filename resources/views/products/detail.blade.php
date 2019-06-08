@@ -14,17 +14,27 @@
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img class="mainImage" src="{{asset('images/backend_images/products/medium/'.$productDetails->image)}}" alt="" />
-								<!--h3>ZOOM</h3-->
+								<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails"><!--easyzoom-->
+									<a href="{{asset('images/backend_images/products/large/'.$productDetails->image)}}"><!--easyzoom-->
+										<img style="width:350px;" class="mainImage" src="{{asset('images/backend_images/products/medium/'.$productDetails->image)}}" alt="" />
+									</a>
+									<!--h3>ZOOM</h3-->
+								</div>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 								
 								  <!-- Wrapper for slides -->
 								    <div class="carousel-inner">
-										<div class="item active">
+										<div class="item active thumbnails"><!--easyzoom 'thumbnails'-->
 										<!-- Alternate product images -->
+											<!---Add main product image to thumbnail list so dt you can click to get it back without refreshing the page--->
+											<a href="{{asset('images/backend_images/products/large/'.$productDetails->image)}}" data-standard="{{asset('images/backend_images/products/small/'.$productDetails->image)}}"><!--easyzoom-->
+												<img class="changeImage" style="width:80px;" class="mainImage" src="{{asset('images/backend_images/products/small/'.$productDetails->image)}}" alt="" />
+											</a>
 							                @foreach($productsAltImages as $alt_image)
-							                  <img class="changeImage" src="{{asset('images/backend_images/products/small/'.$alt_image->image)}}" style="width:80px; cursor:pointer;" alt="">
+							                	<a href="{{asset('images/backend_images/products/large/'.$alt_image->image)}}" data-standard="{{asset('images/backend_images/products/small/'.$alt_image->image)}}"><!--easyzoom-->
+							                	  <img class="changeImage" src="{{asset('images/backend_images/products/small/'.$alt_image->image)}}" style="width:80px;cursor:pointer;" alt="">
+							              		</a>
 							                @endforeach     
 										</div>		
 									</div>	
