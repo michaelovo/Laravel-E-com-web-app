@@ -422,6 +422,10 @@ class ProductsController extends Controller
        //echo $proArr[0]; echo $proArr[1];die;
         $proAttr = ProductsAttribute::where(['product_id' => $proArr[0],'size' => $proArr[1]])->first();
         echo $proAttr->price;
+        
+        //get attribute stock
+        echo "#";
+        echo $proAttr->stock;
 
     }
 }

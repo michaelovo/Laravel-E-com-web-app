@@ -62,14 +62,14 @@
 									<input type="text" value="10" />
 									<!---if no stock, hide the 'Add to cart' button--->
 									@if($total_stock >0)
-										<button type="button" class="btn btn-fefault cart">
+										<button type="button" class="btn btn-fefault cart" id="cartButton">
 											<i class="fa fa-shopping-cart"></i>
 											Add to cart
 										</button>
 									@endif
 								</span>
 									<!---if no stock display 'Out of stock' else ' In Stock'--->
-								<p><b>Availability:</b>@if($total_stock >0) In Stock @else Out of stock @endif</p>
+								<p><b>Availability: </b><span id="Availability"> @if($total_stock >0) In Stock @else Out of stock @endif</span></p>
 								<p><b>Condition:</b> New</p>
 								
 								<a href=""><img src="{{asset('images/frontend_images/images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
