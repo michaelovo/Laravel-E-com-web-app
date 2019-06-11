@@ -79,8 +79,7 @@
                 </div>
               </div>
 
-             
-             <div class="control-group">
+              <div class="control-group">
                 <label class="control-label">Image</label>
                 <div class="controls">
                    <input type="file" name="image" id="image">
@@ -88,9 +87,12 @@
                 </div>
               </div>
               
-              
-
-                         
+              <div class="control-group">
+                <label class="control-label">Enable</label>
+                <div class="controls">
+                  <input type="checkbox" name="status" id="status" value="1">
+                </div>
+              </div>        
             
               <div class="form-actions">
                 <input type="submit" value="Add product" class="btn btn-success">

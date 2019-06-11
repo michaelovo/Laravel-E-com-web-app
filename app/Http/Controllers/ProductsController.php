@@ -29,6 +29,7 @@ class ProductsController extends Controller
             }        		
              //End --This compare users to either select main/subcategory field when adding product
 
+
         	$product = new Product;
         	$product->product_name = $data['product_name'];
             $product->category_id = $data['category_id']; // to insrt subcatgory into db
@@ -71,6 +72,13 @@ class ProductsController extends Controller
         		}
         	}
         	// End ---- Image upload
+            //status check
+             if(empty($data['status'])){
+                $status=0;
+            }else{
+                $status=1;
+            }
+            $product->status=$status;
         	$product->save();
         	// return redirect()->back()->with('flash_success_msg','New product Added successfully!');
         	  return redirect('/admin/view-product')->with('flash_success_msg','New Product Added successfully!');        	  	
@@ -149,9 +157,16 @@ class ProductsController extends Controller
         	// End ---- Image upload   
             if(empty($data['care'])){
                 $data['care'] ='';
-            }    	
+            }    
+            //status check
+             if(empty($data['status'])){
+                $status=0;
+            }else{
+                $status=1;
+            }
+	
 
-            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'image'=>$filename]);
+            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'image'=>$filename,'status'=>$status]);
 
             //return redirect()->back()->with('flash_success_msg','Product Updated successfully!');
              return redirect('/admin/view-product')->with('flash_success_msg','Product Updated successfully!');
@@ -382,13 +397,14 @@ class ProductsController extends Controller
                 # code...
             }
             //print_r($cat_id); die;
-        $productsAll = Product::whereIn('category_id',$cat_id)->get();
+            // get and display only product whose status value=1
+        $productsAll = Product::whereIn('category_id',$cat_id)->where('status',1)->get();
         //$productsAll = json_decode(json_encode($productsAll));
         //echo "<pre>"; print_r($productsAll); die;
 
         }else{
-             //if url is sub category url
-            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->get();
+             //if url is sub category url  and status value=1
+            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->where('status',1)->get();
 
         }
          //end --- check category/subcategory url
@@ -398,6 +414,11 @@ class ProductsController extends Controller
 
      // GET PRODUCT DETAILS
     public function product($id=null){
+        // show 404 page if product is disabled
+        $productsCount = Product::where(['id'=>$id,'status'=>1])->count();
+        if($productsCount==0){
+            abort(404);
+        }
        //get product details
         $productDetails = Product::with('attributes')->where(['id'=>$id])->first();
         // $productDetails = json_decode(json_encode( $productDetails));

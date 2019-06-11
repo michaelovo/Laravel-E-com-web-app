@@ -31,6 +31,7 @@
                   <th>Product color</th>
                   <!--th>description</th-->
                   <th>Price</th>
+                   <th>Status</th>
                   <th>Product Image</th>
                   <th>Actions</th>
                 </tr>
@@ -47,6 +48,7 @@
                   <td>{{$product->product_color}}</td>
                   
                   <td>{{$product->price}}</td>
+                   <td>{{$product->status}}</td>
                   <td>
                     @if(!empty($product->image))
 

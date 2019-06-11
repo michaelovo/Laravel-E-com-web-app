@@ -11,7 +11,7 @@ class IndexController extends Controller
     public function index(){
     	//$productsAll = Product::get(); //ascending order(default)
     	//$productsAll = Product::orderby('id', 'desc')->get(); //descending order
-    	$productsAll = Product::inRandomOrder()->get(); //Random order
+    	$productsAll = Product::inRandomOrder()->where('status',1)->get(); //Random order and only product whose status value=1
 
     	
     	// get all categories and subcategories along with the 'categories' relationship
