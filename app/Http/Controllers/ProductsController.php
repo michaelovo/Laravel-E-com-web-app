@@ -402,7 +402,22 @@ class ProductsController extends Controller
         $productDetails = Product::with('attributes')->where(['id'=>$id])->first();
         // $productDetails = json_decode(json_encode( $productDetails));
         //echo "<pre>"; print_r( $productDetails); die;
-        
+
+        /*get related/Recommended products to be display on product 'detail' page
+        NB: No repetition and as such the main product will not display under Recommended items.
+        */
+        $relatedProducts = Product::where('id','!=',$id)->where(['category_id'=>$productDetails->category_id])->get();
+        // using array 'chunk()' to load a specific(3) number of item at a time
+        /*
+        foreach($relatedProducts->chunk(3)as $chunk){
+            foreach($chunk as $item){
+                echo $item; echo "<br>";
+                # code...
+            }
+            # code...
+            echo "<br><br><br>";
+        }die;
+        */
         // get all categories and subcategories along with the 'categories' relationship
         $categories = Category::with('categories')->where(['parent_id'=>0])->get();
 
@@ -411,7 +426,7 @@ class ProductsController extends Controller
 
         //get total stock of the product
         $total_stock = ProductsAttribute::where('product_id',$id)->sum('stock');
-       return view('products.detail')->with(compact('productDetails','categories','productsAltImages','total_stock'));
+       return view('products.detail')->with(compact('productDetails','categories','productsAltImages','total_stock','relatedProducts'));
     }
 
     // get product prices according to selected size
