@@ -16,8 +16,7 @@
 });*/
 // Start----frontend route
 
-// Index route
-Route::get('/', 'IndexController@index');
+
 
 
 // End----frontend rou
@@ -27,6 +26,8 @@ Route::match(['get','post'],'/admin','AdminController@login');
 
 
 Auth::routes();
+// Indexpage route
+Route::get('/', 'IndexController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Category Listing page route
@@ -37,6 +38,10 @@ Route::get('/product/{id}', 'ProductsController@product');
 
 //Add to cart route
  Route::match(['get','post'],'/add-cart','ProductsController@addtocart');
+ 
+ // cart page route
+ Route::match(['get','post'],'/cart','ProductsController@cart');
+
 
 //get product attribute price
 Route::get('/get-product-price', 'ProductsController@getProductPrice');

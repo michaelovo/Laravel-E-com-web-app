@@ -465,18 +465,36 @@ class ProductsController extends Controller
         echo $proAttr->stock;
 
     }
-     public function addtocart(Request $request){
+    public function addtocart(Request $request){
         $data = $request->all();
        //echo "<pre>"; print_r($data);die;
 
         if(empty($data['user_email'])){
                 $data['user_email'] ='';
         }
-        if(empty($data['session_id'])){
-                $data['session_id'] ='';
-        } 
-         $sizeArr = explode("-",$data['size']); //send only the size name to cart table not (id-size, e.g 4-medium)
-        DB::table('cart')->insert(['product_id'=>$data['product_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'price'=>$data['price'],'size'=>$sizeArr[1],'quantity'=>$data['quantity'],'user_email'=>$data['user_email'],'session_id'=>$data['session_id']]);die;
+        //if(empty($data['session_id'])){
+        //        $data['session_id'] ='';
+        //} 
 
-     }
+        // if session_id does not exist, then creat one else use the existing session_id
+        $session_id = Session::get('session_id');
+        if(empty($session_id)){
+           $session_id = str_random(40);//die; //generate random strings
+           Session::put('session_id',$session_id); // session variable
+            
+        }
+         $sizeArr = explode("-",$data['size']); //send only the size name to cart table not (id-size, e.g 4-medium)
+        DB::table('cart')->insert(['product_id'=>$data['product_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'price'=>$data['price'],'size'=>$sizeArr[1],'quantity'=>$data['quantity'],'user_email'=>$data['user_email'],'session_id'=>$session_id]);//die;
+
+          return redirect('cart')->with('flash_success_msg','Product Added in Cart Successfully!.');
+
+    }
+    public function cart(){
+        $session_id = Session::get('session_id');
+        $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
+        //echo "<pre>"; print_r($userCart);die;
+
+        return view('products.cart')->with(compact('userCart'));
+
+    }
 }
