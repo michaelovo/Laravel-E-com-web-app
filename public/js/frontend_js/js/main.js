@@ -47,6 +47,7 @@ $(document).ready(function(){
 				depending on selected size stock value*/
 				var arr = resp.split('#');
 				$("#getPrice").html("US $"+ arr[0]);
+				$("#price").val(arr[0]);// to get and send price to input field wt id='price' in detail blade file
 				if(arr[1]==0){
 					$("#cartButton").hide();
 					$("#Availability").text("  Out of Stock");
