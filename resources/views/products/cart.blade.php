@@ -26,11 +26,11 @@
 						@foreach($userCart as $cart)
 							<tr>
 								<td class="cart_product">
-									<a href=""><img src="{{asset('images/frontend_images/images/cart/one.png')}}" alt=""></a>
+									<a href=""><img style="width:80px;" src="{{asset('images/backend_images/products/small/'.$cart->image)}}" alt=""></a>
 								</td>
 								<td class="cart_description">
 									<h4><a href="">{{$cart->product_name}}</a></h4>
-									<p>Code: {{$cart->product_code}} | Size: {{$cart->size}}</p>
+									<p>{{$cart->product_code}} | {{$cart->size}}</p>
 									
 								</td>
 								<td class="cart_price">
@@ -47,7 +47,7 @@
 									<p class="cart_total_price">${{$cart->price*$cart->quantity}}</p>
 								</td>
 								<td class="cart_delete">
-									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+									<a class="cart_quantity_delete" href="{{url('/cart/delete-product/'.$cart->id)}}"><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
 						@endforeach

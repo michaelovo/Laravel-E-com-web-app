@@ -41,6 +41,8 @@ Route::get('/product/{id}', 'ProductsController@product');
  
  // cart page route
  Route::match(['get','post'],'/cart','ProductsController@cart');
+ //Delete cart item route
+Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct');
 
 
 //get product attribute price
