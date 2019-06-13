@@ -467,14 +467,14 @@ class ProductsController extends Controller
     }
     public function addtocart(Request $request){
         $data = $request->all();
-       //echo "<pre>"; print_r($data);die;
+       //If no size is selected before adding to cart then display error message
+        if(empty($data['size'])){
+            return redirect()->back()->with('flash_err_msg','Please select a size! Thank you!');
+        } 
 
         if(empty($data['user_email'])){
-                $data['user_email'] ='';
+            $data['user_email'] ='';
         }
-        //if(empty($data['session_id'])){
-        //        $data['session_id'] ='';
-        //} 
 
         // if session_id does not exist, then creat one else use the existing session_id
         $session_id = Session::get('session_id');
@@ -487,19 +487,21 @@ class ProductsController extends Controller
 
          // to prevent duplicate of cart products in thesame session i.e having thesame seesion_id
          $countProducts =DB::table('cart')->where(['product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$sizeArr[1],'session_id'=>$session_id])->count();//die;
-         //echo $countProducts;die;
+         
             //if product does not exist for that session then add product else redirect
-         if($countProducts >0){
+        if($countProducts >0){
             return redirect()->back()->with('flash_err_msg','Product Already Exists in Cart!');
-         }else{
-            DB::table('cart')->insert(['product_id'=>$data['product_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'price'=>$data['price'],'size'=>$sizeArr[1],'quantity'=>$data['quantity'],'user_email'=>$data['user_email'],'session_id'=>$session_id]);//die;
+        }else{
+            //get and add product sku to cart table instead of product code
+            $getSKU = ProductsAttribute::select('sku')->where(['product_id'=>$data['product_id'],'size'=>$sizeArr[1]])->first();
 
-         }
+            // Insert into cart table
+            DB::table('cart')->insert(['product_id'=>$data['product_id'],'product_name'=>$data['product_name'],'product_code'=>$getSKU->sku,'product_color'=>$data['product_color'],'price'=>$data['price'],'size'=>$sizeArr[1],'quantity'=>$data['quantity'],'user_email'=>$data['user_email'],'session_id'=>$session_id]);//die;
 
-
-          return redirect('cart')->with('flash_success_msg','Product Added in Cart Successfully!.');
-
+        }
+        return redirect('cart')->with('flash_success_msg','Product Added in Cart Successfully!.');
     }
+    
     public function cart(){
         $session_id = Session::get('session_id');
         $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
@@ -524,7 +526,7 @@ class ProductsController extends Controller
     public function deleteCartProduct($id=null){
         //echo $id;die;
         DB::table('cart')->where('id',$id)->delete();
-        return redirect('cart')->with('flash_success_msg','Product has been Delete from Cart Successfully!');
+        return redirect('cart')->with('flash_success_msg','Product has been Deleted from Cart Successfully!');
 
     }
 }
