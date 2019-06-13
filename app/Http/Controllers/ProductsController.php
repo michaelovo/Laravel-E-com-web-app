@@ -484,7 +484,18 @@ class ProductsController extends Controller
             
         }
          $sizeArr = explode("-",$data['size']); //send only the size name to cart table not (id-size, e.g 4-medium)
-        DB::table('cart')->insert(['product_id'=>$data['product_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'price'=>$data['price'],'size'=>$sizeArr[1],'quantity'=>$data['quantity'],'user_email'=>$data['user_email'],'session_id'=>$session_id]);//die;
+
+         // to prevent duplicate of cart products in thesame session i.e having thesame seesion_id
+         $countProducts =DB::table('cart')->where(['product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$sizeArr[1],'session_id'=>$session_id])->count();//die;
+         //echo $countProducts;die;
+            //if product does not exist for that session then add product else redirect
+         if($countProducts >0){
+            return redirect()->back()->with('flash_err_msg','Product Already Exists in Cart!');
+         }else{
+            DB::table('cart')->insert(['product_id'=>$data['product_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'price'=>$data['price'],'size'=>$sizeArr[1],'quantity'=>$data['quantity'],'user_email'=>$data['user_email'],'session_id'=>$session_id]);//die;
+
+         }
+
 
           return redirect('cart')->with('flash_success_msg','Product Added in Cart Successfully!.');
 

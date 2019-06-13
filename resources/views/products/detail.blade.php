@@ -5,6 +5,7 @@
 <section>
 		<div class="container">
 			<div class="row">
+				 @include('includes.msg')
 				<div class="col-sm-3">
 					<!---Left sidebar--->
 					@include('layouts.frontend_layout.front_sidebar')

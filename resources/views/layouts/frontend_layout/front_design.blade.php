@@ -42,7 +42,7 @@
  
 <!--sidebar-menu-->
 
-<
+
 <!-- main content -->
           @section('content')
               @show

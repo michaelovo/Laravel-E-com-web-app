@@ -1,5 +1,5 @@
 @if(Session::has('flash_err_msg'))
-<div class="alert alert-error alert-block">
+<div class="alert alert-error alert-block" style="background-color:#f2dfd0;">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
