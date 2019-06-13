@@ -19,6 +19,14 @@
         
       </ul>
     </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+      <span>Coupons</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="{{url('/admin/add-coupon')}}"><i class="icon icon-plus-sign"></i>Add coupon</a></li>
+        <li><a href="{{url('/admin/view-coupon')}}"><i class="icon icon-eye-open"></i>View coupons</a>
+        
+      </ul>
+    </li>
     
     <li class="submenu"> <a href="#"><i class="icon icon-cog"></i> <span>Settings</span> <span class="label label-important">1</span></a>
       <ul>
