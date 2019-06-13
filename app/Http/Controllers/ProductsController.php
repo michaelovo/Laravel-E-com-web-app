@@ -503,10 +503,17 @@ class ProductsController extends Controller
 
         return view('products.cart')->with(compact('userCart'));
     }
+
+    public function updateCartQuantity($id=null, $quantity=null){
+        DB::table('cart')->where('id',$id)->increment('quantity',$quantity);
+        return redirect('cart')->with('flash_success_msg','Product Quantity has been Update Successfully!');
+
+    }
+    
     public function deleteCartProduct($id=null){
         //echo $id;die;
-         DB::table('cart')->where('id',$id)->delete();
-         return redirect('cart')->with('flash_success_msg','Product bas been Delete from Cart!');
+        DB::table('cart')->where('id',$id)->delete();
+        return redirect('cart')->with('flash_success_msg','Product has been Delete from Cart Successfully!');
 
     }
 }

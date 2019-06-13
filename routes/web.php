@@ -41,6 +41,10 @@ Route::get('/product/{id}', 'ProductsController@product');
  
  // cart page route
  Route::match(['get','post'],'/cart','ProductsController@cart');
+
+ //Edit/Update product quantity in cart route
+Route::get('/cart/update-product/{id}/{quantity}', 'ProductsController@updateCartQuantity');
+
  //Delete cart item route
 Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct');
 
