@@ -465,13 +465,15 @@ class ProductsController extends Controller
         echo $proAttr->stock;
 
     }
+
+    //ADD TO CART FUNCTION
     public function addtocart(Request $request){
         $data = $request->all();
        //If no size is selected before adding to cart then display error message
         if(empty($data['size'])){
             return redirect()->back()->with('flash_err_msg','Please select a size! Thank you!');
         } 
-
+        // if user mail is empty
         if(empty($data['user_email'])){
             $data['user_email'] ='';
         }
@@ -501,7 +503,7 @@ class ProductsController extends Controller
         }
         return redirect('cart')->with('flash_success_msg','Product Added in Cart Successfully!.');
     }
-    
+    // DISPLAY CART ITEMS AND IMAGES FROM CART TABLE ON CART BLADE FILE
     public function cart(){
         $session_id = Session::get('session_id');
         $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
@@ -516,13 +518,25 @@ class ProductsController extends Controller
 
         return view('products.cart')->with(compact('userCart'));
     }
-
+        //UPDATE CART QUANTITY FUNCTION
     public function updateCartQuantity($id=null, $quantity=null){
-        DB::table('cart')->where('id',$id)->increment('quantity',$quantity);
-        return redirect('cart')->with('flash_success_msg','Product Quantity has been Update Successfully!');
+        
+        $getCartDetails = DB::table('cart')->where('id',$id)->first();//get cart details fron cart table
+        $getAttributeStock = ProductsAttribute::where('sku',$getCartDetails->product_code)->first(); //get attribute stock from productAttribute table
+        
+        $updated_quantity = $getCartDetails->quantity + $quantity;  // get user demanded quantity
+
+        // if total sku is greater than or equal to the quantity demanded by user
+        if($getAttributeStock->stock >= $updated_quantity){
+            DB::table('cart')->where('id',$id)->increment('quantity',$quantity);
+            return redirect('cart')->with('flash_success_msg','Product Quantity has been Update Successfully!');
+        }else{
+            return redirect()->back()->with('flash_err_msg','Required product Quantity is not Available!'); 
+        }
+
 
     }
-    
+        //DELETE PRODUCT(S) FROM CART FUNCTION
     public function deleteCartProduct($id=null){
         //echo $id;die;
         DB::table('cart')->where('id',$id)->delete();
