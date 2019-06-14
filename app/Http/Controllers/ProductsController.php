@@ -469,6 +469,10 @@ class ProductsController extends Controller
 
     //ADD TO CART FUNCTION
     public function addtocart(Request $request){
+        // Initially empty/delete 'couponAmount' and 'couponCode' variable values from the session
+        Session::forget('couponAmount');
+        Session::forget('couponCode');
+
         $data = $request->all();
        //If no size is selected before adding to cart then display error message
         if(empty($data['size'])){
@@ -506,6 +510,7 @@ class ProductsController extends Controller
     }
     // DISPLAY CART ITEMS AND IMAGES FROM CART TABLE ON CART BLADE FILE
     public function cart(){
+
         $session_id = Session::get('session_id');
         $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
 
@@ -521,7 +526,10 @@ class ProductsController extends Controller
     }
         //UPDATE CART QUANTITY FUNCTION
     public function updateCartQuantity($id=null, $quantity=null){
-        
+        // Initially empty/delete 'couponAmount' and 'couponCode' variable values from the session
+        Session::forget('couponAmount');
+        Session::forget('couponCode');
+
         $getCartDetails = DB::table('cart')->where('id',$id)->first();//get cart details fron cart table
         $getAttributeStock = ProductsAttribute::where('sku',$getCartDetails->product_code)->first(); //get attribute stock from productAttribute table
         
@@ -539,6 +547,10 @@ class ProductsController extends Controller
     }
         //DELETE PRODUCT(S) FROM CART FUNCTION
     public function deleteCartProduct($id=null){
+        // Initially empty/delete 'couponAmount' and 'couponCode' variable values from the session
+        Session::forget('couponAmount');
+        Session::forget('couponCode');
+        
         //echo $id;die;
         DB::table('cart')->where('id',$id)->delete();
         return redirect('cart')->with('flash_success_msg','Product has been Deleted from Cart Successfully!');
