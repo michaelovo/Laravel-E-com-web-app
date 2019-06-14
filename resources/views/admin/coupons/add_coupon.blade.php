@@ -20,14 +20,14 @@
             </div>
             <div class="widget-content nopadding">
 
-              <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/add-coupon')}}" name="add_coupon" id="add_coupon" novalidate="novalidate">
+              <form class="form-horizontal" method="post" action="{{url('/admin/add-coupon')}}" name="add_coupon" id="add_coupon">
               	  {{csrf_field()}}           
 
 
               <div class="control-group">
                 <label class="control-label">Coupon code</label>
                 <div class="controls">
-                  <input type="text" name="coupon_code" id="coupon_code" placeholder="enter coupon code here">
+                  <input type="text" name="coupon_code" id="coupon_code" placeholder="enter coupon code here" minlength="5" maxlength="15" required>
                 </div>
               </div>
 
@@ -35,7 +35,7 @@
               <div class="control-group">
                 <label class="control-label">Amount</label>
                 <div class="controls">
-                  <input type="text" name="amount" id="amount" placeholder="enter coupon amount here">
+                  <input type="number" name="amount" id="amount" placeholder="enter coupon amount here" min="0" required><!--min="0" to prevent negative number-->
                 </div>
               </div>
 
@@ -55,7 +55,7 @@
               <div class="control-group">
                 <label class="control-label">Expiry Date</label>
                 <div class="controls">
-                  <input type="text" name="expiry_date" id="expiry_date" placeholder="enter coupon expiry date">
+                  <input type="text" name="expiry_date" id="expiry_date" autocomplete="off" placeholder="enter coupon expiry date" required>
                 </div>
               </div>
 
