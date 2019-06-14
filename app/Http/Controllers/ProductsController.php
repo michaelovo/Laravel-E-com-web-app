@@ -11,6 +11,7 @@ use App\Product;
 use App\Category;
 use App\ProductsAttribute;
 use App\ProductsImage;
+use App\Coupon;
 use DB;
 
 
@@ -541,6 +542,20 @@ class ProductsController extends Controller
         //echo $id;die;
         DB::table('cart')->where('id',$id)->delete();
         return redirect('cart')->with('flash_success_msg','Product has been Deleted from Cart Successfully!');
+
+    }
+
+    //APPLY COUPON
+    public function applyCoupon(Request $request){
+        $data = $request->all();
+        $couponCount = Coupon::where('coupon_code',$data['coupon_code'])->count(); //count available coupons
+        // check user entered coupon codes from cart blade to that of coupons table
+        if($couponCount == 0){
+            return redirect()->back()->with('flash_err_msg','Invalid Coupon!');
+        }else{
+            // perform othe checks like active/inactive, expiry date, etc
+            echo "success";die;
+        }
 
     }
 }

@@ -90,6 +90,8 @@ Route::group(['middleware'=>['auth']],function(){
      Route::match(['get','post'],'/admin/edit-coupon/{id}','CouponController@editCoupon'); //edit/update coupon
      Route::get('/admin/delete-coupon/{id}','CouponController@deleteCoupon');
 
+     Route::post('/cart/apply-coupon','ProductsController@applyCoupon'); //Apply coupon
+
    
 
 
