@@ -28,7 +28,7 @@
                   <th>Category name</th>
                   <th>Product name</th>
                   <th>Product code</th>
-                  <th>Product color</th>
+                  
                   <!--th>description</th-->
                   <th>Price</th>
                    <th>Status</th>
@@ -45,10 +45,10 @@
                   <td>{{$product->category_name}}</td>
                   <td>{{$product->product_name}}</td>
                   <td>{{$product->product_code}}</td>
-                  <td>{{$product->product_color}}</td>
+                 
                   
                   <td>{{$product->price}}</td>
-                   <td>{{$product->status}}</td>
+                   <td> @if($product->status==1)Enabled @else Disabled @endif</td>
                   <td>
                     @if(!empty($product->image))
 

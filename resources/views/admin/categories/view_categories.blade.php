@@ -41,7 +41,7 @@
                   <td>{{$category->parent_id}}</td>
                   <td>{{$category->description}}</td>
                   <td>{{$category->url}}</td>
-                   <td>{{$category->status}}</td>
+                   <td>@if($category->status==1)Enabled @else Disabled @endif</td>
                   <td class="center">
                     <div class="fl">
                       <a href="{{url('/admin/edit-category/'.$category->id)}}" class=" icon icon-edit btn btn-primary"></a> 
