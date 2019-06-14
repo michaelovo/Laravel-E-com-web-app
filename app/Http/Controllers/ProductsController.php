@@ -547,14 +547,51 @@ class ProductsController extends Controller
 
     //APPLY COUPON
     public function applyCoupon(Request $request){
+        // Initially empty/delete 'couponAmount' and 'couponCode' variable values from the session
+        Session::forget('couponAmount');
+        Session::forget('couponCode');
         $data = $request->all();
         $couponCount = Coupon::where('coupon_code',$data['coupon_code'])->count(); //count available coupons
         // check user entered coupon codes from cart blade to that of coupons table
         if($couponCount == 0){
-            return redirect()->back()->with('flash_err_msg','Invalid Coupon!');
+            return redirect()->back()->with('flash_err_msg','This Coupon does not exists!');
         }else{
             // perform othe checks like active/inactive, expiry date, etc
-            echo "success";die;
+           $couponDetails = Coupon::where('coupon_code',$data['coupon_code'])->first(); //get coupon details
+
+            //if coupon is active
+           if($couponDetails->status==0){
+            return redirect()->back()->with('flash_err_msg','This Coupon is Inactive!');
+           }
+
+           // if coupon has expired
+           $expiry_date =$couponDetails->expiry_date;
+           $current_date = date('Y-m-d');
+           if($expiry_date < $current_date){
+            return redirect()->back()->with('flash_err_msg','This Coupon has Expired!');
+           }
+           // coupon is valid for discount
+
+           // get cart total amount
+            $session_id = Session::get('session_id');
+            $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
+            $total_amount = 0;
+            foreach ($userCart as $item) {
+                $total_amount = $total_amount + ($item->price * $item->quantity); 
+            }
+           // check if amout type is fixed or percentage
+            if($couponDetails->amount_type=='fixed'){
+                $couponAmount = $couponDetails->amount;
+            }else{
+                $couponAmount = $total_amount * ($couponDetails->amount/100);
+            }
+             //echo $couponAmount; die;
+
+             //Add coupon code and amount in session
+            Session::put('couponAmount',$couponAmount);
+            Session::put('couponCode',$data['coupon_code']);
+            return redirect()->back()->with('flash_success_msg','Coupon code successfully applied.you are availing discount!');
+
         }
 
     }

@@ -90,7 +90,15 @@
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<li>Total <span>$<?php echo $total_amount;?></span></li>
+							<!---If coupon is valid and session is not timed out-->
+							@if(!empty(Session::get('couponAmount')))
+								<li>Sub Total <span>$<?php echo $total_amount;?></span></li>
+								<li>Coupon Discount <span>$<?php echo Session::get('couponAmount');?></span></li>
+								<li>Grand Total <span>$<?php echo $total_amount - Session::get('couponAmount');?></span></li>
+							@else
+								<!---If coupon is not valid -->
+								<li>Grand Total <span>$<?php echo $total_amount;?></span></li>
+							@endif
 						</ul>
 							<a class="btn btn-default update" href="">Update</a>
 							<a class="btn btn-default check_out" href="">Check Out</a>
