@@ -27,7 +27,15 @@
         
       </ul>
     </li>
-    
+
+     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+      <span>Sliders</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="{{url('/admin/add-banner')}}"><i class="icon icon-plus-sign"></i>Add Slider</a></li>
+        <li><a href="{{url('/admin/view-banner')}}"><i class="icon icon-eye-open"></i>View Sliders</a>
+        
+      </ul>
+    </li>
     <li class="submenu"> <a href="#"><i class="icon icon-cog"></i> <span>Settings</span> <span class="label label-important">1</span></a>
       <ul>
         <li><a href="{{url('/admin/settings')}}"><i class="icon icon-edit"></i>Update password</a></li>

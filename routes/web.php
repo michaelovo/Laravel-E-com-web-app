@@ -84,7 +84,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/admin/delete-alt-image/{id}','ProductsController@deleteAltImage');
 
 
-    //Coupons route
+    //Admin Coupons route
      Route::match(['get','post'],'/admin/add-coupon','CouponController@addCoupon');//add coupon
      Route::get('/admin/view-coupon','CouponController@viewCoupons'); //view coupons
      Route::match(['get','post'],'/admin/edit-coupon/{id}','CouponController@editCoupon'); //edit/update coupon
@@ -92,6 +92,8 @@ Route::group(['middleware'=>['auth']],function(){
 
      Route::post('/cart/apply-coupon','ProductsController@applyCoupon'); //Apply coupon
 
+     //Admin Banners Route
+     Route::match(['get','post'],'/admin/add-banner','BannersController@addBanner');//add banners
    
 
 
