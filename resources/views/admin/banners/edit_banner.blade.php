@@ -35,7 +35,7 @@
                      <!--End---To display banner image from db on this edit_banner blade file when editing-->
 
                       <!--Start---To delete displayed banner image from edit_banner blade file when editing-->
-                    | <a href="{{url('/admin/delete-banner-image/'.$bannerDetails->id)}}"> Delete </a>
+                    | <a rel="{{$bannerDetails->id}}" rel1="delete-banner-image" href="javascript:" class="deleteRecord" title="Delete Slider Image"> Delete </a>
                      <!--End---To delete displayed banner image from edit_banner blade file when editing-->
                     @endif
                     <!--End---Not to displayed broken image icon when image is not available on edit_banner blade file when editing-->
