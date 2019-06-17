@@ -22,7 +22,6 @@
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  
                   <th>Slider id</th>
                   <th>title</th>
                   <th>Msg</th>
@@ -36,7 +35,6 @@
               <tbody>
                 @foreach($banners as $banner)
                 <tr class="gradeX">
-                  
                   <td>{{$banner->id}}</td>
                   <td>{{$banner->title}}</td>
                   <td>{{$banner->msg}}</td>
@@ -46,21 +44,16 @@
                   <td>
                     @if(!empty($banner->image))
                     <img src="{{asset('images/frontend_images/images/banners/'.$banner->image)}}" style="width:60px;">
-                
-                  @endif
+                    @endif
                   </td>
-
                   <td class="center">
                     <div class="fl">
                       <a href="{{url('/admin/edit-banner/'.$banner->id)}}" class=" icon icon-edit btn btn-primary" title="Edit Slider"></a> 
-                      
-                    
-                      <a rel="{{$banner->id}}" rel1="delete-banner" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord" title="Delete Slider"></a>                                            
+                
+                      <a rel="{{$banner->id}}" rel1="delete-banner" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord" title="Delete Slider"></a>                                        
                    </div>                                      
                   </td>                
-              </tr>
-
-               
+              </tr>              
               @endforeach
      
                

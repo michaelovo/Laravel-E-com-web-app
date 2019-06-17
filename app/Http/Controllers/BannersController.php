@@ -53,7 +53,61 @@ class BannersController extends Controller
     }
 
     public function  viewBanners(){
-        $banners = Banner::orderby('id','asc')->get();
+        $banners = Banner::get();
         return view('admin.banners.view_banner')->with(compact('banners'));
+    }
+    
+    public function  editBanner(Request $request, $id=null){
+    	 // retrieve data for editing
+        $bannerDetails = Banner::where('id',$id)->first();
+        return view('admin.banners.edit_banner')->with(compact('bannerDetails'));
+
+        // start of update banner table       
+        if($request->ismethod('post')){
+            $data=$request->all();
+            //status check
+            if(empty($data['status'])){
+                $status=0;
+            }else{
+                $status=1;
+            }  
+
+            // titile
+            if(empty($data['title'])){
+            	$title='';
+            }
+            // msg
+            if(empty($data['msg'])){
+                $msg='';
+            }
+            // link
+            if(empty($data['link'])){
+                $link='';
+            }
+            //start--- image upload;
+            if($request->hasFile('image')){
+        		$image_tmp = Input::file('image');
+        		if($image_tmp->isValid()){
+        			$extension = $image_tmp->getClientOriginalExtension();
+        			$filename =rand(111,99999).'.'.$extension;
+        			$banner_image_path = 'images/frontend_images/images/banners/'.$filename;
+
+        			//RESIZE IMAGE
+        			Image::make($image_tmp)->resize(1140,441)->save($banner_image_path);
+        		}
+        	
+        	}else if(!empty($data['current_image'])){
+        		$filename = $data['current_image'];
+        	}else{
+        		$filename='';
+        	}        	
+        	// End ---- Image upload 
+
+
+        	// Update data
+        	Banner::where(['id'=>$id])->update(['title'=>$data['title'],'msg'=>$data['msg'],'link'=>$data['link'],'image'=>$filename,'status'=>$status]);
+        	return redirect('/admin/view-banner')->with('flash_success_msg','Slider Updated successfully!');
+        }
+        // end of update banner table       
     }
 }
