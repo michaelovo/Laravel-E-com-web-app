@@ -12,7 +12,7 @@ use Session;
 class BannersController extends Controller
 {
     //
-     public function addBanner(Request $request){
+    public function addBanner(Request $request){
      	// Start -- Insert into 'products' table in db
     	if($request->ismethod('post')){
     		$data=$request->all();
@@ -20,6 +20,7 @@ class BannersController extends Controller
         	$banner = new Banner;
         	$banner->title = $data['title'];
             $banner->link = $data['link']; 
+            $banner->msg = $data['msg'];
             
             //status check
              if(empty($data['status'])){
@@ -49,5 +50,10 @@ class BannersController extends Controller
         }
     	// End -- Insert into banners table in db
      	return view('admin.banners.add_banner');
-     }
+    }
+
+    public function  viewBanners(){
+        $banners = Banner::orderby('id','asc')->get();
+        return view('admin.banners.view_banner')->with(compact('banners'));
+    }
 }

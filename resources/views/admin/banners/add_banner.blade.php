@@ -2,7 +2,6 @@
 @section('content')
 
 
-
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Slider</a> <a href="#" class="current">Add Slider</a> </div>
@@ -16,7 +15,7 @@
         <div class="span12">
           <div class="widget-box">
             <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-              <h5>Add Product</h5>
+              <h5>Add Slider</h5>
             </div>
             <div class="widget-content nopadding">
 
@@ -34,6 +33,12 @@
                 <label class="control-label">Title</label>
                 <div class="controls">
                   <input type="text" name="title" id="title" placeholder="enter slider title here">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Slider msg</label>
+                <div class="controls">
+                  <textarea name="msg" id="msg" required="required"></textarea> 
                 </div>
               </div>
 
