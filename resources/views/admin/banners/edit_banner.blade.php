@@ -70,7 +70,7 @@
               </div>        
             
               <div class="form-actions">
-                <input type="submit" value="Add Slider" class="btn btn-success">
+                <input type="submit" value="Update Slider" class="btn btn-success">
               </div>
             </form>
             </div>

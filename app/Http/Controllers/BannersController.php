@@ -37,7 +37,7 @@ class BannersController extends Controller
         			$banner_image_path = 'images/frontend_images/images/banners/'.$filename;
 
         			//RESIZE IMAGE
-        			Image::make($image_tmp)->resize(1140,441)->save($banner_image_path);
+        			Image::make($image_tmp)->resize(484,441)->save($banner_image_path);
 
         			//STORE IMAGE NAME IN 'banners' TABLE
         			$banner->image = $filename;
@@ -46,7 +46,7 @@ class BannersController extends Controller
         	// End ---- Image upload
         	$banner->status=$status;  
         	$banner->save();
-        	return redirect('/admin/add-banner')->with('flash_success_msg','New Slider Added successfully!');
+        	return redirect('/admin/view-banner')->with('flash_success_msg','New Slider Added successfully!');
         }
     	// End -- Insert into banners table in db
      	return view('admin.banners.add_banner');
@@ -91,7 +91,7 @@ class BannersController extends Controller
         			$banner_image_path = 'images/frontend_images/images/banners/'.$filename;
 
         			//RESIZE IMAGE
-        			Image::make($image_tmp)->resize(1140,441)->save($banner_image_path);
+        			Image::make($image_tmp)->resize(484,441)->save($banner_image_path);
         		}
         	
         	}else if(!empty($data['current_image'])){

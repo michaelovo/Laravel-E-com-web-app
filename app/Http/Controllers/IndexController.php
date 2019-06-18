@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
+use App\Banner;
 
 class IndexController extends Controller
 {
@@ -48,7 +49,8 @@ class IndexController extends Controller
 			//return view('index')->with(compact('productsAll','categories_menu'));
 		//* END BASIC APPROACH WITHOUT RELATIONSHIP
 	    	*/
-        return view('index')->with(compact('productsAll','categories'));
+	    $banners = Banner::where('status','1')->get(); //get only enabled slider/banner for display on slider blade file
+        return view('index')->with(compact('productsAll','categories','banners'));
     	
            
     }

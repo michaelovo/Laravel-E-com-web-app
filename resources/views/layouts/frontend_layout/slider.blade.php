@@ -4,24 +4,26 @@
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
+							@foreach($banners as $key => $banner)
 							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
+							
+							@endforeach
 						</ol>
 						
 						<div class="carousel-inner">
-							<div class="item active">
+							@foreach($banners as $key => $banner)
+							<div class="item @if($key==0)active @endif">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<h2>{{$banner->msg}}</h2>
+									<p>{{$banner->msg}} </p>
+									<a href="{{$banner->link}}"><button type="button" class="btn btn-default get">Get it now</button></a>
 								</div>
 								<div class="col-sm-6">
-										<img src="{{asset('images/frontend_images/images/banners/bn.png')}}" alt="" />
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<img src="{{asset('images/frontend_images/images/banners/'.$banner->image)}}" alt="" />							
 								</div>
 							</div>
+							@endforeach
 							<!--div class="item">
 								<div class="col-sm-6">
 									<img src="{{asset('images/frontend_images/images/banners/bn2.png')}}" alt="" />
