@@ -139,4 +139,14 @@ $().ready(function(){
 			}
 		}
 	});
+	
+	// password strength script
+	$(document).ready(function($) {
+        $('#myPassword').passtrength({
+          minChars: 4,
+          passwordToggle: true,
+          tooltip: true,
+          eyeImg : "/images/frontend_images/images/eye.svg" // toggle icon
+        });
+    });
 });

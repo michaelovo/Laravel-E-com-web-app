@@ -14,9 +14,10 @@
     <link href="{{asset('css/frontend_css/css/prettyPhoto.css')}}" rel="stylesheet">
     <link href="{{asset('css/frontend_css/css/price-range.css')}}" rel="stylesheet">
     <link href="{{asset('css/frontend_css/css/animate.css')}}" rel="stylesheet">
-  <link href="{{asset('css/frontend_css/css/main.css')}}" rel="stylesheet">
-  <link href="{{asset('css/frontend_css/css/responsive.css')}}" rel="stylesheet">
-   <link href="{{asset('css/frontend_css/css/easyzoom.css')}}" rel="stylesheet"><!--easyzoom-->
+    <link href="{{asset('css/frontend_css/css/main.css')}}" rel="stylesheet">
+    <link href="{{asset('css/frontend_css/css/responsive.css')}}" rel="stylesheet">
+    <link href="{{asset('css/frontend_css/css/easyzoom.css')}}" rel="stylesheet"><!--easyzoom-->
+    <link href="{{asset('css/frontend_css/css/passtrength.css')}}" rel="stylesheet"><!--jquery passtrength-->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -68,6 +69,8 @@
 <script src="{{asset('js/frontend_js/js/easyzoom.js')}}"></script><!---easyzoom-->
 <script src="{{asset('js/frontend_js/js/main.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/jquery.validate.js')}}"></script>
+<script src="{{asset('js/frontend_js/js/passtrength.js')}}"></script><!--jquery passtrength-->
+
 
 
 
