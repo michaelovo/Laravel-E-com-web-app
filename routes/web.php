@@ -48,10 +48,13 @@ Route::get('/cart/update-product/{id}/{quantity}', 'ProductsController@updateCar
  //Delete cart item route
 Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct');
 
-
 //get product attribute price
 Route::get('/get-product-price', 'ProductsController@getProductPrice');
 
+//START--FRONTEND USERS ROUTE
+Route::match(['get','post'],'/login-register','UsersController@register'); //register/login 
+Route::match(['get','post'],'/check-email','UsersController@checkEmail'); //check if user email already exists
+//END---FRONTEND USERS ROUTE
 
 Route::group(['middleware'=>['auth']],function(){
   Route::get('/admin/dashboard','AdminController@dashboard');

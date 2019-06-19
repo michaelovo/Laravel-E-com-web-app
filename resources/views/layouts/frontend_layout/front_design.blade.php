@@ -64,8 +64,11 @@
 <script src="{{asset('js/frontend_js/js/jquery.scrollUp.min.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/price-range.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/jquery.prettyPhoto.js')}}"></script>
+
 <script src="{{asset('js/frontend_js/js/easyzoom.js')}}"></script><!---easyzoom-->
 <script src="{{asset('js/frontend_js/js/main.js')}}"></script>
+<script src="{{asset('js/frontend_js/js/jquery.validate.js')}}"></script>
+
 
 
 

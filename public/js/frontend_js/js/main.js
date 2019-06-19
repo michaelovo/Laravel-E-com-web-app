@@ -103,3 +103,40 @@ $('.toggle').on('click', function() {
 		api2._init();
 	}
 });
+// USERS REGISTER Form Validation
+$().ready(function(){
+    $("#registerForm").validate({
+		rules:{
+			name:{
+				required:true,
+				minlength:2,
+				accept: "[a-zA-Z]+"
+			},
+			email:{
+				required:true,
+				email:true,
+				remote:"/check-email" // remotely checks if email already exists or not
+			},
+			password:{
+				required:true,
+				minlength:6
+			}
+		},
+		messages:{
+			name:{
+				required: "Please enter your name",
+				minlength: "Your name must be atleast two(2) characters long",
+				accept: "Your name should contain only letters"
+			},
+			email:{
+				required:"Please enter your email address",
+				email:"please enter a valid email",
+				remote: "Email already exists!"	
+			},
+			password:{
+				required:"Please provide your password",
+				minlength:"Password must be atleast six(6) characters long"
+			}
+		}
+	});
+});
