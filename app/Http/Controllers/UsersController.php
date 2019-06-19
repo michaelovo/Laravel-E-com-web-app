@@ -50,10 +50,21 @@ class UsersController extends Controller
 	    	echo "true";die;
 	    }
     }
-
+    
+    //login function
+    public function login(Request $request){
+    	if($request->ismethod('post')){
+	        $data=$request->input();
+	        if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
+	 	        return redirect('/cart');
+	        }
+	        else{
+	            return redirect()->back()->with('flash_err_msg','Invalid login credentials');
+	        }
+	    }
+    }
     // Start -- logout function
     public function logout(){
-      Session::flush();
       Auth::logout();
       return redirect('/');
     }

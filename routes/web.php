@@ -56,6 +56,7 @@ Route::get('/get-product-price', 'ProductsController@getProductPrice');
 Route::get('/login-register','UsersController@userLoginRegister');	//register_login page
 Route::post('/user-register','UsersController@register');	//user register form
 Route::match(['get','post'],'/check-email','UsersController@checkEmail'); //check if user email already exists
+Route::post('user-login','UsersController@login');	// user login
 Route::get('/user-logout','UsersController@logout');	// user logout
 
 //END---FRONTEND USERS ROUTE

@@ -105,6 +105,7 @@ $('.toggle').on('click', function() {
 });
 // USERS REGISTER Form Validation
 $().ready(function(){
+	// validate user register form onkey and submit
     $("#registerForm").validate({
 		rules:{
 			name:{
@@ -143,6 +144,41 @@ $().ready(function(){
 	// password strength meter/indicator script
 	$(document).ready(function($) {
         $('#myPassword').passtrength({
+          minChars: 4,
+          passwordToggle: true,
+          tooltip: true,
+          eyeImg : "/images/frontend_images/images/eye.svg" // toggle icon
+        });
+    });
+});
+
+// USERS LOGIN Form Validation
+$().ready(function(){
+	// validate user login form onkeyup and submit
+    $("#loginForm").validate({
+		rules:{
+			email:{
+				required:true,
+				email:true
+			},
+			password:{
+				required:true
+			}
+		},
+		messages:{
+			email:{
+				required:"Please enter your email address",
+				email:"please enter a valid email"
+			},
+			password:{
+				required:"Please provide your password"
+			}
+		}
+	});
+
+	// password strength meter/indicator script
+	$(document).ready(function($) {
+        $('#myLoginPassword').passtrength({
           minChars: 4,
           passwordToggle: true,
           tooltip: true,
