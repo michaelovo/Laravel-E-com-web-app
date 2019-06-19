@@ -36,29 +36,29 @@ Route::get('/products/{url}', 'ProductsController@products');
 //product detail page route
 Route::get('/product/{id}', 'ProductsController@product');
 
-//Add to cart route
- Route::match(['get','post'],'/add-cart','ProductsController@addtocart');
- 
- // cart page route
- Route::match(['get','post'],'/cart','ProductsController@cart');
-
- //Edit/Update product quantity in cart route
-Route::get('/cart/update-product/{id}/{quantity}', 'ProductsController@updateCartQuantity');
-
- //Delete cart item route
-Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct');
 
 //get product attribute price
 Route::get('/get-product-price', 'ProductsController@getProductPrice');
 
 //START--FRONTEND USERS ROUTE
-
+	//login/ register routes
 Route::get('/login-register','UsersController@userLoginRegister');	//register_login page
 Route::post('/user-register','UsersController@register');	//user register form
 Route::match(['get','post'],'/check-email','UsersController@checkEmail'); //check if user email already exists
 Route::post('user-login','UsersController@login');	// user login
 Route::get('/user-logout','UsersController@logout');	// user logout
+	
+	//All user route after login
+Route::group(['middleware'=>['frontlogin']],function(){
+	Route::match(['get','post'],'account','UsersController@account');//User account page
 
+
+	// All cart routes
+	Route::match(['get','post'],'/add-cart','ProductsController@addtocart');//Add to cart route
+ 	Route::match(['get','post'],'/cart','ProductsController@cart');// cart page route
+	Route::get('/cart/update-product/{id}/{quantity}', 'ProductsController@updateCartQuantity'); //Edit/Update product quantity in cart route
+	Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct'); //Delete cart item route
+});
 //END---FRONTEND USERS ROUTE
 
 Route::group(['middleware'=>['auth']],function(){

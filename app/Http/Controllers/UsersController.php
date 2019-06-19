@@ -15,6 +15,7 @@ class UsersController extends Controller
     public function userLoginRegister(){
     	return view('users.login_register');
     }
+
     // Add user : user register function
     public function register(Request $request){
     	if($request->isMethod('post')){
@@ -32,6 +33,7 @@ class UsersController extends Controller
     			$user->password = bcrypt($data['password']); //bcrypt user password for security
     			$user->save();
     			if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
+    				Session::put('frontSession',$data['email']); //start 'frontSession' whenever a user registers
     				return redirect('/cart');
     			}
     		}
@@ -56,6 +58,7 @@ class UsersController extends Controller
     	if($request->ismethod('post')){
 	        $data=$request->input();
 	        if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
+	        	Session::put('frontSession',$data['email']); //start 'frontSession' whenever a user login
 	 	        return redirect('/cart');
 	        }
 	        else{
@@ -66,8 +69,14 @@ class UsersController extends Controller
     // Start -- logout function
     public function logout(){
       Auth::logout();
+      Session::forget('frontSession');
       return redirect('/');
     }
     // End -- logout function
+
+
+    public function account(){
+    	return view('users.account');
+    }
 
 }
