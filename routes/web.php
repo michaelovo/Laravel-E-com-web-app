@@ -52,8 +52,12 @@ Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct');
 Route::get('/get-product-price', 'ProductsController@getProductPrice');
 
 //START--FRONTEND USERS ROUTE
-Route::match(['get','post'],'/login-register','UsersController@register'); //register/login 
+
+Route::get('/login-register','UsersController@userLoginRegister');	//register_login page
+Route::post('/user-register','UsersController@register');	//user register form
 Route::match(['get','post'],'/check-email','UsersController@checkEmail'); //check if user email already exists
+Route::get('/user-logout','UsersController@logout');	// user logout
+
 //END---FRONTEND USERS ROUTE
 
 Route::group(['middleware'=>['auth']],function(){

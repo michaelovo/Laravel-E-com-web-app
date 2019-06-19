@@ -25,7 +25,7 @@
 
 						<div class="signup-form"><!--sign up form-->
 							<h2>New User Signup!</h2>
-							<form  name="registerForm" id="registerForm" action="{{url('/login-register')}}"  method="post">
+							<form  name="registerForm" id="registerForm" action="{{url('/user-register')}}" method="post">
               	  				{{csrf_field()}}
 								<input type="text" id="name" name="name" placeholder="Name" />
 								<input type="email" id="email" name="email" placeholder="Email Address" />

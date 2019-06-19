@@ -139,8 +139,8 @@ $().ready(function(){
 			}
 		}
 	});
-	
-	// password strength script
+
+	// password strength meter/indicator script
 	$(document).ready(function($) {
         $('#myPassword').passtrength({
           minChars: 4,
