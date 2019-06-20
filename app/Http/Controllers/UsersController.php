@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Country;
 use Auth;
 use Session;
 //use Illuminate\Support\Facades\Hash;
@@ -76,7 +77,11 @@ class UsersController extends Controller
 
 
     public function account(){
-    	return view('users.account');
+    	$user_id = Auth::user()->id; // get auth user id
+    	$userDetails = User::find($user_id); //get user details
+    	//echo "<pre>"; print_r($userDetails); die;
+    	$countries = Country::get();// get all countries from 'countries' table
+    	return view('users.account')->with(compact('countries','userDetails'));
     }
 
 }

@@ -5,8 +5,26 @@
 				@include('includes.msg')
 				<div class="row">
 					<div class="col-sm-4 col-sm-offset-1">
-						<div class="login-form"><!--login form-->
+						<div class="login-form"><!--update account form-->
 							<h2>Update account</h2>
+							<form  name="accountForm" id="accountForm" action="{{url('/account')}}" method="post">
+              	  				{{csrf_field()}}
+								<input type="text" id="name" name="name" placeholder="Name" value="{{$userDetails->name}}" />
+								<input type="text" id="address" name="address" placeholder="Address"  />
+								<input type="text" id="city" name="city" placeholder="city" />
+								<input type="text" id="state" name="state" placeholder="state" />
+
+								<!--select countries from 'countries' table-->
+								<select id="country" name="country">
+									<option value="">Select Country</option>
+									@foreach($countries as $country)
+										<option value="{{$country->country_name}}">{{$country->country_name}}</option>
+									@endforeach
+								</select>
+								<input type="text" id="pincode" name="pincode" placeholder="pincode" style="margin-top: 10px;" />
+								<input type="text" id="mobile" name="mobile" placeholder="mobile" />
+								<button type="submit" class="btn btn-default">Update</button>
+							</form>
 							
 						</div><!--/login form-->
 					</div>
