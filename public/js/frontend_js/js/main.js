@@ -140,7 +140,7 @@ $().ready(function(){
 			}
 		}
 	});
-
+    
 	// password strength meter/indicator script
 	$(document).ready(function($) {
         $('#myPassword').passtrength({
@@ -175,6 +175,104 @@ $().ready(function(){
 			}
 		}
 	});
+
+	// password strength meter/indicator script
+	$(document).ready(function($) {
+        $('#myLoginPassword').passtrength({
+          minChars: 4,
+          passwordToggle: true,
+          tooltip: true,
+          eyeImg : "/images/frontend_images/images/eye.svg" // toggle icon
+        });
+    });
+});
+
+// USERS ACCOUNT Form Validation
+$().ready(function(){
+	// validate user account form onkeyup and update
+	$("#accountForm").validate({
+		rules:{
+			name:{
+				required:true,
+				minlength:2,
+				accept: "[a-zA-Z]+"
+			},
+			email:{
+				required:true,
+				email:true,
+				remote:"/check-email" // remotely checks if email already exists or not
+			},
+			address:{
+				required:true,
+				minlength:10
+			},
+			city:{
+				required:true,
+				minlength:2
+			},
+			state:{
+				required:true,
+				minlength:2
+			},
+			country:{
+				required:true
+				//minlength:6
+			},
+			pincode:{
+				required:true,
+				minlength:6
+			},
+			mobile:{
+				required:true
+				//minlength:6
+			},
+			password:{
+				required:true,
+				minlength:6
+			}
+		},
+		messages:{
+			name:{
+				required: "Please enter your name",
+				minlength: "Your name must be atleast two(2) characters long",
+				accept: "Your name should contain only letters"
+			},
+			email:{
+				required:"Please enter your email address",
+				email:"please enter a valid email",
+				remote: "Email already exists!"	
+			},
+			address:{
+				required:"Please provide your password",
+				maxlength:"Address must be atleast ten(10) characters long"
+			},
+			city:{
+				required:"Please provide your city name",
+				minlength:"City must be atleast two(2) characters long"
+			},
+			state:{
+				required:"Please provide your State name",
+				minlength:"State must be atleast two(2) characters long"
+			},
+			country:{
+				required:"Please Select your conutry"
+				//minlength:"Password must be atleast six(6) characters long"
+			},
+			pincode:{
+				required:"Please provide a pincode",
+				minlength:"Pincode must be atleast six(6) characters long"
+			},
+			mobile:{
+				required:"Please provide your mobile number"
+				//minlength:"Password must be atleast six(6) characters long"
+			},
+			password:{
+				required:"Please provide your password",
+				minlength:"Password must be atleast six(6) characters long"
+			}
+		}
+	});
+    
 
 	// password strength meter/indicator script
 	$(document).ready(function($) {

@@ -76,11 +76,26 @@ class UsersController extends Controller
     // End -- logout function
 
 
-    public function account(){
+    public function account(Request $request){
     	$user_id = Auth::user()->id; // get auth user id
     	$userDetails = User::find($user_id); //get user details
     	//echo "<pre>"; print_r($userDetails); die;
     	$countries = Country::get();// get all countries from 'countries' table
+
+    	if($request->ismethod('post')){
+	        $data=$request->all();
+
+	        $user = User::find($user_id);
+    		$user->name = $data['name'];
+    		$user->address = $data['address'];
+    		$user->city = $data['city'];
+    		$user->state = $data['state'];
+    		$user->country = $data['country'];
+    		$user->pincode = $data['pincode'];
+    		$user->mobile = $data['mobile'];
+    		$user->save();
+    		 return redirect()->back()->with('flash_success_msg','Account details has been Successfully Updated!');
+	    }
     	return view('users.account')->with(compact('countries','userDetails'));
     }
 
