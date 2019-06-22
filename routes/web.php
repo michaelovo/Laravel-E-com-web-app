@@ -51,6 +51,8 @@ Route::get('/user-logout','UsersController@logout');	// user logout
 	//All user route after login
 Route::group(['middleware'=>['frontlogin']],function(){
 	Route::match(['get','post'],'account','UsersController@account');//User account page
+	Route::get('/check-user-pwd','UsersController@chkUserPwd'); //check user current against old password
+  	Route::match(['get','post'],'/update-user-pwd','UsersController@updatepassword'); //update user pwd
 
 
 	// All cart routes

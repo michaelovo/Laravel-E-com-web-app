@@ -75,7 +75,7 @@ $(document).ready(function(){
 	});
 });
 
-// easyzoom script
+//--- easyzoom script
 // Instantiate EasyZoom instances
 var $easyzoom = $('.easyzoom').easyZoom();
 	// Setup thumbnails example
@@ -103,6 +103,8 @@ $('.toggle').on('click', function() {
 		api2._init();
 	}
 });
+//.... /easyzoom script
+
 // USERS REGISTER Form Validation
 $().ready(function(){
 	// validate user register form onkey and submit
@@ -187,7 +189,7 @@ $().ready(function(){
     });
 });
 
-// USERS ACCOUNT Form Validation
+// USERS ACCOUNT Update Form Validation
 $().ready(function(){
 	// validate user account form onkeyup and update
 	$("#accountForm").validate({
@@ -225,10 +227,6 @@ $().ready(function(){
 			mobile:{
 				required:true
 				//minlength:6
-			},
-			password:{
-				required:true,
-				minlength:6
 			}
 		},
 		messages:{
@@ -265,22 +263,41 @@ $().ready(function(){
 			mobile:{
 				required:"Please provide your mobile number"
 				//minlength:"Password must be atleast six(6) characters long"
-			},
-			password:{
-				required:"Please provide your password",
-				minlength:"Password must be atleast six(6) characters long"
 			}
 		}
 	});
-    
+});
+
+
+$(document).ready(function(){
+	// Starts --- Compares current password with newly entered password and with confirm_pwd field
+	$("#pwdForm").keyup(function(){
+		var current_pwd = $("#current_pwd").val();
+		$.ajax({
+
+			type:'get',
+			url:'/check-user-pwd',
+			data:{current_pwd:current_pwd},
+			success:function(resp){
+				if(resp=="false"){
+					$("#pwdChk").html("<font color='red'> current password is incorrect</font>");
+				}else if (resp=="true"){
+						$("#pwdChk").html("<font color='green'> current password is correct</font>");
+				}
+			},error:function(){
+					alert("error");
+				}
+		});
+	});
+	// End --- Compares current password with newly entered password and with confirm_pwd field
 
 	// password strength meter/indicator script
 	$(document).ready(function($) {
-        $('#myLoginPassword').passtrength({
-          minChars: 4,
+        $('#new_pwd').passtrength({
+          minChars: 6,
           passwordToggle: true,
           tooltip: true,
           eyeImg : "/images/frontend_images/images/eye.svg" // toggle icon
         });
-    });
+    }); 
 });

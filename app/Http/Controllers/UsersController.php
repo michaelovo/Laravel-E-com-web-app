@@ -6,7 +6,7 @@ use App\User;
 use App\Country;
 use Auth;
 use Session;
-//use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
 
@@ -41,7 +41,6 @@ class UsersController extends Controller
 	    }	
     }
 
-
     //Using jqquery remote function to check uniqueness of user email
     public function checkEmail(Request $request){
     	//Jquery remote function:check if user already exists with dsame email i.e email should be unique
@@ -75,7 +74,6 @@ class UsersController extends Controller
     }
     // End -- logout function
 
-
     public function account(Request $request){
     	$user_id = Auth::user()->id; // get auth user id
     	$userDetails = User::find($user_id); //get user details
@@ -99,4 +97,40 @@ class UsersController extends Controller
     	return view('users.account')->with(compact('countries','userDetails'));
     }
 
+    // Starts -- current password validation
+    public function chkUserPwd(Request $request){
+      $data = $request->all();
+      $current_password=$data['current_pwd'];
+      $user_id = Auth::user()->id;
+      $check_password = User::where('id',$user_id)->first();
+      if(Hash::check($current_password,$check_password->password)){
+        echo "true"; die;
+        }
+        else{
+          echo "false"; die;
+        }
+    }
+    // Ends -- current password validation
+
+    // Starts -- Update password
+   /* public function updatepassword(Request $request){
+      if($request->ismethod('post')){
+
+      $data = $request->all();  
+      $check_password = User::where(['email'=>Auth::User()->email])->first();
+      $current_password=$data['current_pwd'];
+      if(Hash::check($current_password,$check_password->password)){
+       
+        $password = bcrypt($data['new_pwd']);
+        User::where('id','1')->update(['password'=>$password]);
+         return redirect('/admin/settings')->with('flash_success_msg','update successfull');
+        }
+        else{
+        
+            return redirect('/admin/settings')->with('flash_err_msg','Incorrect current password.Fail to update password!');
+        }
+      }
+    }
+    // Ends -- Update password
+*/
 }

@@ -34,10 +34,39 @@
 					</div>
 					<div class="col-sm-4">
 
-						<div class="signup-form"><!--sign up form-->
+						<div class="signup-form"><!--Update password form-->
 							<h2>Update password</h2>
-							
-						</div><!--/sign up form-->
+							<form name="pwdForm" id="pwdForm" method="post" action="{{url('/update-user-pwd')}}" >
+			                 {{csrf_field()}}
+
+				                <div class="control-group">
+				                  <label class="control-label">Current Password</label>
+				                  <div class="controls">
+				                    <input type="password" name="current_pwd" id="current_pwd" placeholder="Current Password" />
+				                    <span id="pwdChk"></span>
+				                  
+				                  </div>
+				                </div>
+
+				                <div class="control-group">
+				                  <label class="control-label">New Password</label>
+				                  <div class="controls">
+				                    <input type="password" name="new_pwd" id="new_pwd" placeholder="New Password" />
+				                  </div>
+				                </div>
+
+				                <div class="control-group">
+				                  <label class="control-label">Confirm password</label>
+				                  <div class="controls">
+				                    <input type="password" name="confirm_pwd" id="confirm_pwd" placeholder="Confirm Password" />
+				                  </div>
+				                </div>
+				                <div class="form-actions">
+				                	<button type="submit" class="btn btn-default">Update Password</button>
+				                  
+				                </div>
+              				</form>
+						</div><!--/Update password form-->
 					</div>
 				</div>
 			</div>
