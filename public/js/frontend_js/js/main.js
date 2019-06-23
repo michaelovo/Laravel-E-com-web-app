@@ -282,11 +282,12 @@ $(document).ready(function(){
 				if(resp=="false"){
 					$("#pwdChk").html("<font color='red'> current password is incorrect</font>");
 				}else if (resp=="true"){
-						$("#pwdChk").html("<font color='green'> current password is correct</font>");
+					$("#pwdChk").html("<font color='green'> current password is correct</font>");
 				}
-			},error:function(){
-					alert("error");
-				}
+			},
+			error:function(){
+				alert("error");
+			}
 		});
 	});
 	// End --- Compares current password with newly entered password and with confirm_pwd field
@@ -299,5 +300,36 @@ $(document).ready(function(){
           tooltip: true,
           eyeImg : "/images/frontend_images/images/eye.svg" // toggle icon
         });
+        // update password fileds validations
+        $("#pwdForm").validate({
+			rules:{
+				current_pwd:{
+					required: true,
+					minlength:6,
+					maxlength:20
+				},
+				new_pwd:{
+					required: true,
+					minlength:6,
+					maxlength:20
+				},
+			confirm_pwd:{
+					required:true,
+					minlength:6,
+					maxlength:20,
+					equalTo:"#new_pwd"
+				}
+			},
+			errorClass: "help-inline",
+			errorElement: "span",
+			highlight:function(element, errorClass, validClass) {
+				$(element).parents('.control-group').addClass('error');
+			},
+			unhighlight: function(element, errorClass, validClass) {
+				$(element).parents('.control-group').removeClass('error');
+				$(element).parents('.control-group').addClass('success');
+			}
+		});
     }); 
 });
+

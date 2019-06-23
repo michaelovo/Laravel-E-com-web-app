@@ -112,25 +112,24 @@ class UsersController extends Controller
     }
     // Ends -- current password validation
 
-    // Starts -- Update password
-   /* public function updatepassword(Request $request){
+    // Starts -- Update User password
+    public function updateUserPwd(Request $request){
       if($request->ismethod('post')){
 
       $data = $request->all();  
-      $check_password = User::where(['email'=>Auth::User()->email])->first();
+      $old_password = User::where('id',Auth::User()->id)->first();
       $current_password=$data['current_pwd'];
-      if(Hash::check($current_password,$check_password->password)){
-       
-        $password = bcrypt($data['new_pwd']);
-        User::where('id','1')->update(['password'=>$password]);
-         return redirect('/admin/settings')->with('flash_success_msg','update successfull');
+      if(Hash::check($current_password,$old_password->password)){
+      	//update password
+        $new_pwd = bcrypt($data['new_pwd']);
+        User::where('id',Auth::User()->id)->update(['password'=>$new_pwd]);
+         return redirect()->back()->with('flash_success_msg','Password update successfull');
         }
         else{
         
-            return redirect('/admin/settings')->with('flash_err_msg','Incorrect current password.Fail to update password!');
+            return redirect()->back()->with('flash_err_msg','Current password is Incorrect.Fail to update password!');
         }
       }
     }
-    // Ends -- Update password
-*/
+    // Ends -- Update User password
 }

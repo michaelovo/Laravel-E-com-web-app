@@ -36,11 +36,11 @@
 
 						<div class="signup-form"><!--Update password form-->
 							<h2>Update password</h2>
-							<form name="pwdForm" id="pwdForm" method="post" action="{{url('/update-user-pwd')}}" >
+							<form name="pwdForm" id="pwdForm" method="post" action="{{url('/update-user-pwd')}}" novalidate="novalidate">
 			                 {{csrf_field()}}
 
 				                <div class="control-group">
-				                  <label class="control-label">Current Password</label>
+				                  <label class="control-label"><!--Current Password--></label>
 				                  <div class="controls">
 				                    <input type="password" name="current_pwd" id="current_pwd" placeholder="Current Password" />
 				                    <span id="pwdChk"></span>
@@ -49,14 +49,14 @@
 				                </div>
 
 				                <div class="control-group">
-				                  <label class="control-label">New Password</label>
+				                  <label class="control-label"><!--New Password--></label>
 				                  <div class="controls">
 				                    <input type="password" name="new_pwd" id="new_pwd" placeholder="New Password" />
 				                  </div>
 				                </div>
 
 				                <div class="control-group">
-				                  <label class="control-label">Confirm password</label>
+				                  <label class="control-label"><!--Confirm password--></label>
 				                  <div class="controls">
 				                    <input type="password" name="confirm_pwd" id="confirm_pwd" placeholder="Confirm Password" />
 				                  </div>

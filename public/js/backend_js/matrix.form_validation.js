@@ -15,8 +15,8 @@ $(document).ready(function(){
 						$("#pwdChk").html("<font color='green'> current password is correct</font>");
 				}
 			},error:function(){
-					alert("error");
-				}
+				alert("error");
+			}
 
 		});
 	});
