@@ -13,6 +13,7 @@ use App\ProductsAttribute;
 use App\ProductsImage;
 use App\Coupon;
 use DB;
+use App\Country;
 
 
 class ProductsController extends Controller
@@ -606,5 +607,10 @@ class ProductsController extends Controller
 
         }
 
+    }
+    public function checkout(){
+        $countries = Country::get();// get all countries from 'countries' table
+
+        return view('products.checkout')->with(compact('countries'));
     }
 }

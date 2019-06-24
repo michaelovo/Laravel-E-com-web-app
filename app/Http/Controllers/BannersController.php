@@ -103,7 +103,7 @@ class BannersController extends Controller
 
 
         	// Update data
-        	Banner::where(['id'=>$id])->update(['title'=>$data['title'],'msg'=>$data['msg'],'link'=>$data['link'],'image'=>$filename,'status'=>$status]);
+        	Banner::where('id',$id)->update(['title'=>$data['title'],'msg'=>$data['msg'],'link'=>$data['link'],'image'=>$filename,'status'=>$status]);
         	return redirect('/admin/view-banner')->with('flash_success_msg','Slider Updated successfully!');
         }
         // end of update banner table 

@@ -54,12 +54,19 @@ Route::group(['middleware'=>['frontlogin']],function(){
 	Route::get('/check-user-pwd','UsersController@chkUserPwd'); //check user current against old password
   	Route::match(['get','post'],'/update-user-pwd','UsersController@updateUserPwd'); //update user pwd
 
+  	
 
 	// All cart routes
 	Route::match(['get','post'],'/add-cart','ProductsController@addtocart');//Add to cart route
  	Route::match(['get','post'],'/cart','ProductsController@cart');// cart page route
 	Route::get('/cart/update-product/{id}/{quantity}', 'ProductsController@updateCartQuantity'); //Edit/Update product quantity in cart route
 	Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct'); //Delete cart item route
+
+	//checkout page route
+  	Route::match(['get','post'],'checkout','ProductsController@checkout'); 
+
+	
+
 });
 //END---FRONTEND USERS ROUTE
 

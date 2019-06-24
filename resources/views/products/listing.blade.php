@@ -1,6 +1,6 @@
 @extends('layouts.frontend_layout.front_design')
 @section('content')
-	@include('layouts.frontend_layout.slider')
+	
 	<section>
 		<div class="container">
 			<div class="row">
