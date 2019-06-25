@@ -14,6 +14,7 @@ use App\ProductsImage;
 use App\Coupon;
 use DB;
 use App\Country;
+use App\User;
 
 
 class ProductsController extends Controller
@@ -609,8 +610,11 @@ class ProductsController extends Controller
 
     }
     public function checkout(){
+        $user_id = Auth::user()->id; // get auth user id
+        $userDetails = User::find($user_id); //get user details
+        //echo "<pre>"; print_r($userDetails); die;
         $countries = Country::get();// get all countries from 'countries' table
 
-        return view('products.checkout')->with(compact('countries'));
+       return view('products.checkout')->with(compact('countries','userDetails'));
     }
 }
