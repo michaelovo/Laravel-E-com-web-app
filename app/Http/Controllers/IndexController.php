@@ -13,12 +13,14 @@ class IndexController extends Controller
     	//$productsAll = Product::get(); //ascending order(default)
     	//$productsAll = Product::orderby('id', 'desc')->get(); //descending order
     	$productsAll = Product::inRandomOrder()->where('status',1)->get(); //Random order and only product whose status value=1
+    	//dump($productsAll); //alternative to commented lines above for debuging,bt ds will displays output in cmd
 
     	
     	// get all categories and subcategories along with the 'categories' relationship
     	$categories = Category::with('categories')->where(['parent_id'=>0])->get();
-    	//$Categories = json_decode(json_encode($Categories));
- 		//echo "<pre>"; print_r($Categories); die;
+    	//$categories = json_decode(json_encode($categories));
+ 		//echo "<pre>"; print_r($categories); die;
+ 		//dump($categories); //alternative to commented lines above for debuging,bt ds will displays output in cmd
  		
  		/*
  		//* START BASIC APPROACH WITHOUT RELATIONSHIP
