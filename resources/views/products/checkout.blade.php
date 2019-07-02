@@ -3,7 +3,9 @@
 
 	<section id="form"  style="margin-top: 20px;><!--form-->
 		<div class="container">
-			<form action="#">
+
+			<form  name="checkoutForm" id="checkoutForm" action="{{url('/checkout')}}" method="post">
+              	  				
 				{{csrf_field()}}
 				<div class="row">
 					<div class="col-sm-4 col-sm-offset-1">
@@ -59,42 +61,42 @@
 							<h2>Ship To</h2>
 							      
 				            <div class="form-group">
-								<input type="text" id="shipping_name" name="shipping_name" placeholder="Shipping Name" value="" class="form-control" />
+								<input type="text" id="shipping_name" name="shipping_name" placeholder="Shipping Name" value="{{$shippingDetails->name}}" class="form-control" />
 				             	
 				            </div>
 				                  
 				            <div class="form-group">
-				             	<input type="text" id="shipping_address" name="shipping_address" placeholder="Shipping Address" value="" class="form-control" class="form-control" />
+				             	<input type="text" id="shipping_address" name="shipping_address" placeholder="Shipping Address" value="{{$shippingDetails->address}}" class="form-control" class="form-control" />
 				            </div>
 
 
 				            <div class="form-group">				             	
-								<input type="text" id="shipping_city" name="shipping_city" placeholder="Shipping city" value="" class="form-control"/>
+								<input type="text" id="shipping_city" name="shipping_city" placeholder="Shipping city" value="{{$shippingDetails->city}}" class="form-control"/>
 				            </div>
 
 				            <div class="form-group">				             	
-								<input type="text" id="shipping_state" name="shipping_state" placeholder="Shipping state" value="" class="form-control"/>
+								<input type="text" id="shipping_state" name="shipping_state" placeholder="Shipping state" value="{{$shippingDetails->state}}" class="form-control"/>
 				            </div>
 
-				            <div class="form-group">				             	
+				           <div class="form-group">				             	
 								<!--select countries from 'countries' table-->
 								<select id="shipping_country" name="shipping_country">
-									<option value="" class="form-control">Select Country</option>
+									<option value="">Select Country</option>
 									@foreach($countries as $country)
 									<!-- autoselect user selected country if user had edited details before-->
-										<option value="{{$country->country_name}}">{{$country->country_name}}</option>
+										<option value="{{$country->country_name}}" @if($country->country_name==$shippingDetails->country) selected @endif>{{$country->country_name}}</option>
 									@endforeach
 								</select>
 				            </div>
 
 
 				              <div class="form-group">				          
-								<input type="text" id="shipping_pincode" name="shipping_pincode" placeholder="Shipping pincode" style="margin-top: 10px;" value="" class="form-control"/>
+								<input type="text" id="shipping_pincode" name="shipping_pincode" placeholder="Shipping pincode" style="margin-top: 10px;" value="{{$shippingDetails->pincode}}" class="form-control"/>
 				             </div>
 
 
 				              <div class="form-group">
-								<input type="text" id="shipping_mobile" name="shipping_mobile" placeholder="Shipping mobile" value="" class="form-control"/>
+								<input type="text" id="shipping_mobile" name="shipping_mobile" placeholder="Shipping mobile" value="{{$shippingDetails->mobile}}" class="form-control"/>
 				             </div>
 
 
