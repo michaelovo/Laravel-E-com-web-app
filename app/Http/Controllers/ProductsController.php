@@ -620,6 +620,7 @@ class ProductsController extends Controller
 
         // check if shipping address aready exists
         $shippingCount = DeliveryAddress::where('user_id',$user_id)->count();
+        $shippingDetails = array();
         if($shippingCount>0){
             //return redirect()->back()->with('flash_err_msg','This Coupon does not exists!');
             $shippingDetails = DeliveryAddress::where('user_id',$user_id)->first(); //get coupon details
