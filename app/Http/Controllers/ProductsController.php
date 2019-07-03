@@ -610,6 +610,7 @@ class ProductsController extends Controller
         }
 
     }
+    //checkout function
     public function checkout(Request $request){
         $user_id = Auth::user()->id; // get auth user id
         $user_email = Auth::user()->email; // get auth user email
@@ -623,6 +624,10 @@ class ProductsController extends Controller
             //return redirect()->back()->with('flash_err_msg','This Coupon does not exists!');
             $shippingDetails = DeliveryAddress::where('user_id',$user_id)->first(); //get coupon details
         }
+        //update cart table with user email
+        $session_id = Session::get('session_id');
+        DB::table('cart')->where(['session_id'=>$session_id])->update(['user_email'=>$user_email]);
+
         if($request->ismethod('post')){
             $data=$request->all();
 
@@ -656,10 +661,21 @@ class ProductsController extends Controller
                 $shipping->save();
             }
             //echo "Redirect to order review page";die;
-            //return redirect()->action('ProductsController@order_review');
+            return redirect()->action('ProductsController@orderReview');
         }
 
        return view('products.checkout')->with(compact('countries','userDetails','shippingDetails'));
+    }
+
+    //order review function
+    public function orderReview(){
+        $user_id = Auth::user()->id; // get auth user id
+        $user_email = Auth::user()->email; // get auth user email
+        $userDetails = User::find($user_id); //get user details
+        $countries = Country::get();// get all countries from 'countries' table
+        $shippingDetails = DeliveryAddress::where('user_id',$user_id)->first(); //get shipping details
+               
+        return view('products.order_review')->with(compact('userDetails','shippingDetails','countries'));
     }
 }
  

@@ -65,9 +65,9 @@ $mainCategories = Controller::mainCategories();
           <div class="col-sm-8">
             <div class="shop-menu pull-right">
               <ul class="nav navbar-nav">
-                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                <!--li><a href="#"><i class="fa fa-user"></i> Account</a></li-->
                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                <li><a href="{{url('/checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                 <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
                 <!-- check if user is login or not -->
@@ -99,7 +99,7 @@ $mainCategories = Controller::mainCategories();
             </div>
             <div class="mainmenu pull-left">
               <ul class="nav navbar-nav collapse navbar-collapse">
-                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="{{url('/')}}" class="active">Home</a></li>
                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                     <ul role="menu" class="sub-menu">
                       <!--- This include/call the main categories and their url when clicked to the header--->

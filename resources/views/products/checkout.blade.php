@@ -1,7 +1,7 @@
 @extends('layouts.frontend_layout.front_design')
 @section('content')
 
-	<section id="form"  style="margin-top: 20px;><!--form-->
+	<section id="form"  style="margin-top: 20px;>
 		<div class="container">
 
 			<form  name="checkoutForm" id="checkoutForm" action="{{url('/checkout')}}" method="post">

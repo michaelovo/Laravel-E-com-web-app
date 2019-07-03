@@ -64,6 +64,7 @@ Route::group(['middleware'=>['frontlogin']],function(){
 
 	//checkout page route
   	Route::match(['get','post'],'checkout','ProductsController@checkout'); 
+  	Route::match(['get','post'],'/order-review','ProductsController@orderReview'); // order review page 
 
 	
 
