@@ -674,8 +674,18 @@ class ProductsController extends Controller
         $userDetails = User::find($user_id); //get user details
         $countries = Country::get();// get all countries from 'countries' table
         $shippingDetails = DeliveryAddress::where('user_id',$user_id)->first(); //get shipping details
+
+        // get cart details
+        $userCart = DB::table('cart')->where(['user_email'=>$user_email])->get();
+
+        // get and display each cart item product image
+        foreach ($userCart as $key => $product) {
+            //echo $product->product_id;
+            $productDetails = Product::where('id',$product->product_id)->first();
+            $userCart[$key]->image= $productDetails->image;
+        }
                
-        return view('products.order_review')->with(compact('userDetails','shippingDetails','countries'));
+        return view('products.order_review')->with(compact('userDetails','shippingDetails','countries','userCart'));
     }
 }
  
