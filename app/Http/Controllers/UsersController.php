@@ -70,7 +70,7 @@ class UsersController extends Controller
     public function logout(){
       Auth::logout();
       Session::forget('frontSession');
-      Session::flush();
+      //Session::flush();
       return redirect('/');
     }
     // End -- logout function

@@ -162,6 +162,7 @@
 									<tr>
 										<td>Grand Total</td>
 										<td><span>${{$grand_total = $total_amount - Session::get('couponAmount')}}</span></td>
+
 									</tr>
 								</table>
 							</td>
@@ -171,7 +172,7 @@
 			</div>
 			<form name="paymentForm" id="paymentForm" action="{{url('/place-order')}}" method="post">
 				{{csrf_field()}}
-				<input type="hidden" name="grand_total" value="{{$grand_total}}">
+				<input type="hidden" name="grand_total" id ="grand_total" value="{{$grand_total}}">
 				<div class="payment-options">
 					<span>
 						<label><strong> Select Payment Method :</strong></label>

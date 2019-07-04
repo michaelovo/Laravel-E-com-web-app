@@ -16,6 +16,8 @@ use DB;
 use App\Country;
 use App\DeliveryAddress;
 use App\User;
+use App\Order;
+use App\OrdersProduct;
 
 
 class ProductsController extends Controller
@@ -513,10 +515,22 @@ class ProductsController extends Controller
     }
     // DISPLAY CART ITEMS AND IMAGES FROM CART TABLE ON CART BLADE FILE
     public function cart(){
-
+        /*
+        //prevent display of products from user cart table whenever user loggin
+        $session_id = Session::get('session_id');
+        if(Auth::check()){
+            $user_email = Auth::user()->email;
+            $userCart = DB::table('cart')->where(['user_email'=>$user_email])->get();
+        }else{
+            $session_id = Session::get('session_id');
+            $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();    
+        }
+        */
+        
+        
         $session_id = Session::get('session_id');
         $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
-
+        
         // get and display each cart item product image
         foreach ($userCart as $key => $product) {
             //echo $product->product_id;
@@ -588,8 +602,22 @@ class ProductsController extends Controller
            // coupon is valid for discount
 
            // get cart total amount
+           
+            
+            
             $session_id = Session::get('session_id');
             $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
+            
+            /*
+            $session_id = Session::get('session_id');
+            if(Auth::check()){
+                $user_email = Auth::user()->email;
+                $userCart = DB::table('cart')->where(['user_email'=>$user_email])->get();
+            }else{
+                 $session_id = Session::get('session_id');
+                $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();    
+            }
+            */
             $total_amount = 0;
             foreach ($userCart as $item) {
                 $total_amount = $total_amount + ($item->price * $item->quantity); 
@@ -690,10 +718,46 @@ class ProductsController extends Controller
     }
 
     // place order
-    public function placeOrder(){
+    public function placeOrder(Request $request){
+
+        // send user order details to orders table
         if($request->ismethod('post')){
-            // add alternate image
             $data = $request->all();
+            $user_id = Auth::user()->id; // get auth user id
+            $user_email = Auth::user()->email; // get auth user email
+            $shippingDetails = DeliveryAddress::where(['user_email'=>$user_email])->first(); //get shipping details
+            // get coupon code and amount from session variables
+            if(empty(Session::get('couponCode'))){
+                $coupon_code='';
+            }else{
+                $coupon_code=Session::get('couponCode');
+            }
+             if(empty(Session::get('couponAmount'))){
+                $coupon_amount='';
+            }else{
+                $coupon_amount=Session::get('couponAmount');
+            }
+
+            // insert into orders table
+            $order = new Order;
+            $order->user_id =$user_id;
+            $order->user_email =$user_email;
+            $order->name =$shippingDetails->name;
+            $order->address =$shippingDetails->address;
+            $order->city =$shippingDetails->city;
+            $order->state =$shippingDetails->state;
+            $order->pincode =$shippingDetails->pincode;
+            $order->country =$shippingDetails->country;
+            $order->mobile =$shippingDetails->mobile;
+            
+            $order->coupon_code = $coupon_code;
+            $order->coupon_amount = $coupon_amount;
+            $order->order_status = "New";
+            $order->payment_method = $data['payment_method'];
+            $order->grand_total = $data['grand_total'];
+            $order->save();
+
+            //echo "<pre>"; print_r($data);die;
         }
     }
 }
