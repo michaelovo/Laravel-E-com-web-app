@@ -688,5 +688,13 @@ class ProductsController extends Controller
                
         return view('products.order_review')->with(compact('userDetails','shippingDetails','countries','userCart'));
     }
+
+    // place order
+    public function placeOrder(){
+        if($request->ismethod('post')){
+            // add alternate image
+            $data = $request->all();
+        }
+    }
 }
  

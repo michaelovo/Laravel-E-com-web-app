@@ -357,3 +357,15 @@ $(document).ready(function(){
     }); 
 });
 
+// payment method function alert if user failed to select one
+function selectPayMethod(){
+	if ($('#Paypal').is(':checked') || $('#COD').is(':checked')){
+
+	}else{
+		alert("Please select payment method");
+		return false;
+	}
+}
+
+
+
