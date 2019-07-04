@@ -515,9 +515,10 @@ class ProductsController extends Controller
     }
     // DISPLAY CART ITEMS AND IMAGES FROM CART TABLE ON CART BLADE FILE
     public function cart(){
-        /*
-        //prevent display of products from user cart table whenever user loggin
-        $session_id = Session::get('session_id');
+        
+        //Display products from user cart table when user is logged in by comparing user_email, odawize take usersession_id 
+
+        //$session_id = Session::get('session_id');
         if(Auth::check()){
             $user_email = Auth::user()->email;
             $userCart = DB::table('cart')->where(['user_email'=>$user_email])->get();
@@ -525,11 +526,12 @@ class ProductsController extends Controller
             $session_id = Session::get('session_id');
             $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();    
         }
-        */
         
         
+        /*
         $session_id = Session::get('session_id');
         $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
+        */
         
         // get and display each cart item product image
         foreach ($userCart as $key => $product) {
@@ -599,16 +601,15 @@ class ProductsController extends Controller
            if($expiry_date < $current_date){
             return redirect()->back()->with('flash_err_msg','This Coupon has Expired!');
            }
-           // coupon is valid for discount
-
-           // get cart total amount
-           
-            
-            
-            $session_id = Session::get('session_id');
-            $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
+           // coupon is valid for discount          
             
             /*
+            $session_id = Session::get('session_id');
+            $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
+            */
+            
+            
+            //Display products from user cart table when user is logged in by comparing user_email, odawize take usersession_id
             $session_id = Session::get('session_id');
             if(Auth::check()){
                 $user_email = Auth::user()->email;
@@ -617,8 +618,8 @@ class ProductsController extends Controller
                  $session_id = Session::get('session_id');
                 $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();    
             }
-            */
-            $total_amount = 0;
+            
+            $total_amount = 0; // get cart total amount
             foreach ($userCart as $item) {
                 $total_amount = $total_amount + ($item->price * $item->quantity); 
             }
@@ -628,13 +629,11 @@ class ProductsController extends Controller
             }else{
                 $couponAmount = $total_amount * ($couponDetails->amount/100);
             }
-             //echo $couponAmount; die;
-
+            
              //Add coupon code and amount in session
             Session::put('couponAmount',$couponAmount);
             Session::put('couponCode',$data['coupon_code']);
             return redirect()->back()->with('flash_success_msg','Coupon code successfully applied.you are availing discount!');
-
         }
 
     }
@@ -719,7 +718,6 @@ class ProductsController extends Controller
 
     // place order
     public function placeOrder(Request $request){
-
         // send user order details to orders table
         if($request->ismethod('post')){
             $data = $request->all();
@@ -740,8 +738,10 @@ class ProductsController extends Controller
 
             // insert into orders table
             $order = new Order;
+            // user details
             $order->user_id =$user_id;
             $order->user_email =$user_email;
+            //shipping details
             $order->name =$shippingDetails->name;
             $order->address =$shippingDetails->address;
             $order->city =$shippingDetails->city;
@@ -749,15 +749,13 @@ class ProductsController extends Controller
             $order->pincode =$shippingDetails->pincode;
             $order->country =$shippingDetails->country;
             $order->mobile =$shippingDetails->mobile;
-            
+            // paynemt details
             $order->coupon_code = $coupon_code;
             $order->coupon_amount = $coupon_amount;
             $order->order_status = "New";
             $order->payment_method = $data['payment_method'];
             $order->grand_total = $data['grand_total'];
             $order->save();
-
-            //echo "<pre>"; print_r($data);die;
         }
     }
 }
