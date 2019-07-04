@@ -135,28 +135,33 @@
 							</tr>
 							<?php $total_amount = $total_amount +($cart->price*$cart->quantity);?>
 						@endforeach
-
-
-						
+						<!---If coupon is valid and session is not timed out-->
 						<tr>
 							<td colspan="4">&nbsp;</td>
 							<td colspan="2">
 								<table class="table table-condensed total-result">
 									<tr>
 										<td>Cart Sub Total</td>
-										<td>$59</td>
-									</tr>
-									<tr>
-										<td>Exo Tax</td>
-										<td>$2</td>
+										<td>${{$total_amount}}</td>
 									</tr>
 									<tr class="shipping-cost">
-										<td>Shipping Cost</td>
-										<td>Free</td>										
+										<td>Shipping Cost(+)</td>
+										<td>$0</td>										
+									</tr>
+									
+									<tr class="shipping-cost">
+										<td>Discount Amount(-)</td>
+										<td>
+										@if(!empty(Session::get('couponAmount')))
+											${{ Session::get('couponAmount') }}
+										@else
+											$0
+										@endif										
+										</td>
 									</tr>
 									<tr>
-										<td>Total</td>
-										<td><span>$<?php echo $total_amount;?></span></td>
+										<td>Grand Total</td>
+										<td><span>${{$total_amount - Session::get('couponAmount')}}</span></td>
 									</tr>
 								</table>
 							</td>
