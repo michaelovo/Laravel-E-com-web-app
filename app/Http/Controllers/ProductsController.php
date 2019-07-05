@@ -614,7 +614,7 @@ class ProductsController extends Controller
             
             
             //Display products from user cart table when user is logged in by comparing user_email, odawize take usersession_id
-            $session_id = Session::get('session_id');
+            //$session_id = Session::get('session_id');
             if(Auth::check()){
                 $user_email = Auth::user()->email;
                 $userCart = DB::table('cart')->where(['user_email'=>$user_email])->get();
@@ -789,6 +789,9 @@ class ProductsController extends Controller
 
     // COD thank you page
     public function thanks(Request $request){
+        // empty shopping cart after user has placed orders
+        $user_email =Auth::user()->email;
+        DB::table('cart')->where('user_email',$user_email)->delete();
         return view('products.thanks');
     }
 }
