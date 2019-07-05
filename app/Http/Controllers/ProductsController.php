@@ -483,9 +483,13 @@ class ProductsController extends Controller
         if(empty($data['size'])){
             return redirect()->back()->with('flash_err_msg','Please select a size! Thank you!');
         } 
-        // if user mail is empty
-        if(empty($data['user_email'])){
+        /* 
+            if user mail is empty. This allows products from users cart to be to specific to each user and allowed items added to cart to be displayed immediately 
+        */
+        if(empty(Auth::user()->email)){
             $data['user_email'] ='';
+        }else{
+            $data['user_email'] = Auth::user()->email;
         }
 
         // if session_id does not exist, then creat one else use the existing session_id
