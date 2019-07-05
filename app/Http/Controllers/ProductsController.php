@@ -779,7 +779,17 @@ class ProductsController extends Controller
                 $cartPro->save();
                 # code...
             }
+
+            // create/ start session variable to get order_id and grand_total on COD thank you page
+            Session::put('order_id',$order_id);
+            Session::put('grand_total',$data['grand_total']);
+            return redirect('/thanks'); //redirect user to thank you page after saving order
         }
+    }
+
+    // COD thank you page
+    public function thanks(Request $request){
+        return view('products.thanks');
     }
 }
  
