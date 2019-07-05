@@ -794,5 +794,13 @@ class ProductsController extends Controller
         DB::table('cart')->where('user_email',$user_email)->delete();
         return view('products.thanks');
     }
+
+    // user orders page
+    public function userOrders(Request $request){
+        $user_id =Auth::user()->id; // get user id
+        $orders = Order::with('orders')->where('user_id',$user_id)->orderBy('id','DESC')->get(); //get all user orders
+        //dump($orders);
+        return view('products.user_orders')->with(compact('orders'));
+    }
 }
  
