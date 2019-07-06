@@ -800,7 +800,16 @@ class ProductsController extends Controller
         $user_id =Auth::user()->id; // get user id
         $orders = Order::with('orders')->where('user_id',$user_id)->orderBy('id','DESC')->get(); //get all user orders
         //dump($orders);
-        return view('products.user_orders')->with(compact('orders'));
+        return view('orders.user_orders')->with(compact('orders'));
+    }
+
+    // user order details page userOrderDetails
+    public function userOrderDetails($order_id=null){
+        $user_id =Auth::user()->id;
+        $orderDetails = Order::with('orders')->where('id',$order_id)->first();
+        //dump($orderDetails);
+        return view('orders.user_order_details')->with(compact('orderDetails'));
+
     }
 }
  
