@@ -14,10 +14,10 @@
 							@foreach($banners as $key => $banner)
 							<div class="item @if($key==0)active @endif">
 								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>{{$banner->msg}}</h2>
+									<h1><span>Jaylinks</span>-Compucomms</h1>
+									<h2>{{$banner->title}}</h2>
 									<p>{{$banner->msg}} </p>
-									<a href="{{$banner->link}}"><button type="button" class="btn btn-default get">Get it now</button></a>
+									<a href="{{url('/add-cart')}}"><button type="button" class="btn btn-success">Get it now</button></a>
 								</div>
 								<div class="col-sm-6">
 									<img src="{{asset('images/frontend_images/images/banners/'.$banner->image)}}" alt="" />							

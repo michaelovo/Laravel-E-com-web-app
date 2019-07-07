@@ -12,7 +12,7 @@ $mainCategories = Controller::mainCategories();
             <div class="contactinfo">
               <ul class="nav nav-pills">
                 <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                <li><a href="#"><i class="fa fa-envelope"></i> info@jlinkscomputers.com</a></li>
               </ul>
             </div>
           </div>
@@ -36,29 +36,29 @@ $mainCategories = Controller::mainCategories();
         <div class="row">
           <div class="col-sm-4">
             <div class="logo pull-left">
-              <a href="index.html"><img src="{{asset('images/frontend_images/images/home/logo.png')}}" alt="" /></a>
+              <a href="{{url('/')}}"><img style="width: 139px; height: 39px;" src="{{asset('images/frontend_images/images/home/logo.jpg')}}" alt="" /></a>
             </div>
             <div class="btn-group pull-right">
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                  USA
+                  NGN
                   <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu">
+                <!--ul class="dropdown-menu">
                   <li><a href="#">Canada</a></li>
                   <li><a href="#">UK</a></li>
-                </ul>
+                </ul-->
               </div>
               
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                  DOLLAR
+                  NAIRA
                   <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu">
+                <!--ul class="dropdown-menu">
                   <li><a href="#">Canadian Dollar</a></li>
                   <li><a href="#">Pound</a></li>
-                </ul>
+                </ul-->
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@ $mainCategories = Controller::mainCategories();
             <div class="shop-menu pull-right">
               <ul class="nav navbar-nav">
                 <!--li><a href="#"><i class="fa fa-user"></i> Account</a></li-->
-                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                <!--li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li-->
                 <li><a href="{{url('/orders')}}"><i class="fa fa-crosshairs"></i> Orders</a></li>
                 <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
@@ -112,13 +112,13 @@ $mainCategories = Controller::mainCategories();
                     
                     </ul>
                   </li> 
-                <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                <!--li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
                     <li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
                                 </li> 
-                <li><a href="404.html">404</a></li>
+                <li><a href="404.html">404</a></li-->
                 <li><a href="contact-us.html">Contact</a></li>
               </ul>
             </div>

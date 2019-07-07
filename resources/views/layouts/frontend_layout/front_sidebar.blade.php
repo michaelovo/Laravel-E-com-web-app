@@ -4,6 +4,7 @@
 							<div class="panel panel-default">
 								<!--START-- MAIN CATEGORIES-->
 								@foreach($categories as $cat)
+									@if($cat->status=="1")
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordian" href="#{{$cat->id}}">
@@ -17,13 +18,16 @@
 									<div class="panel-body">
 										<ul>
 											@foreach($cat->categories as $subcat)
+												@if($subcat->status=="1")
 											<li><a href="{{$subcat->url}}">{{$subcat->name}} </a></li>
+												@endif
 											@endforeach
-											
+											 
 										</ul>
 									</div>
 									<!-- END--SUB CATEGORIES-->
 								</div>
+									@endif
 								@endforeach
 								<!-- END --MAIN CATEGORIES-->
 							</div>
