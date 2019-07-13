@@ -7,6 +7,7 @@ use App\Country;
 use Auth;
 use Session;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -35,6 +36,12 @@ class UsersController extends Controller
     			$user->save();
     			if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
     				Session::put('frontSession',$data['email']); //start 'frontSession' whenever a user registers
+
+                    // if session_id does not exist, then creat one else use the existing session_id
+                    if(!empty(session::get('session_id()'))){
+                      $session_id = Session::get('session_id');
+                      DB::table('cart')->where('session_id',$session_id)->update(['user_email'=>$data['email']]);
+                    }
     				return redirect('/cart');
     			}
     		}
@@ -59,6 +66,13 @@ class UsersController extends Controller
 	        $data=$request->input();
 	        if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
 	        	Session::put('frontSession',$data['email']); //start 'frontSession' whenever a user login
+
+                // if session_id does not exist, then creat one else use the existing session_id
+                if(!empty(session::get('session_id()'))){
+                  $session_id = Session::get('session_id');
+                  DB::table('cart')->where('session_id',$session_id)->update(['user_email'=>$data['email']]);
+                }
+
 	 	        return redirect('/cart');
 	        }
 	        else{

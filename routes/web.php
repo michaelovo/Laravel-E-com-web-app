@@ -74,6 +74,8 @@ Route::group(['middleware'=>['frontlogin']],function(){
 
   	//payment route
   	Route::get('/thanks', 'ProductsController@thanks'); //COD thank you page
+  	Route::get('/paypal', 'ProductsController@paypal'); //paypal thank you page
+
 
 
 

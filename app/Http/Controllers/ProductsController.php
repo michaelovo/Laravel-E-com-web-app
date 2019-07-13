@@ -85,8 +85,7 @@ class ProductsController extends Controller
             }else{
                 $status=1;
             }
-            $product->status=$status;
-        	$product->save();
+            $product->status=$status;@        	$product->save();
         	// return redirect()->back()->with('flash_success_msg','New product Added successfully!');
         	  return redirect('/admin/view-product')->with('flash_success_msg','New Product Added successfully!');        	  	
     	}
@@ -783,7 +782,13 @@ class ProductsController extends Controller
             // create/ start session variable to get order_id and grand_total on COD thank you page
             Session::put('order_id',$order_id);
             Session::put('grand_total',$data['grand_total']);
-            return redirect('/thanks'); //redirect user to thank you page after saving order
+
+            // Payment page conditions
+            if($data['payment_method']=='COD'){
+                return redirect('/thanks'); //redirect user to thank you page after saving order
+            }else{
+                return redirect('/paypal'); //redirect to paypal page after saving orders 
+            }
         }
     }
 
@@ -792,7 +797,15 @@ class ProductsController extends Controller
         // empty shopping cart after user has placed orders
         $user_email =Auth::user()->email;
         DB::table('cart')->where('user_email',$user_email)->delete();
-        return view('products.thanks');
+        return view('orders.thanks');
+    }
+
+    // paypal thank you page
+    public function paypal(Request $request){
+         //empty shopping cart after user has placed orders
+        $user_email =Auth::user()->email;
+        DB::table('cart')->where('user_email',$user_email)->delete();
+        return view('orders.paypal');
     }
 
     // user orders page
