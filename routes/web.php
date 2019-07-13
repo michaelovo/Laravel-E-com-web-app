@@ -131,6 +131,11 @@ Route::group(['middleware'=>['auth']],function(){
      Route::get('/admin/delete-banner-image/{id}','BannersController@deleteBannerImage');
      Route::get('/admin/delete-banner/{id}','BannersController@deleteBanner');//delete banner
 
+
+     //Admin order route
+     Route::get('/admin/view-order','ProductsController@viewOrders');//view orders
+     
+
    
 
 

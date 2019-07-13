@@ -824,5 +824,13 @@ class ProductsController extends Controller
         return view('orders.user_order_details')->with(compact('orderDetails'));
 
     }
+
+    // view user orders viewOrder
+    public function viewOrders(){
+
+        $orders = Order::with('orders')->orderBy('id','desc')->get();
+        return view('admin.orders.view_orders')->with(compact('orders'));
+    }
+
 }
  

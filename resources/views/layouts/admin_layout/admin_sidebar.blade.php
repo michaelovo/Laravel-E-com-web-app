@@ -37,6 +37,16 @@
       </ul>
     </li>
 
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+      <span>Orders</span> <span class="label label-important">1</span></a>
+
+      <ul <?php if (preg_match("/orders/i",$url)){ ?> style="display:block" <?php } ?>>
+
+          <li <?php if (preg_match("/view-order/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-order')}}"><i class="icon icon-eye-open"></i>View orders</a>
+        
+      </ul>
+    </li>
+
      <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
       <span>Sliders</span> <span class="label label-important">2</span></a>
 
