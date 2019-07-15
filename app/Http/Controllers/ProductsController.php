@@ -832,5 +832,10 @@ class ProductsController extends Controller
         return view('admin.orders.view_orders')->with(compact('orders'));
     }
 
+    // Admin view order details page viewOrderDetails
+    public function viewOrdersDetails($order_id ){
+        $orderDetails = Order::with('orders')->where('id',$order_id)->first();
+        return view('admin.orders.order_details')->with(compact('orderDetails'));
+    }
+
 }
- 

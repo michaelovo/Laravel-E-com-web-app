@@ -41,6 +41,7 @@ Route::get('/product/{id}', 'ProductsController@product');
 Route::get('/get-product-price', 'ProductsController@getProductPrice');
 
 //START--FRONTEND USERS ROUTE
+	
 	//login/ register routes
 Route::get('/login-register','UsersController@userLoginRegister');	//register_login page
 Route::post('/user-register','UsersController@register');	//user register form
@@ -75,12 +76,6 @@ Route::group(['middleware'=>['frontlogin']],function(){
   	//payment route
   	Route::get('/thanks', 'ProductsController@thanks'); //COD thank you page
   	Route::get('/paypal', 'ProductsController@paypal'); //paypal thank you page
-
-
-
-
-
-	
 
 });
 //END---FRONTEND USERS ROUTE
@@ -134,6 +129,7 @@ Route::group(['middleware'=>['auth']],function(){
 
      //Admin order route
      Route::get('/admin/view-order','ProductsController@viewOrders');//view orders
+     Route::get('/admin/view_order/{id}','ProductsController@viewOrdersDetails');//view orders details
      
 
    
