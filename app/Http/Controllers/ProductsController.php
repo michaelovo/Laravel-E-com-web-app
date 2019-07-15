@@ -835,7 +835,10 @@ class ProductsController extends Controller
     // Admin view order details page viewOrderDetails
     public function viewOrdersDetails($order_id ){
         $orderDetails = Order::with('orders')->where('id',$order_id)->first();
-        return view('admin.orders.order_details')->with(compact('orderDetails'));
+        $user_id = $orderDetails->user_id;// get user id
+            // compare user id and get user details if matched
+        $userDetails = User::where('id',$user_id)->first();
+        return view('admin.orders.order_details')->with(compact('orderDetails','userDetails'));
     }
 
 }

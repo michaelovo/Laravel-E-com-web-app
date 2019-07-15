@@ -55,7 +55,7 @@
                   <td class="center">
                     <div class="fl">
                     
-                      <a target="_blank" href="{{url('/admin/view_order/'.$order->id)}}" class=" icon icon-eye-open btn btn-success" title="View orders Details"></a>                                            
+                      <a href="{{url('/admin/view_order/'.$order->id)}}" class=" icon icon-eye-open btn btn-success" title="View orders Details"></a>                                            
                    </div>                                      
                   </td>                
               </tr>
