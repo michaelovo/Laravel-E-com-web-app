@@ -7,6 +7,7 @@
     <h1>Order #{{$orderDetails->id}}</h1>
   </div>
   <div class="container-fluid">
+     @include('includes.msg')
     <hr>
     <div class="row-fluid">
       <div class="span6">
@@ -105,8 +106,28 @@
             </div>
             <div class="collapse in accordion-body" id="collapseGOne">
                <div class="widget-content"> 
-                
-                
+                <form action="{{url('admin/update-order-status')}}" method="post">
+                  {{csrf_field()}}
+                   <input type="hidden" value="{{$orderDetails->id}}" name="order_id" id="order_id ">
+                  <table width="100%">
+                    <tr>
+                      <td>
+                        <!---Conditionally autoselect from db---->
+                        <select name="order_status" id="order_status" class="control-label" required="required">
+                          <option value="New" @if($orderDetails->order_status=="New") selected @endif>New</option>
+                          <option value="Pending"  @if($orderDetails->order_status=="Pending") selected @endif>Pending</option>
+                          <option value="In process"  @if($orderDetails->order_status=="In process") selected @endif>In process</option>
+                          <option value="Shipped" @if($orderDetails->order_status=="Shipped") selected @endif>Shipped</option>
+                          <option value="Delivered" @if($orderDetails->order_status=="Delivered") selected @endif>Delivered</option>
+                          <option value="Paid" @if($orderDetails->order_status=="Paid") selected @endif>Paid</option>
+                        </select>
+                      </td>
+                      <td>
+                         <input type="submit" value="Update Status">
+                      </td>
+                    </tr>
+                  </table>
+                </form>
               </div>
             </div>
           </div>   

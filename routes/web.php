@@ -130,7 +130,7 @@ Route::group(['middleware'=>['auth']],function(){
      //Admin order route
      Route::get('/admin/view-order','ProductsController@viewOrders');//view orders
      Route::get('/admin/view_order/{id}','ProductsController@viewOrdersDetails');//view orders details
-     
+     Route::post('/admin/update-order-status','ProductsController@updateOrderStatus');//update orders status
 
    
 

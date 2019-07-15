@@ -840,5 +840,17 @@ class ProductsController extends Controller
         $userDetails = User::where('id',$user_id)->first();
         return view('admin.orders.order_details')->with(compact('orderDetails','userDetails'));
     }
+    // Admin update order status
+    public function  updateOrderStatus(Request $request ){
+        if($request->ismethod('post')){
+            $data=$request->all();
+            //echo "<pre>"; print_r($data); die;
+            Order::where('id',$data['order_id'])->update(['order_status'=>$data['order_status']]);
+            return redirect()->back()->with('flash_success_msg','Order status has been updated successfully!');
+        }
+
+
+    }
+   
 
 }
