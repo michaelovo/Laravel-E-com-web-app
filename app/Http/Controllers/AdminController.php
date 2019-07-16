@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Session;
 use App\User;
+use App\Admin;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -13,13 +14,12 @@ class AdminController extends Controller
     public function login(Request $request){
       if($request->ismethod('post')){
         $data=$request->input();
-        if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'admin'=>'1'])){
-        //  echo "succes";die;
-        /*
-        * This protects admin route using 'Session' approach
-        //Session::put('adminSession',$data['email']);
-        */
-        return redirect('/admin/dashboard');
+        $adminCount=Admin::where(['username'=>$data['username'],'password'=>md5($data['password']),'status'=>1])->count();
+        
+        if($adminCount >0){
+          //This protects admin route using 'Session' approach
+          Session::put('adminSession',$data['username']);
+          return redirect('/admin/dashboard');
         }
         else{
           //echo "failed";die;
