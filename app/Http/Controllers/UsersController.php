@@ -8,8 +8,8 @@ use Auth;
 use Session;
 use Illuminate\Support\Facades\Hash;
 use DB;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -34,6 +34,16 @@ class UsersController extends Controller
     			$user->email = $data['email'];
     			$user->password = bcrypt($data['password']); //bcrypt user password for security
     			$user->save();
+
+                //Start...Send register email
+                $email = $data['email'];
+                $messageData =['email'=>$data['email'],'name'=>$data['name']];
+                Mail::send('emails.register',$messageData,function($message)use($email){
+                    $message->to($email)->subject('Registration with e-com website');
+                });
+
+                //End...Send register email
+
     			if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
     				Session::put('frontSession',$data['email']); //start 'frontSession' whenever a user registers
 
