@@ -48,14 +48,14 @@ Route::post('/user-register','UsersController@register');	//user register form
 Route::match(['get','post'],'/check-email','UsersController@checkEmail'); //check if user email already exists
 Route::post('user-login','UsersController@login');	// user login
 Route::get('/user-logout','UsersController@logout');	// user logout
+Route::get('confirm/{code}','UsersController@confirmAccount');	// user Confirm account
+
 	
 	//All user route after login
 Route::group(['middleware'=>['frontlogin']],function(){
 	Route::match(['get','post'],'account','UsersController@account');//User account page
 	Route::get('/check-user-pwd','UsersController@chkUserPwd'); //check user current against old password
-  	Route::match(['get','post'],'/update-user-pwd','UsersController@updateUserPwd'); //update user pwd
-
-  	
+  	Route::match(['get','post'],'/update-user-pwd','UsersController@updateUserPwd'); //update user pwd 	
 
 	// All cart routes
 	Route::match(['get','post'],'/add-cart','ProductsController@addtocart');//Add to cart route

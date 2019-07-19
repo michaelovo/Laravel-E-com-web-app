@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Confirmation Email</title>
+    <title>Welcome Email</title>
   </head>
   <body>
     <table>
       <tr><td>Dear {{ $name }}!</td></tr>
       <tr><td>&nbsp;</td></tr>
-      <tr><td>Please click on below link to activate your account</td></tr>
+      <tr><td>Your account has been activated successfully.<br> Below are your account information:</td></tr>
       <tr><td>&nbsp;</td></tr>
-      <tr><td><a href="{{url('confirm/'.$code)}}">Confirm account</a></td></tr>
+      <tr><td>Email: {{$email}} <br> Password:**** (as chosen by you)</td></tr>
       <tr><td>&nbsp;</td></tr>
       <tr><td>Thanks & Regards, <br> E-com website.</td> </tr>
     </table>

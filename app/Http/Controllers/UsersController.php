@@ -68,17 +68,48 @@ class UsersController extends Controller
 	    }	
     }
 
+    // confirm account function
+    public function confirmAccount($email){
+        $email = base64_decode($email);
+        //checks if email exist or not
+        $userCount = User::where('email',$email)->count();
+        if($userCount > 0){
+            //check if user already confirm/activate account
+            $userDetails = User::where('email',$email)->first(); //get user email
+            if($userDetails->status == 1){
+                return redirect('login-register')->with('flash_success_msg','Your email account is already activated. You can now login!');
+            }else{
+                User::where('email',$email)->update(['status'=>1]); // update status
+
+                //Start.. send welcome message to user
+                $messageData =['email'=>$email,'name'=>$userDetails->name];
+                Mail::send('emails.welcome',$messageData,function($message)use($email){
+                    $message->to($email)->subject('Welcome to e-com website');
+                });
+                //End...Send welcome message to user
+                
+                return redirect('login-register')->with('flash_success_msg','Your email account is activated. You can now login!');
+            }
+        }else{
+            abort(404);
+
+        }
+
+    }
+
+
     //Using jqquery remote function to check uniqueness of user email
     public function checkEmail(Request $request){
-    	//Jquery remote function:check if user already exists with dsame email i.e email should be unique
-    	$data=$request->all();
-	   	$usersCount = User::where('email',$data['email'])->count();
-	    if($usersCount >0){
-	    	echo "false";die;
-	    }else{
-	    	echo "true";die;
-	    }
+        //Jquery remote function:check if user already exists with dsame email i.e email should be unique
+        $data=$request->all();
+        $usersCount = User::where('email',$data['email'])->count();
+        if($usersCount >0){
+            echo "false";die;
+        }else{
+            echo "true";die;
+        }
     }
+
     
     //login function
     public function login(Request $request){
@@ -89,7 +120,7 @@ class UsersController extends Controller
 
                 //if status value is false
                 if($userStatus->status == 0){
-                     return redirect()->back()->with('flash_err_msg','Your account is not activated. Please contact admin!');
+                     return redirect()->back()->with('flash_err_msg','Your account is not activated. Please confirm your email to activate!');
                 }
 	        	Session::put('frontSession',$data['email']); //start 'frontSession' whenever a user login
 
