@@ -18,6 +18,7 @@ use App\DeliveryAddress;
 use App\User;
 use App\Order;
 use App\OrdersProduct;
+use Illuminate\Support\Facades\Mail;
 
 
 class ProductsController extends Controller
@@ -785,6 +786,22 @@ class ProductsController extends Controller
 
             // Payment page conditions
             if($data['payment_method']=='COD'){
+                // get product details
+                $productDetails = Order::with('orders')->where('id',$order_id)->first();
+                 $userDetails = User::where('id',$user_id)->first(); //get user details
+                // Start....Code for order email
+                $email = $user_email;
+                $messageData = [
+                    'email'=>$email,
+                    'name'=>$shippingDetails->name,
+                    'order_id'=>$order_id,
+                    'productDetails'=>$productDetails,
+                    'userDetails'=>$userDetails
+                 ];
+                 Mail::send('emails.order',$messageData,function($message)use($email){
+                    $message->to($email)->subject('Order Placed- E-com website');
+                });
+                // End....Code for order email
                 return redirect('/thanks'); //redirect user to thank you page after saving order
             }else{
                 return redirect('/paypal'); //redirect to paypal page after saving orders 
