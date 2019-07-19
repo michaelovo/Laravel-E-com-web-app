@@ -22,8 +22,7 @@ class UsersController extends Controller
     public function register(Request $request){
     	if($request->isMethod('post')){
     		$data=$request->all();
-    		//echo "<pre>"; print_r($data); die;
-
+    		
     		//php:check if user already exists with dsame email i.e email should be unique
     		$usersCount = User::where('email',$data['email'])->count();
     		if($usersCount >0){
@@ -34,7 +33,7 @@ class UsersController extends Controller
     			$user->email = $data['email'];
     			$user->password = bcrypt($data['password']); //bcrypt user password for security
     			$user->save();
-
+                /*
                 //Start...Send register email
                 $email = $data['email'];
                 $messageData =['email'=>$data['email'],'name'=>$data['name']];
@@ -43,6 +42,17 @@ class UsersController extends Controller
                 });
 
                 //End...Send register email
+                */
+
+                //Start...Send confirmation email
+                $email = $data['email'];
+                $messageData =['email'=>$data['email'],'name'=>$data['name'],'code'=>base64_encode($data['email'])];
+                Mail::send('emails.confirmation',$messageData,function($message)use($email){
+                    $message->to($email)->subject('Confirm your e-com account');
+                });
+                return redirect()->back()->with('flash_success_msg','Please confirm your email to activate your account!');
+
+                //End...Send confirmation email
 
     			if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
     				Session::put('frontSession',$data['email']); //start 'frontSession' whenever a user registers
@@ -75,6 +85,12 @@ class UsersController extends Controller
     	if($request->ismethod('post')){
 	        $data=$request->input();
 	        if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
+                $userStatus = User::where('email',$data['email'])->first();
+
+                //if status value is false
+                if($userStatus->status == 0){
+                     return redirect()->back()->with('flash_err_msg','Your account is not activated. Please contact admin!');
+                }
 	        	Session::put('frontSession',$data['email']); //start 'frontSession' whenever a user login
 
                 // if session_id does not exist, then creat one else use the existing session_id
