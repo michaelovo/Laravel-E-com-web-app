@@ -98,8 +98,6 @@ Route::group(['middleware'=>['adminlogin']],function(){
    Route::match(['get','post'],'/admin/edit-product/{id}','ProductsController@editProduct');
    Route::get('/admin/delete-product-image/{id}','ProductsController@deleteProductImage');
    Route::match(['get','post'],'/admin/delete-product/{id}','ProductsController@deleteProduct');
-   
-
 
    // Products attributes route
     Route::match(['get','post'],'/admin/add-attributes/{id}','ProductsController@addAttributes');
@@ -109,7 +107,6 @@ Route::group(['middleware'=>['adminlogin']],function(){
    // Admin products alternate images
     Route::match(['get','post'],'/admin/add-images/{id}','ProductsController@addImages');
     Route::get('/admin/delete-alt-image/{id}','ProductsController@deleteAltImage');
-
 
     //Admin Coupons route
      Route::match(['get','post'],'/admin/add-coupon','CouponController@addCoupon');//add coupon
@@ -131,6 +128,9 @@ Route::group(['middleware'=>['adminlogin']],function(){
      Route::get('/admin/view-order','ProductsController@viewOrders');//view orders
      Route::get('/admin/view_order/{id}','ProductsController@viewOrdersDetails');//view orders details
      Route::post('/admin/update-order-status','ProductsController@updateOrderStatus');//update orders status
+
+     //Admin user routes
+     Route::get('/admin/view-users','UsersController@viewUsers');// view users
 
    
 

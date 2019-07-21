@@ -205,4 +205,11 @@ class UsersController extends Controller
       }
     }
     // Ends -- Update User password
+
+    //Admin users
+    public function viewUsers(){
+        $users = User::get();
+        return view('admin.users.view_users')->with(compact('users'));
+
+    }
 }

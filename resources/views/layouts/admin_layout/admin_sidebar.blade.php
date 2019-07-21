@@ -5,7 +5,7 @@
   <ul>
     <!--php pattern match function to compare urls and highlight active/select url--->
     <li <?php if (preg_match("/dashboard/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/dashboard')}}"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-   
+   <!---Category Management--->
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
       <span>Categories</span> <span class="label label-important">2</span></a>
 
@@ -16,6 +16,8 @@
         
       </ul>
     </li>
+
+    <!---Products Management --->
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
       <span>Products</span> <span class="label label-important">2</span></a>
 
@@ -26,6 +28,8 @@
         
       </ul>
     </li>
+
+    <!---Coupon Management--->
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
       <span>Coupons</span> <span class="label label-important">2</span></a>
 
@@ -37,6 +41,7 @@
       </ul>
     </li>
 
+    <!---View users orders--->
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
       <span>Orders</span> <span class="label label-important">1</span></a>
 
@@ -47,7 +52,8 @@
       </ul>
     </li>
 
-     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+      <!---Slider/Banner Management--->
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
       <span>Sliders</span> <span class="label label-important">2</span></a>
 
       <ul <?php if (preg_match("/sliders/i",$url)){ ?> style="display:block" <?php } ?>>
@@ -57,6 +63,19 @@
         
       </ul>
     </li>
+
+    <!---View Users--->
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+      <span>Users</span> <span class="label label-important">1</span></a>
+
+      <ul <?php if (preg_match("/users/i",$url)){ ?> style="display:block" <?php } ?>>
+
+          <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>View users</a>
+        
+      </ul>
+    </li>
+
+    <!---Password settings--->
     <li class="submenu"> <a href="#"><i class="icon icon-cog"></i> <span>Settings</span> <span class="label label-important">1</span></a>
       <ul <?php if (preg_match("/settings/i",$url)){ ?> style="display:block" <?php } ?>>
         <li  <?php if (preg_match("/settings/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/settings')}}"><i class="icon icon-edit"></i>Update password</a></li>
@@ -65,6 +84,7 @@
       </ul>
     </li>
     
+    <!---Logout--->
     <li  <?php if (preg_match("/logout/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/logout')}}"><i class="icon icon-off"></i> <span>Logout</span></a></li>
   </ul>
 </div>
