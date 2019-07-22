@@ -419,6 +419,22 @@ class ProductsController extends Controller
     }
          //END--CATEGORY LISTING FUNCTION
 
+    // Search for products function on front_header
+    public function searchProducts(Request $request ){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // get all categories and subcategories along with the 'categories' relationship
+            $categories = Category::with('categories')->where(['parent_id'=>0])->get();
+            $search_product = $data['product'];// search variable
+
+             // Search using product name and code to display only product whose status value=1
+            $productsAll = Product::where('product_name','like','%'.$search_product.'%')->orwhere('product_code',$search_product)->where('status',1)->get();
+
+             return view('products.listing')->with(compact('search_product','productsAll','categories'));
+        }
+
+    }
+
      // GET PRODUCT DETAILS
     public function product($id=null){
         // show 404 page if product is disabled
@@ -819,7 +835,7 @@ class ProductsController extends Controller
 
     // paypal thank you page
     public function paypal(Request $request){
-         //empty shopping cart after user has placed orders
+        //empty shopping cart after user has placed orders
         $user_email =Auth::user()->email;
         DB::table('cart')->where('user_email',$user_email)->delete();
         return view('orders.paypal');
@@ -858,7 +874,7 @@ class ProductsController extends Controller
         return view('admin.orders.order_details')->with(compact('orderDetails','userDetails'));
     }
     // Admin update order status
-    public function  updateOrderStatus(Request $request ){
+    public function updateOrderStatus(Request $request ){
         if($request->ismethod('post')){
             $data=$request->all();
             //echo "<pre>"; print_r($data); die;
@@ -868,6 +884,8 @@ class ProductsController extends Controller
 
 
     }
+
+
    
 
 }

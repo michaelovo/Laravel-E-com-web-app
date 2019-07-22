@@ -40,6 +40,10 @@ Route::get('/product/{id}', 'ProductsController@product');
 //get product attribute price
 Route::get('/get-product-price', 'ProductsController@getProductPrice');
 
+//Search product route
+Route::post('/search-products', 'ProductsController@searchProducts');
+
+
 //START--FRONTEND USERS ROUTE
 	
 	//login/ register routes
@@ -51,7 +55,7 @@ Route::get('/user-logout','UsersController@logout');	// user logout
 Route::get('confirm/{code}','UsersController@confirmAccount');	// user Confirm account
 
 	
-	//All user route after login
+	//FRONTEND MIDDLEWARE---All user route after login
 Route::group(['middleware'=>['frontlogin']],function(){
 	Route::match(['get','post'],'account','UsersController@account');//User account page
 	Route::get('/check-user-pwd','UsersController@chkUserPwd'); //check user current against old password

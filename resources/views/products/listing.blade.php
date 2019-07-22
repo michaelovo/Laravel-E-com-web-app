@@ -1,8 +1,8 @@
 @extends('layouts.frontend_layout.front_design')
 @section('content')
-	
-	<section>
-		<div class="container">
+
+<section>
+	<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
 					<!---Left sidebar--->
@@ -11,7 +11,15 @@
 				
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">{{$categoriesDetails->name}}</h2>
+						<h2 class="title text-center">
+							<!---Search and displays product if found else displays searched data--->
+							@if(!empty($search_product))
+								{{$search_product}} Item
+							@else
+								{{$categoriesDetails->name}} Items
+							@endif
+
+						</h2>
 
 						@foreach($productsAll as $product)
 						<div class="col-sm-4">
@@ -49,8 +57,7 @@
 					
 				</div>
 			</div>
-		</div>
-	</section>
-
+	</div>
+</section>
 
 @endsection
