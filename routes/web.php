@@ -133,13 +133,14 @@ Route::group(['middleware'=>['adminlogin']],function(){
      Route::get('/admin/view_order/{id}','ProductsController@viewOrdersDetails');//view orders details
      Route::post('/admin/update-order-status','ProductsController@updateOrderStatus');//update orders status
 
+
+     // Admin Invoice route
+     Route::get('/admin/view-order-invoice/{id}','ProductsController@viewOrdersInvoice');//Invoice details
+
      //Admin user routes
      Route::get('/admin/view-users','UsersController@viewUsers');// view users
 
    
-
-
-
 });
 
 Route::get('/logout','AdminController@logout');

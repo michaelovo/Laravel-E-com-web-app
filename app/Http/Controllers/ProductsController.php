@@ -916,6 +916,16 @@ class ProductsController extends Controller
         $userDetails = User::where('id',$user_id)->first();
         return view('admin.orders.order_details')->with(compact('orderDetails','userDetails'));
     }
+
+    // Admin generate invoice
+    public function viewOrdersInvoice($order_id ){
+        $orderDetails = Order::with('orders')->where('id',$order_id)->first();
+        $user_id = $orderDetails->user_id;// get user id
+            // compare user id and get user details if matched
+        $userDetails = User::where('id',$user_id)->first();
+        return view('admin.orders.order_invoice')->with(compact('orderDetails','userDetails'));
+    }
+    
     // Admin update order status
     public function updateOrderStatus(Request $request ){
         if($request->ismethod('post')){
