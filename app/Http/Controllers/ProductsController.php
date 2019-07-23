@@ -507,10 +507,17 @@ class ProductsController extends Controller
         if($getProductStock->stock < $data['quantity']){
             return redirect()->back()->with('flash_err_msg','Required quantity is not available at the monment!');
         }
+
+        // if users' supplied quantity is less than one
+        if($data['quantity']<1){
+            return redirect()->back()->with('flash_err_msg','Invalid quantity! please enter a valid quantity');
+        }
         //END----Check if product stock is available or not or less dan user demanded quantity
 
         /* 
-            if user mail is empty. This allows products from users cart to be to specific to each user and allowed items added to cart to be displayed immediately 
+            if user mail is empty. This allows products from users cart to be to specific to each user and allowed items added to cart to be displayed immediately. If user is not login submit empty string to user_email field else submit user email to user_email field.
+
+            NB: The cart blade is included in the Route::group(['middleware'=>['frontlogin']] function(i.e user must always login before he/she can add items to cart), hence, user email will always be submitted to user_email field
         */
         if(empty(Auth::user()->email)){
             $data['user_email'] ='';
@@ -526,6 +533,32 @@ class ProductsController extends Controller
             
         }
          $sizeArr = explode("-",$data['size']); //send only the size name to cart table not (id-size, e.g 4-medium)
+
+        /*
+         NB: If the cart blade is not included in the Route::group(['middleware'=>['frontlogin']] function(i,e if user is not login), this will be necessary.
+
+        if(empty(Auth::check())){
+            // to prevent duplicate of cart products in thesame session i.e having thesame seesion_id
+            $countProducts =DB::table('cart')->where(['product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$sizeArr[1],'session_id'=>$session_id])->count();//die;
+         
+            //if product does not exist for that session then add product else redirect
+            if($countProducts >0){
+                return redirect()->back()->with('flash_err_msg','Product Already Exists in Cart!');
+            }
+    
+        }else{
+            // to prevent duplicate of cart products in thesame session i.e having thesame seesion_id
+            $countProducts =DB::table('cart')->where(['product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$sizeArr[1],'user_email'=>$data['user_email']])->count();//die;
+         
+            //if product does not exist for that session then add product else redirect
+            if($countProducts >0){
+                return redirect()->back()->with('flash_err_msg','Product Already Exists in Cart!');
+            }
+    
+        }
+
+
+        */
 
          // to prevent duplicate of cart products in thesame session i.e having thesame seesion_id
          $countProducts =DB::table('cart')->where(['product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$sizeArr[1],'session_id'=>$session_id])->count();//die;
