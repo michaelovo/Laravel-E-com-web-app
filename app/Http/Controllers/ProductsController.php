@@ -495,10 +495,20 @@ class ProductsController extends Controller
         Session::forget('couponCode');
 
         $data = $request->all();
+
        //If no size is selected before adding to cart then display error message
         if(empty($data['size'])){
             return redirect()->back()->with('flash_err_msg','Please select a size! Thank you!');
         } 
+        //START----Check if product stock is available or not or less dan user demanded quantity
+        $product_size = explode("-",$data['size']);//seperate d size frm id and Display only size name
+        $getProductStock = ProductsAttribute::where(['product_id'=>$data['product_id'],'size'=>$product_size[1]])->first();
+        //echo $getProductStock->stock;die;
+        if($getProductStock->stock < $data['quantity']){
+            return redirect()->back()->with('flash_err_msg','Required quantity is not available at the monment!');
+        }
+        //END----Check if product stock is available or not or less dan user demanded quantity
+
         /* 
             if user mail is empty. This allows products from users cart to be to specific to each user and allowed items added to cart to be displayed immediately 
         */
