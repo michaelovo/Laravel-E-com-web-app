@@ -48,7 +48,7 @@
                   <td>{{$product->product_code}}</td>
                  
                   
-                  <td>{{$product->price}}</td>
+                  <td>&#8358;{{$product->price}}</td>
                   <td> @if($product->status==1)Enabled @else Disabled @endif</td>
                   <td> @if($product->feature_item==1)Yes @else No @endif</td>
                   <td>
@@ -83,7 +83,7 @@
                     <div class="modal-body">
                       <p> 
                         Product id: {{$product->id}}<br>
-                        Category id: {{$product->category_id}}<br>                               Category name: {{$product->category_name}}<br>                               Product Code: {{$product->product_code}}<br>                               Product Color:  {{$product->product_color}} <br>                           Price:  {{$product->price}}<br>
+                        Category id: {{$product->category_id}}<br>                               Category name: {{$product->category_name}}<br>                               Product Code: {{$product->product_code}}<br>                               Product Color:  {{$product->product_color}} <br>                           Price:  &#8358;{{$product->price}}<br>
                         Description:  {{$product->description}}<br>  
                         Material & care:  {{$product->care}}<br>          
                       </p>

@@ -49,7 +49,7 @@
                       {{ $pro->product_code }} ({{ $pro->product_qty }})<br/>
                     @endforeach
                   </td>
-                  <td>{{$order->grand_total}}</td>
+                  <td>&#8358;{{$order->grand_total}}</td>
                   <td>{{$order->order_status}}</td>
                   <td>{{$order->payment_method}}</td>
                   <td>

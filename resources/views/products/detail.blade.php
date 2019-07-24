@@ -67,7 +67,7 @@
 									</p>
 									<img src="{{asset('images/frontend_images/images/product-details/rating.png')}}" alt="" />
 									<span>
-										<span id="getPrice">US ${{$productDetails->price}}</span>
+										<span id="getPrice">&#8358;{{$productDetails->price}}</span>
 										<label>Quantity:</label>
 										<input type="text" name="quantity" value="1" />
 										<!---if no stock, hide the 'Add to cart' button--->
@@ -161,7 +161,7 @@
 													<div class="single-products">
 														<div class="productinfo text-center">
 															<img style="width:200px;" src="{{asset('images/backend_images/products/small/'.$item->image)}}" alt="" />
-															<h2>${{$item->price}}</h2>
+															<h2>&#8358;{{$item->price}}</h2>
 															<p>{{$item->product_name}}</p>
 															
 															<!--Add to cart link--->

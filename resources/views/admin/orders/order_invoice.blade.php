@@ -44,7 +44,7 @@
           <div class="col-xs-6">
             <address>
               <strong>Payment Method:</strong><br><!----Payment Method/user email------->
-             {{$orderDetails->payment_method}} ending **** 4242<br>
+             {{$orderDetails->payment_method}}<br>
               {{$orderDetails->user_email}}
             </address>
           </div>

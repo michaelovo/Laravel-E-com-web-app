@@ -35,7 +35,7 @@
 									
 								</td>
 								<td class="cart_price">
-									<p>${{$cart->price}}</p>
+									<p>&#8358;{{$cart->price}}</p>
 								</td>
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
@@ -48,7 +48,7 @@
 									</div>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price">${{$cart->price*$cart->quantity}}</p>
+									<p class="cart_total_price">&#8358;{{$cart->price*$cart->quantity}}</p>
 								</td>
 								<td class="cart_delete">
 									<a class="cart_quantity_delete" href="{{url('/cart/delete-product/'.$cart->id)}}"><i class="fa fa-times"></i></a>
@@ -92,12 +92,12 @@
 						<ul>
 							<!---If coupon is valid and session is not timed out-->
 							@if(!empty(Session::get('couponAmount')))
-								<li>Sub Total <span>$<?php echo $total_amount;?></span></li>
-								<li>Coupon Discount <span>$<?php echo Session::get('couponAmount');?></span></li>
-								<li>Grand Total <span>$<?php echo $total_amount - Session::get('couponAmount');?></span></li>
+								<li>Sub Total <span>&#8358;<?php echo $total_amount;?></span></li>
+								<li>Coupon Discount <span>&#8358;<?php echo Session::get('couponAmount');?></span></li>
+								<li>Grand Total <span>&#8358;<?php echo $total_amount - Session::get('couponAmount');?></span></li>
 							@else
 								<!---If coupon is not valid -->
-								<li>Grand Total <span>$<?php echo $total_amount;?></span></li>
+								<li>Grand Total <span>&#8358;<?php echo $total_amount;?></span></li>
 							@endif
 						</ul>
 							<a class="btn btn-default update" href="">Update</a>

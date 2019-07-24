@@ -114,7 +114,7 @@
 									
 								</td>
 								<td class="cart_price">
-									<p>${{$cart->price}}</p>
+									<p>&#8358;{{$cart->price}}</p>
 								</td>
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
@@ -127,7 +127,7 @@
 									</div>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price">${{$cart->price*$cart->quantity}}</p>
+									<p class="cart_total_price">&#8358;{{$cart->price*$cart->quantity}}</p>
 								</td>
 								<td class="cart_delete">
 									<a class="cart_quantity_delete" href="{{url('/cart/delete-product/'.$cart->id)}}"><i class="fa fa-times"></i></a>
@@ -142,11 +142,11 @@
 								<table class="table table-condensed total-result">
 									<tr>
 										<td>Cart Sub Total</td>
-										<td>${{$total_amount}}</td>
+										<td>&#8358;{{$total_amount}}</td>
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost(+)</td>
-										<td>$0</td>										
+										<td>&#8358;0</td>										
 									</tr>
 									
 									<tr class="shipping-cost">
@@ -161,7 +161,7 @@
 									</tr>
 									<tr>
 										<td>Grand Total</td>
-										<td><span>${{$grand_total = $total_amount - Session::get('couponAmount')}}</span></td>
+										<td><span>&#8358;{{$grand_total = $total_amount - Session::get('couponAmount')}}</span></td>
 
 									</tr>
 								</table>
