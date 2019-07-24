@@ -442,7 +442,7 @@ class ProductsController extends Controller
             $search_product = $data['product'];// search variable
 
              // Search using product name and code to display only product whose status value=1
-            $productsAll = Product::where('product_name','like','%'.$search_product.'%')->orwhere('product_code',$search_product)->where('status',1)->get();
+            $productsAll = Product::where('product_name','like','%'.$search_product.'%')->orwhere('product_code',$search_product)->where('status',1)->paginate(3);
 
              return view('products.listing')->with(compact('search_product','productsAll','categories'));
         }
