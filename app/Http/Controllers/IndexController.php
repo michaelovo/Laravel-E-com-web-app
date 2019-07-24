@@ -12,7 +12,7 @@ class IndexController extends Controller
     public function index(){
     	//$productsAll = Product::get(); //ascending order(default)
     	//$productsAll = Product::orderby('id', 'desc')->get(); //descending order
-    	$productsAll = Product::inRandomOrder()->where('status',1)->get(); //Random order and only product whose status value=1
+    	$productsAll = Product::inRandomOrder()->where('status',1)->where('feature_item',1)->get(); //Random order and only product whose status and feature_item value=1
     	//dump($productsAll); //alternative to commented lines above for debuging,bt ds will displays output in cmd
 
     	

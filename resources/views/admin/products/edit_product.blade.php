@@ -96,7 +96,15 @@
                     <!--End---Not to displayed broken image icon when image is not available on edit_product blade file when editing-->
                 </div>
               </div>
-               <div class="control-group">
+
+              <div class="control-group">
+                <label class="control-label">Feature Item</label>
+                <div class="controls">
+                  <input type="checkbox" name="feature_item" id="feature_item" @if($productDetails->feature_item=="1") checked @endif value="1">
+                </div>
+              </div>
+
+              <div class="control-group">
                 <label class="control-label">Enable</label>
                 <div class="controls">
                   <input type="checkbox" name="status" id="status" @if($productDetails->status=="1") checked @endif value="1">

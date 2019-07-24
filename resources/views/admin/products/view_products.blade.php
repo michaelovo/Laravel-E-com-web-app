@@ -31,7 +31,8 @@
                   
                   <!--th>description</th-->
                   <th>Price</th>
-                   <th>Status</th>
+                  <th>Status</th>
+                  <th>Featured</th>
                   <th>Product Image</th>
                   <th>Actions</th>
                 </tr>
@@ -48,7 +49,8 @@
                  
                   
                   <td>{{$product->price}}</td>
-                   <td> @if($product->status==1)Enabled @else Disabled @endif</td>
+                  <td> @if($product->status==1)Enabled @else Disabled @endif</td>
+                  <td> @if($product->feature_item==1)Yes @else No @endif</td>
                   <td>
                     @if(!empty($product->image))
 

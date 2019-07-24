@@ -52,7 +52,7 @@
                   <td>{{$order->grand_total}}</td>
                   <td>{{$order->order_status}}</td>
                   <td>{{$order->payment_method}}</td>
-                  <td class="center">
+                  <td>
                     <div class="fl">
                     
                       <a href="{{url('/admin/view_order/'.$order->id)}}" class=" icon icon-eye-open btn btn-info" title="View orders Details"></a>
