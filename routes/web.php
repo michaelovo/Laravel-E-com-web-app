@@ -53,6 +53,7 @@ Route::match(['get','post'],'/check-email','UsersController@checkEmail'); //chec
 Route::post('user-login','UsersController@login');	// user login
 Route::get('/user-logout','UsersController@logout');	// user logout
 Route::get('confirm/{code}','UsersController@confirmAccount');	// user Confirm account
+Route::match(['get','post'],'/forgot-password','UsersController@forgotPassword'); //Forgot password
 
 	
 	//FRONTEND MIDDLEWARE---All user route after login

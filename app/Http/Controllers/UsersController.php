@@ -96,7 +96,43 @@ class UsersController extends Controller
         }
 
     }
+    // forgot password function
+    public function forgotPassword(Request $request){
+        if($request->ismethod('post')){
+            $data=$request->all();
 
+            // check if user exits or not
+            $usersCount = User::where('email',$data['email'])->count();
+            if($usersCount == 0){
+                return redirect()->back()->with('flash_err_msg','Email does not exist!');
+            }
+
+            $userDetails = User::where('email',$data['email'])->first(); //get user details
+            $random_password = str_random(8);//generate random password of max-length eight(8)
+            $new_password = bcrypt($random_password); //encode/secure password with bcrypt algorithm
+
+            //update user password
+            User::where('email',$data['email'])->update(['password'=>$new_password]);
+             //Start...Send new/forgot password mail to user
+                $email = $data['email'];    //get user email
+                $name = $userDetails->name; //get user name
+
+                $messageData =[
+                    'email'=>$email,
+                    'password'=>$random_password,
+                    'name'=>$name
+                ];
+                Mail::send('emails.forgotpassword',$messageData,function($message)use($email){
+                    $message->to($email)->subject('New password - E-com website');
+                });
+                return redirect('login-register')->with('flash_success_msg','Please check your email for new password!');
+
+                //End...Send new/forgot password mail to user
+                
+        }
+
+        return view('users.forgot_password');
+    }
 
     //Using jqquery remote function to check uniqueness of user email
     public function checkEmail(Request $request){
