@@ -419,13 +419,13 @@ class ProductsController extends Controller
             }
             //print_r($cat_id); die;
             // get and display only product whose status value=1
-        $productsAll = Product::whereIn('category_id',$cat_id)->where('status',1)->get();
+        $productsAll = Product::whereIn('category_id',$cat_id)->where('status',1)->paginate(3);
         //$productsAll = json_decode(json_encode($productsAll));
         //echo "<pre>"; print_r($productsAll); die;
 
         }else{
              //if url is sub category url  and status value=1
-            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->where('status',1)->get();
+            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->where('status',1)->paginate(3);
 
         }
          //end --- check category/subcategory url

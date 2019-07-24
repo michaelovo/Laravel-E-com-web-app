@@ -19,9 +19,7 @@
 										<ul>
 											@foreach($cat->categories as $subcat)
 												@if($subcat->status=="1")
-												<!----Display products related category----->
-											<li><a href="{{asset('/products/'.$subcat->url)}}"> <{{$subcat->name}} </a></li>
-
+											<li><a href="{{asset('/products/'.$subcat->url)}}">{{$subcat->name}} </a></li>
 												@endif
 											@endforeach
 											 
