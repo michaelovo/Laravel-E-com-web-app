@@ -152,5 +152,8 @@ Route::group(['middleware'=>['adminlogin']],function(){
 Route::get('/logout','AdminController@logout');
 
 
+// Display contact page
+ Route::match(['get','post'],'/pages/contact','CmsPagesController@contact');//delete cms page
+
 // CMS pages route
  Route::match(['get','post'],'/pages/{url}','CmsPagesController@CmsPages');//delete cms page

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CmsPage;
 use App\Category;
+use Illuminate\Support\Facades\Mail;
 
 class CmsPagesController extends Controller
 {
@@ -73,7 +74,7 @@ class CmsPagesController extends Controller
 
     // CMS pages
     public function  CmsPages($url){
-    	 // show 404 page if page status is Inactive
+    	// show 404 page if page status is Inactive
         $cmsPageCount = CmsPage::where(['url'=>$url,'status'=>1])->count();
         //echo $countCategory; die;
         if($cmsPageCount==0){
@@ -87,4 +88,30 @@ class CmsPagesController extends Controller
         return view('pages.cms_pages')->with(compact('cmsPageDetails','categories'));
     }
     
+    // contact page
+     public function contact(Request $request){
+     	if($request->ismethod('post')){
+    		$data=$request->all();
+    		//Start...Send confirmation email
+                $email ="admin_ecom@yopmail.com";
+                $messageData =[
+                	'email'=>$data['email'],
+                	'name'=>$data['name'],
+                	'subject'=>$data['subject'],
+                	'comment'=>$data['comment']
+                ];
+                Mail::send('emails.enquiry',$messageData,function($message)use($email){
+                    $message->to($email)->subject('Enquiry from e-com website');
+                });
+                return redirect()->back()->with('flash_success_msg','Message Sent. Thanks for contacting us. We will get back to you soon!');
+
+                //End...Send confirmation email
+
+    	}
+     	 // get all categories and subcategories along with the 'categories' relationship
+    	$categories = Category::with('categories')->where(['parent_id'=>0])->get();
+     	return view('pages.contact')->with(compact('categories'));
+
+     }
+
 }
