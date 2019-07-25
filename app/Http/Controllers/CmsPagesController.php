@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CmsPage;
+use App\Category;
 
 class CmsPagesController extends Controller
 {
@@ -68,6 +69,22 @@ class CmsPagesController extends Controller
         return redirect()->back()->with('flash_success_msg','CMS page Deleted successfully!');
             //}
 
+    }
+
+    // CMS pages
+    public function  CmsPages($url){
+    	 // show 404 page if page status is Inactive
+        $cmsPageCount = CmsPage::where(['url'=>$url,'status'=>1])->count();
+        //echo $countCategory; die;
+        if($cmsPageCount==0){
+            abort(404);
+        }
+        $cmsPageDetails = CmsPage::where('url',$url)->first(); //get all pages from db
+
+        // get all categories and subcategories along with the 'categories' relationship
+    	$categories = Category::with('categories')->where(['parent_id'=>0])->get();
+        
+        return view('pages.cms_pages')->with(compact('cmsPageDetails','categories'));
     }
     
 }
