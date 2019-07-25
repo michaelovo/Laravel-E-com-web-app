@@ -40,7 +40,7 @@
                 <tr class="gradeX">
                   
                   <td>{{$order->id}}</td>
-                  <td>{{$order->created_at}}</td>
+                  <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y')}}</td>
                   <td>{{$order->name}}</td>
                   <td>{{$order->user_email}}</td>
                   <td>

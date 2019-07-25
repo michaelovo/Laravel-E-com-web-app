@@ -15,7 +15,7 @@
             </div>
             <div class="widget-content nopadding">
 
-              <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/add-cms-page')}}" name="add_cms_page" id="add_cms_page" novalidate="novalidate">
+              <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/add-cms-page')}}" name="add_cms_page" id="add_cms_page">
               	  {{csrf_field()}}
                 <div class="control-group">
                   <label class="control-label">Title</label>

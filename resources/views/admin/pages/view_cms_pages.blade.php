@@ -33,8 +33,14 @@
                   <td>{{$page->id}}</td>
                   <td>{{$page->title}}</td>
                   <td>{{$page->url}}</td>
-                  <td> @if($page->status==1)Active @else Inactive @endif</td>
-                  <td>{{$page->created_at->diffforhumans()}}</td>
+                  <td>
+                    @if($page->status==1)
+                      <span style="color:green"> Active </span>
+                    @else
+                      <span style="color:red"> Inactive </span>
+                    @endif
+                  </td>
+                  <td>{{ date('d-m-Y', strtotime($page->created_at))}}</td>
 
                   <td class="center">
                     <div class="fl">
@@ -42,7 +48,7 @@
                       
                       <a href="#myModal{{$page->id}}" data-toggle="modal" class=" icon icon-eye-open btn btn-success" title="View page"></a> 
 
-                      <a rel="{{$page->id}}" rel1="delete-page" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord" title="Delete page"></a>                                            
+                      <a rel="{{$page->id}}" rel1="delete-cms-page" href="javascript:" class=" icon icon-trash btn btn-danger deleteRecord" title="Delete page"></a>                                            
                     </div>                                      
                   </td>                
                 </tr>
@@ -58,9 +64,9 @@
                         <strong> Page id:</strong> {{$page->id}}<br>
                         <strong>Page Title:</strong> {{$page->title}}<br>                               
                         <strong>Description:</strong>  {{$page->description}}<br> 
-                        <strong>Status:</strong>  @if($page->status==1)Active @else Inactive @endif<br> 
+                        <strong>Status:</strong>  @if($page->status==1)<span style="color:green"> Active </span> @else <span style="color:red"> Inactive </span> @endif<br> 
                         <strong>Url:</strong>  {{$page->url}}<br> 
-                        <strong>Created at:</strong>  {{$page->created_at}}<br>
+                        <strong>Created at:</strong> {{ \Carbon\Carbon::parse($page->created_at)->format('d/m/Y H:i:s')}} <br>
                       </p> 
                     </div>
                   </div>
