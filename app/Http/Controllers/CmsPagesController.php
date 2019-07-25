@@ -7,7 +7,7 @@ use App\CmsPage;
 
 class CmsPagesController extends Controller
 {
-    //
+    // Add CMS Page
     public function addCmsPage(Request $request){
     	// Start -- Insert into 'cms_pages' table in db
     	if($request->ismethod('post')){
@@ -32,4 +32,11 @@ class CmsPagesController extends Controller
     	}
     	return view('admin.pages.add_cms_page');//->with(compact('products'));
     }
+
+    // View CMS Pages
+    public function viewCmsPages(){
+        $cmsPages = CmsPage::orderby('id','asc')->get(); //get all pages from db
+        return view('admin.pages.view_cms_pages')->with(compact('cmsPages'));
+    }
+    
 }
