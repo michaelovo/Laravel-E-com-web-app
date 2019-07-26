@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | JLinks-Computers</title>
+    <!--Meta data for SEO----->
+    <title>@if(!empty($meta_title)){{$meta_title}} @else Home | JLinks-Computers @endif</title>
+    @if(!empty($meta_description))<meta name="description" content="{{$meta_description}}"> @endif
+    @if(!empty($meta_keywords))<meta name="keywords" content="{{$meta_keywords}}"> @endif
+    <!--//--Meta data for SEO----->
     <link href="{{asset('css/frontend_css/css/bootstrap.min.css')}}" rel="stylesheet">
-
     <link href="{{asset('css/frontend_css/css/font-awesome.min.css')}}" rel="stylesheet">
-
     <link href="{{asset('css/frontend_css/css/prettyPhoto.css')}}" rel="stylesheet">
     <link href="{{asset('css/frontend_css/css/price-range.css')}}" rel="stylesheet">
     <link href="{{asset('css/frontend_css/css/animate.css')}}" rel="stylesheet">

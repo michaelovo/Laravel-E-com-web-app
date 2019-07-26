@@ -52,7 +52,13 @@ class IndexController extends Controller
 		//* END BASIC APPROACH WITHOUT RELATIONSHIP
 	    	*/
 	    $banners = Banner::where('status','1')->get(); //get only enabled slider/banner for display on slider blade file
-        return view('index')->with(compact('productsAll','categories','banners'));
+
+	    //Meta tags for SEO
+	    $meta_title="E-shop Sample Website";
+	    $meta_description="Online shopping site for women, men and children";
+	    $meta_keywords="eshop website, online shopping";
+	    
+        return view('index')->with(compact('productsAll','categories','banners','meta_title','meta_description','meta_keywords'));
     	
            
     }

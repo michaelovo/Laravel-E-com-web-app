@@ -102,12 +102,12 @@ class CmsPagesController extends Controller
 		        'comment'=>'required',
 		        'subject'=>'required'
 		      ]);
+    		
     		//validation error handler
     		// include ds line at the header ---use Validator; //validatorclass
     		if($validator->fails()){
     			return redirect()->back()->withErrors($validator)->withInput();
     		}
-          
     		//Start...Send confirmation email
                 $email ="admin_ecom@yopmail.com";
                 $messageData =[
@@ -120,13 +120,17 @@ class CmsPagesController extends Controller
                     $message->to($email)->subject('Enquiry from e-com website');
                 });
                 return redirect()->back()->with('flash_success_msg','Message Sent. Thanks for contacting us. We will get back to you soon!');
-
-                //End...Send confirmation email
-
+            //End...Send confirmation email
     	}
      	 // get all categories and subcategories along with the 'categories' relationship
     	$categories = Category::with('categories')->where(['parent_id'=>0])->get();
-     	return view('pages.contact')->with(compact('categories'));
+
+    	//Start--Meta tags for SEO
+	    $meta_title="Contact Us - E-shop Sample Website";
+	    $meta_description="Contact us for any query related to our products";
+	    $meta_keywords="Contact us, queries,eshop website, online shopping";
+	    //Ends--Meta tags for SEO
+     	return view('pages.contact')->with(compact('categories','meta_title','meta_description','meta_keywords'));
 
      }
 
