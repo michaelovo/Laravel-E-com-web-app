@@ -17,11 +17,24 @@ class CmsPagesController extends Controller
     	if($request->ismethod('post')){
     		$data=$request->all();
 
+    		// Laravel validation
+    		$this->validate($request,[
+		        'title'=>'required',
+		        'url'=>'required',
+		        'description'=>'required',
+		        'meta_title'=>'required',
+		        'meta_description'=>'required',
+		        'meta_keywords'=>'required'
+		    ]);
+
     		$cmsPage = new CmsPage;
         	$cmsPage->title = $data['title'];
             $cmsPage->url = $data['url']; 
-            $cmsPage->description = $data['description']; 
-
+            $cmsPage->description = $data['description'];
+            $cmsPage->meta_title = $data['meta_title'];
+            $cmsPage->meta_description = $data['meta_description'];
+            $cmsPage->meta_keywords = $data['meta_keywords']; 
+ 
             //status check
              if(empty($data['status'])){
                 $status=0;
@@ -48,6 +61,13 @@ class CmsPagesController extends Controller
         if($request->ismethod('post')){
             $data=$request->all();
 
+            // Laravel validation
+    		$this->validate($request,[
+		        'meta_title'=>'required',
+		        'meta_description'=>'required',
+		        'meta_keywords'=>'required'
+		    ]);
+
             //status check
             if(empty($data['status'])){
                 $status=0;
@@ -56,7 +76,7 @@ class CmsPagesController extends Controller
             }
 
             //update cms_pages table
-            CmsPage::where(['id'=>$id])->update(['title'=>$data['title'],'url'=>$data['url'],'description'=>$data['description'],'status'=>$status]);
+            CmsPage::where(['id'=>$id])->update(['title'=>$data['title'],'url'=>$data['url'],'description'=>$data['description'],'meta_title'=>$data['meta_title'],'meta_description'=>$data['meta_description'],'meta_keywords'=>$data['meta_keywords'],'status'=>$status]);
 
             return redirect('/admin/view-cms-pages')->with('flash_success_msg','CMS page Updated successfully!');
         }
@@ -83,15 +103,20 @@ class CmsPagesController extends Controller
             abort(404);
         }
         $cmsPageDetails = CmsPage::where('url',$url)->first(); //get all pages from db
+        //Start--Meta tags for SEO
+	    $meta_title=$cmsPageDetails->meta_title;
+	    $meta_description=$cmsPageDetails->meta_description;
+	    $meta_keywords=$cmsPageDetails->meta_keywords;
+	    //Ends--Meta tags for SEO
 
         // get all categories and subcategories along with the 'categories' relationship
     	$categories = Category::with('categories')->where(['parent_id'=>0])->get();
         
-        return view('pages.cms_pages')->with(compact('cmsPageDetails','categories'));
+        return view('pages.cms_pages')->with(compact('cmsPageDetails','categories','meta_title','meta_description','meta_keywords'));
     }
     
     // contact page
-     public function contact(Request $request){
+    public function contact(Request $request){
      	if($request->ismethod('post')){
     		$data=$request->all();
 

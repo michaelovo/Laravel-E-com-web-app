@@ -20,21 +20,42 @@
                 <div class="control-group">
                   <label class="control-label">Title</label>
                   <div class="controls">
-                    <input type="text" name="title" id="title" placeholder="enter page title here" required="required">
+                    <input type="text" name="title" id="title" placeholder="enter page title here" >
                   </div>
                 </div>
 
                 <div class="control-group">
                   <label class="control-label">Url</label>
                   <div class="controls">
-                    <input type="text" name="url" id="url" placeholder="enter page url here" required="required">
+                    <input type="text" name="url" id="url" placeholder="enter page url here" >
                   </div>
                 </div>
 
                 <div class="control-group">
                   <label class="control-label">Description</label>
                   <div class="controls">
-                    <textarea name="description" id="description" required="required"></textarea> 
+                    <textarea name="description" id="description" ></textarea> 
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label">Meta title</label>
+                  <div class="controls">
+                    <input type="text" name="meta_title" id="meta_title"  >
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label">Meta description</label>
+                  <div class="controls">
+                    <input type="text" name="meta_description" id="meta_description" >
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label">Meta keywords</label>
+                  <div class="controls">
+                    <input type="text" name="meta_keywords" id="meta_keywords" >
                   </div>
                 </div>
              
