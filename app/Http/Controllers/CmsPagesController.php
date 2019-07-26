@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use App\CmsPage;
 use App\Category;
 use Illuminate\Support\Facades\Mail;
+use Validator; //validatorclass
 
 class CmsPagesController extends Controller
 {
     // Add CMS Page
     public function addCmsPage(Request $request){
     	// Start -- Insert into 'cms_pages' table in db
+
     	if($request->ismethod('post')){
     		$data=$request->all();
 
@@ -92,6 +94,20 @@ class CmsPagesController extends Controller
      public function contact(Request $request){
      	if($request->ismethod('post')){
     		$data=$request->all();
+
+    		//Laravel manual validation rules
+    		$validator =Validator::make($request->all(),[
+		        'name'=>'required|regex:/^[\pL\s\-]+$/u|max:255',// alpha numeric
+		        'email'=>'required|email',
+		        'comment'=>'required',
+		        'subject'=>'required'
+		      ]);
+    		//validation error handler
+    		// include ds line at the header ---use Validator; //validatorclass
+    		if($validator->fails()){
+    			return redirect()->back()->withErrors($validator)->withInput();
+    		}
+          
     		//Start...Send confirmation email
                 $email ="admin_ecom@yopmail.com";
                 $messageData =[
