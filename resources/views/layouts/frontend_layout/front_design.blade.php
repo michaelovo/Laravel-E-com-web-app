@@ -72,6 +72,7 @@
 <script src="{{asset('js/frontend_js/js/main.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/jquery.validate.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/passtrength.js')}}"></script><!--jquery passtrength-->
+<script src="{{asset('js/app.js')}}"></script><!--Node/vuejs-->
 
 
 

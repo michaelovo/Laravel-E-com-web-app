@@ -2,6 +2,9 @@
 @section('content')
 	<section>
 		<div class="container">
+			<div id="app">
+				@{{testmsg}}
+			</div>
 			<div class="row">
 				<div class="col-sm-3">
 					<!---Left sidebar--->
