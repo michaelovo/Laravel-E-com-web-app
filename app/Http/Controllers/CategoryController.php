@@ -12,6 +12,13 @@ class CategoryController extends Controller
     	if($request->ismethod('post')){
     		$data=$request->all();
     		//echo "<pre>"; print_r($data); die;
+
+            // Laravel validation for meta tags fields
+            $this->validate($request,[
+                'meta_title'=>'required',
+                'meta_description'=>'required',
+                'meta_keywords'=>'required'
+            ]);
             if(empty($data['status'])){
                 $status=0;
             }else{
@@ -20,9 +27,12 @@ class CategoryController extends Controller
 
         	$category =new Category;
         	$category->name = $data['category_name'];
-            $category->parent_id = $data['parent_id']; // to insrt subcatgory into db
+            $category->parent_id = $data['parent_id']; 
         	$category->description = $data['description'];
         	$category->url = $data['url'];
+            $category->meta_title = $data['meta_title'];
+            $category->meta_description = $data['meta_description'];
+            $category->meta_keywords = $data['meta_keywords']; 
             $category->status = $status;
         	$category->save();
         	 return redirect('/admin/view-category')->with('flash_success_msg','New category Added successfully!');       	
@@ -44,13 +54,20 @@ class CategoryController extends Controller
             $data=$request->all();
             //echo "<pre>"; print_r($data); die;
 
+            // Laravel validation for meta tags fields
+            $this->validate($request,[
+                'meta_title'=>'required',
+                'meta_description'=>'required',
+                'meta_keywords'=>'required'
+            ]);
+
              if(empty($data['status'])){
                 $status=0;
             }else{
                 $status=1;
             }
 
-            Category::where(['id'=>$id])->update(['name'=>$data['category_name'],'description'=>$data['description'],'url'=>$data['url'],'status'=>$status]);
+            Category::where(['id'=>$id])->update(['name'=>$data['category_name'],'description'=>$data['description'],'url'=>$data['url'],'meta_title'=>$data['meta_title'],'meta_description'=>$data['meta_description'],'meta_keywords'=>$data['meta_keywords'],'status'=>$status]);
 
             return redirect('/admin/view-category')->with('flash_success_msg','Category Updated successfully!');
         }

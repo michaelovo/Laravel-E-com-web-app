@@ -44,6 +44,12 @@
                 </div>
               </div>
 
+              <div class="control-group">
+                <label class="control-label">URL</label>
+                <div class="controls">
+                  <input type="text" name="url" id="url">
+                </div>
+              </div>
               
               <div class="control-group">
                 <label class="control-label">Description</label>
@@ -52,13 +58,26 @@
                 </div>
               </div>
 
-                         
               <div class="control-group">
-                <label class="control-label">URL</label>
-                <div class="controls">
-                  <input type="text" name="url" id="url">
+                  <label class="control-label">Meta title</label>
+                  <div class="controls">
+                    <input type="text" name="meta_title" id="meta_title"  >
+                  </div>
                 </div>
-              </div>
+
+                <div class="control-group">
+                  <label class="control-label">Meta description</label>
+                  <div class="controls">
+                    <input type="text" name="meta_description" id="meta_description" >
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label">Meta keywords</label>
+                  <div class="controls">
+                    <input type="text" name="meta_keywords" id="meta_keywords" >
+                  </div>
+                </div>           
 
               <div class="control-group">
                 <label class="control-label">Enable</label>

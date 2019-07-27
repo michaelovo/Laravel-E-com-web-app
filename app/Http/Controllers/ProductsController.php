@@ -429,7 +429,13 @@ class ProductsController extends Controller
 
         }
          //end --- check category/subcategory url
-        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories'));         
+
+        //Start--Catgeories/subcategories Meta tags for SEO
+        $meta_title=$categoriesDetails->meta_title;
+        $meta_description=$categoriesDetails->meta_description;
+        $meta_keywords=$categoriesDetails->meta_keywords;
+        //Ends--Catgeories/subcategories Meta tags for SEO
+        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords'));         
     }
          //END--CATEGORY LISTING FUNCTION
 
