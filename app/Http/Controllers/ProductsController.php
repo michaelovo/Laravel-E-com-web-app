@@ -490,7 +490,13 @@ class ProductsController extends Controller
 
         //get total stock of the product
         $total_stock = ProductsAttribute::where('product_id',$id)->sum('stock');
-       return view('products.detail')->with(compact('productDetails','categories','productsAltImages','total_stock','relatedProducts'));
+
+        //Start--Product detail Meta tags for SEO
+        $meta_title=$productDetails->product_name;
+        $meta_description=$productDetails->description;
+        $meta_keywords=$productDetails->care;
+        //Ends--Product detail Meta tags for SEO
+       return view('products.detail')->with(compact('productDetails','categories','productsAltImages','total_stock','relatedProducts','meta_title','meta_description','meta_keywords'));
     }
 
     // get product prices according to selected size
@@ -622,9 +628,13 @@ class ProductsController extends Controller
             $productDetails = Product::where('id',$product->product_id)->first();
             $userCart[$key]->image= $productDetails->image;
         }
-        //echo "<pre>"; print_r($userCart);die;
-
-        return view('products.cart')->with(compact('userCart'));
+        
+        //Start--cart Meta tags for SEO
+        $meta_title="Shopping Cart - E-com website";
+        $meta_description="Viewing Shopping Cart - E-com website";
+        $meta_keywords="Shopping Cart,E-com website";
+        //Ends--cart Meta tags for SEO
+        return view('products.cart')->with(compact('userCart','meta_title','meta_description','meta_keywords'));
     }
         //UPDATE CART QUANTITY FUNCTION
     public function updateCartQuantity($id=null, $quantity=null){
