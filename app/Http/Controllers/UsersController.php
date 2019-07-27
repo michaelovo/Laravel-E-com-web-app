@@ -15,7 +15,8 @@ class UsersController extends Controller
 {
 	// return user to login_register blade file
     public function userLoginRegister(){
-    	return view('users.login_register');
+        $meta_title="User Login/Register - Ecom website"; //meta tag for SEO
+    	return view('users.login_register')->with(compact('meta_title'));
     }
 
     // Add user : user register function

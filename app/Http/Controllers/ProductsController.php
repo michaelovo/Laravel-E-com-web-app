@@ -784,8 +784,8 @@ class ProductsController extends Controller
             //echo "Redirect to order review page";die;
             return redirect()->action('ProductsController@orderReview');
         }
-
-       return view('products.checkout')->with(compact('countries','userDetails','shippingDetails'));
+        $meta_title="Checkout - Ecom website"; //meta tag for SEO
+        return view('products.checkout')->with(compact('countries','userDetails','shippingDetails','meta_title'));
     }
 
     //order review function
@@ -805,8 +805,8 @@ class ProductsController extends Controller
             $productDetails = Product::where('id',$product->product_id)->first();
             $userCart[$key]->image= $productDetails->image;
         }
-               
-        return view('products.order_review')->with(compact('userDetails','shippingDetails','countries','userCart'));
+        $meta_title="Order Review - Ecom website"; //meta tag for SEO
+        return view('products.order_review')->with(compact('userDetails','shippingDetails','countries','userCart','meta_title'));
     }
 
     // place order
