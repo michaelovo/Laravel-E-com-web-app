@@ -30,6 +30,15 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     data:{
-    	testmsg:'testing message'
+    	testmsg:'post data via vue and axios'
+    },
+    methods:{
+    	addPost(){
+    		//Post data
+    		//alert("testing");
+    		axios.post('/pages/post',{name:this.name, email:this.email, subject:this.subject, comment:this.comment
+    		})
+    		.then(post=>this.$emit('completed',name));
+    	}
     }
 });

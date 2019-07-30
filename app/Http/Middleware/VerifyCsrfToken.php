@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        "/check-zipcode"
+        //this line prevent the error alert msg that always comes up when checking zipcode availability
     ];
 }

@@ -14,6 +14,7 @@ use App\ProductsImage;
 use App\Coupon;
 use DB;
 use App\Country;
+use App\Zipcode;
 use App\DeliveryAddress;
 use App\User;
 use App\Order;
@@ -964,10 +965,17 @@ class ProductsController extends Controller
             Order::where('id',$data['order_id'])->update(['order_status'=>$data['order_status']]);
             return redirect()->back()->with('flash_success_msg','Order status has been updated successfully!');
         }
-
-
     }
 
+    public function checkZipcode(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // compare users' enter code to that pf db
+            echo $pincodeCount = Zipcode::where('zipcode',$data['zipcode'])->count();
+        }
+
+    }
+ 
 
    
 

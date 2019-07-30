@@ -46,7 +46,7 @@ $(document).ready(function(){
 				/*START .....hide/show 'Add to cart' button/'Availability' message 
 				depending on selected size stock value*/
 				var arr = resp.split('#');
-				$("#getPrice").html("US $"+ arr[0]);
+				$("#getPrice").html("&#8358;"+ arr[0]);
 				$("#price").val(arr[0]);// to get and send price to input field wt id='price' in detail blade file
 				if(arr[1]==0){
 					$("#cartButton").hide();
@@ -63,6 +63,8 @@ $(document).ready(function(){
 		});
 
 	});
+
+	
 
 });
 //Replace main image with alternate image on click
@@ -366,6 +368,31 @@ function selectPayMethod(){
 		return false;
 	}
 }
+// Function to check zipcode availabilty
+function checkZipcode(){
+	//compare user to enter zipcode
+	var zipcode = $("#chkzipcode").val();
+	if(zipcode==""){
+		alert("Please enter zipcode"); return false;
+	}
+	//ajax/jquery function to check availability of user entered zipcode
+	$.ajax({
+		type:'post',
+		url:'/check-zipcode',
+		data:{zipcode:zipcode},
+		success:function(resp){
+			if(resp>0){
+				$("#zipcoderesponse").html("<font color='green'> This zipcode is available for delivery</font>");
+			}else{
+				$("#zipcoderesponse").html("<font color='red'> This zipcode is not available for delivery</font>");
+			}
+			
+		},error:function(){
+			alert("Error");
+		}	
+	});
+}
+
 
 
 

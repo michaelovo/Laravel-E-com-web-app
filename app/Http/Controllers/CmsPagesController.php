@@ -157,6 +157,20 @@ class CmsPagesController extends Controller
 	    //Ends--Meta tags for SEO
      	return view('pages.contact')->with(compact('categories','meta_title','meta_description','meta_keywords'));
 
-     }
+    }
+    // post page for vue js
+    public function addPost(Request $request){
+        if($request->ismethod('post')){
+            $data=$request->all();
+
+           
+        }
+         // get all categories and subcategories along with the 'categories' relationship
+        $categories = Category::with('categories')->where(['parent_id'=>0])->get();
+
+       
+        return view('pages.post')->with(compact('categories'));
+
+    }
 
 }

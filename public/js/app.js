@@ -49218,7 +49218,23 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app',
   data: {
-    testmsg: 'testing message'
+    testmsg: 'post data via vue and axios'
+  },
+  methods: {
+    addPost: function addPost() {
+      var _this = this;
+
+      //Post data
+      //alert("testing");
+      axios.post('/pages/post', {
+        name: this.name,
+        email: this.email,
+        subject: this.subject,
+        comment: this.comment
+      }).then(function (post) {
+        return _this.$emit('completed', name);
+      });
+    }
   }
 });
 

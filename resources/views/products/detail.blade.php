@@ -81,7 +81,10 @@
 										<!---if no stock display 'Out of stock' else ' In Stock'--->
 									<p><b>Availability: </b><span id="Availability"> @if($total_stock >0) In Stock @else Out of stock @endif</span></p>
 									<p><b>Condition:</b> New</p>
-									
+
+									<p><b>Delivery</b>
+									<input type="text" name="zipcode" id="chkzipcode" placeholder="check zipcode"><button type="button" onclick="return checkZipcode();">Go</button>
+									<span id="zipcoderesponse"></span>
 									<a href=""><img src="{{asset('images/frontend_images/images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
 								</div><!--/product-information-->
 							</form>

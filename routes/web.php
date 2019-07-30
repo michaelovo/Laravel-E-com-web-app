@@ -39,6 +39,9 @@ Route::get('/product/{id}', 'ProductsController@product');
 
 //get product attribute price
 Route::get('/get-product-price', 'ProductsController@getProductPrice');
+//check zipcode availability
+Route::post('/check-zipcode','ProductsController@checkZipcode');
+
 
 //Search product route
 Route::post('/search-products', 'ProductsController@searchProducts');
@@ -154,6 +157,8 @@ Route::get('/logout','AdminController@logout');
 
 // Display contact page
  Route::match(['get','post'],'/pages/contact','CmsPagesController@contact');//delete cms page
+// Display post page for vue js
+ Route::match(['get','post'],'/pages/post','CmsPagesController@addPost');//delete cms page
 
 // CMS pages route
  Route::match(['get','post'],'/pages/{url}','CmsPagesController@CmsPages');//delete cms page
