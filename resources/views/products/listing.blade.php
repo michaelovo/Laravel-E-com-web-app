@@ -15,8 +15,6 @@
 							<!---Search and displays product if found else displays searched data--->
 							@if(!empty($search_product))
 								{{$search_product}} Item
-							@else
-								{{$categoriesDetails->name}} Items
 							@endif
 
 						</h2>

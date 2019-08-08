@@ -98,6 +98,7 @@ $mainCategories = Controller::mainCategories();
               </button>
             </div>
             <div class="mainmenu pull-left">
+             
               <ul class="nav navbar-nav collapse navbar-collapse">
                 <li><a href="{{url('/')}}" class="active">Home</a></li>
                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
@@ -124,6 +125,7 @@ $mainCategories = Controller::mainCategories();
             </div>
           </div>
           <div class="col-sm-3"><!---Search products--->
+              @include('includes.msg')
             <div class="search_box pull-right">
               <form action="{{url('/search-products')}}" method="post">
                 {{csrf_field()}}
