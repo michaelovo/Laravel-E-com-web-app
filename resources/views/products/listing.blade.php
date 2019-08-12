@@ -8,15 +8,18 @@
 					<!---Left sidebar--->
 					@include('layouts.frontend_layout.front_sidebar')
 				</div>
-				
+
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">
 							<!---Search and displays product if found else displays searched data--->
 							@if(!empty($search_product))
 								{{$search_product}} Item
+							@else
+								{{$categoriesDetails->name}} item
 							@endif
-
+							( {{count($productsAll)}} )
+							<!-- if search found or not, display the quantity of available product--->
 						</h2>
 
 						@foreach($productsAll as $product)
@@ -47,12 +50,12 @@
 							</div>
 						</div>
 						@endforeach
-						
-						<div align="center"> {{$productsAll->links()}}	</div>	
+
+						<div align="center"> {{$productsAll->links()}}	</div>
 					</div><!--features_items-->
-					
-					
-					
+
+
+
 				</div>
 			</div>
 	</div>

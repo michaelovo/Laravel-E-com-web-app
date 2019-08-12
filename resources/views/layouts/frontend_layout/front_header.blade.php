@@ -1,9 +1,11 @@
 <?php
 // to get '$mainCategories' variable from 'Controller'
 use App\Http\Controllers\Controller; //controller path
+use App\Product;  //products model
 $mainCategories = Controller::mainCategories();
+$cartCount =Product::cartCount();//static function from Product model
  ?>
- 
+
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
       <div class="container">
@@ -30,7 +32,7 @@ $mainCategories = Controller::mainCategories();
         </div>
       </div>
     </div><!--/header_top-->
-    
+
     <div class="header-middle"><!--header-middle-->
       <div class="container">
         <div class="row">
@@ -49,7 +51,7 @@ $mainCategories = Controller::mainCategories();
                   <li><a href="#">UK</a></li>
                 </ul-->
               </div>
-              
+
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
                   NAIRA
@@ -68,7 +70,7 @@ $mainCategories = Controller::mainCategories();
                 <!--li><a href="#"><i class="fa fa-user"></i> Account</a></li-->
                 <!--li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li-->
                 <li><a href="{{url('/orders')}}"><i class="fa fa-crosshairs"></i> Orders</a></li>
-                <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i> Cart({{$cartCount}})</a></li>
 
                 <!-- check if user is login or not -->
                 @if(empty(Auth::check()))
@@ -84,7 +86,7 @@ $mainCategories = Controller::mainCategories();
         </div>
       </div>
     </div><!--/header-middle-->
-  
+
     <div class="header-bottom"><!--header-bottom-->
       <div class="container">
         <div class="row">
@@ -98,7 +100,7 @@ $mainCategories = Controller::mainCategories();
               </button>
             </div>
             <div class="mainmenu pull-left">
-             
+
               <ul class="nav navbar-nav collapse navbar-collapse">
                 <li><a href="{{url('/')}}" class="active">Home</a></li>
                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
@@ -109,16 +111,16 @@ $mainCategories = Controller::mainCategories();
                       @if($cat->status=="1")
                         <li><a href="{{asset('/products/'.$cat->url)}}">{{$cat->name}} </a></li>
                       @endif
-                    @endforeach                
-                    
+                    @endforeach
+
                     </ul>
-                  </li> 
+                  </li>
                 <!--li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
                     <li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
-                                </li> 
+                                </li>
                 <li><a href="404.html">404</a></li-->
                 <li><a href="{{url('/pages/contact')}}">Contact</a></li>
               </ul>
@@ -129,7 +131,7 @@ $mainCategories = Controller::mainCategories();
             <div class="search_box pull-right">
               <form action="{{url('/search-products')}}" method="post">
                 {{csrf_field()}}
-                <input type="text" placeholder="Search Product" name="product" />
+                <input type="text" placeholder="Search Product" name="product" required="required" />
                 <button type="submit" style="border:0px; height: 33px; margin-left:-4px;">Go</button>
               </form>
             </div>
