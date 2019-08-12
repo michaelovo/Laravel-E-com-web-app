@@ -10,7 +10,7 @@
 				</ol>
 			</div>
 		</div>
-	</section> 
+	</section>
 
 	<section id="do_action">
 		<div class="container">
@@ -23,7 +23,7 @@
 @endsection
 
 <!---Forget Session----->
-<?php 
+<?php
 	Session::forget('order_id');
 	session::forget('grand_total');
 ?>

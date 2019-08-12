@@ -15,6 +15,8 @@ use App\Coupon;
 use DB;
 use App\Country;
 use App\Zipcode;
+use App\CodZipcode;
+use App\PrepaidZipcode;
 use App\DeliveryAddress;
 use App\User;
 use App\Order;
@@ -24,7 +26,7 @@ use Illuminate\Support\Facades\Mail;
 
 class ProductsController extends Controller
 {
-    
+
     // FUNCTION TO INSERT PRODUCT TO products TABLE IN DB
     public function addProduct(Request $request){
         // Start -- Insert into 'products' table in db
@@ -35,7 +37,7 @@ class ProductsController extends Controller
             //Start --This compare users to either select main/subcategory field when adding product
             if(empty($data['category_id'])){
                  return redirect()->back()->with('flash_err_msg','Please select one of either Main or Subcategory!. Thank you!');
-            }               
+            }
              //End --This compare users to either select main/subcategory field when adding product
 
 
@@ -45,21 +47,21 @@ class ProductsController extends Controller
             $product->product_code = $data['product_code'];
             $product->product_color = $data['product_color'];
             //$product->care = $data['care'];
-            
+
             //Start --If care field is empty or not, submit data
-            
+
             // use this if this field is not validated @edit_product function in matrix.form_validation.js
                 if(!empty($data['care'])){
                      $product->care = $data['care'];
                 }else{
                      $product->care ='';
                 }
-            
+
              //End --If care field is empty or not, submit data
             $product->description =$data['product_color'];
             $product->price = $data['price'];
-            
-            // Start ---- Image upload          
+
+            // Start ---- Image upload
             if($request->hasFile('image')){
                 //echo $image_tmp = Input::file('image');die;
                 $image_tmp = Input::file('image');
@@ -94,13 +96,13 @@ class ProductsController extends Controller
                 $feature_item=1;
             }
             $product->status=$status;
-            $product->feature_item=$feature_item;           
+            $product->feature_item=$feature_item;
             $product->save();
             // return redirect()->back()->with('flash_success_msg','New product Added successfully!');
-              return redirect('/admin/view-product')->with('flash_success_msg','New Product Added successfully!');              
+              return redirect('/admin/view-product')->with('flash_success_msg','New Product Added successfully!');
         }
         // End -- Insert into products table in db
-    
+
 
         // start -- Retrieve and display main categories and subcategories from 'categories' table
          $categories = Category::where(['parent_id'=>0])->get();
@@ -112,12 +114,12 @@ class ProductsController extends Controller
                         $categories_dropdown .="<option value='".$sub_cat->id."'>&nbsp;--&nbsp".$sub_cat->name."</option>";
 
                      }
-        
+
             }
          // End -- Retrieve and display main categories and subcategories from 'categories' table
-         return view('admin.products.add_product')->with(compact('categories_dropdown'));   
+         return view('admin.products.add_product')->with(compact('categories_dropdown'));
     }
-    
+
 
     // FUNCTION TO RETRIEVE AND DISPLAY DATA FROM 'products' table in DB ON VIEW-PRODUCTS BLADE FILE
     public function viewproducts(){
@@ -126,7 +128,7 @@ class ProductsController extends Controller
         foreach ($products as $key => $value) {
             $category_name = Category::where(['id'=>$value->category_id])->first();
             $products[$key]->category_name = $category_name->name;
-            
+
         }
         return view('admin.products.view_products')->with(compact('products'));
     }
@@ -134,14 +136,14 @@ class ProductsController extends Controller
 
      // EDIT/ UPDATE PRODUCTS FUNCTION
     public function  editProduct(Request $request, $id=null){
-        // start of update Product        
+        // start of update Product
         if($request->ismethod('post')){
             $data=$request->all();
             //echo "<pre>"; print_r($data); die;
             //Start --This compare users to either select main/subcategory field when adding product
             if(empty($data['category_id'])){
                 return redirect()->back()->with('flash_err_msg','Please select one of either Main or Subcategory!. Thank you!');
-            }               
+            }
              //End --This compare users to either select main/subcategory field when adding product
 
             // Start ---- Image upload
@@ -165,15 +167,15 @@ class ProductsController extends Controller
                     //RESIZE IMAGE
                     Image::make($image_tmp)->save($large_image_path);
                     Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
-                    Image::make($image_tmp)->resize(300,300)->save($small_image_path);                  
+                    Image::make($image_tmp)->resize(300,300)->save($small_image_path);
                 }
             }else{
                 $filename = $data['current_image'];
-            }           
-            // End ---- Image upload   
+            }
+            // End ---- Image upload
             if(empty($data['care'])){
                 $data['care'] ='';
-            }    
+            }
             //status check
             if(empty($data['status'])){
                 $status=0;
@@ -186,7 +188,7 @@ class ProductsController extends Controller
             }else{
                 $feature_item=1;
             }
-    
+
 
             Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'image'=>$filename,'status'=>$status,'feature_item'=>$feature_item]);
 
@@ -194,10 +196,10 @@ class ProductsController extends Controller
              return redirect('/admin/view-product')->with('flash_success_msg','Product Updated successfully!');
         }
         // end of update Product
-        
+
         //retrieve and display data for editing from db on edit-category blade file
              $productDetails = Product::where(['id'=>$id])->first(); //get product details
-            
+
         // start -- Retrieve and display main categories and subcategories from 'categories' table
          $categories = Category::where(['parent_id'=>0])->get();
          $categories_dropdown ="<option value='' selected disabled>selected</option>";
@@ -222,13 +224,13 @@ class ProductsController extends Controller
                 $categories_dropdown .="<option value='".$sub_cat->id."'>&nbsp;--&nbsp".$sub_cat->name."</option>";
 
              }
-            
+
         }
          // End -- Retrieve and display main categories and subcategories from 'categories' table
             return view('admin.products.edit_product')->with(compact('productDetails','categories_dropdown'));//,'levels'));
     }
 
-        
+
         //FUNCTION TO DELETE PRODUCT
     public function deleteProduct($id=null){
             //if(!empty($id)){
@@ -321,17 +323,17 @@ class ProductsController extends Controller
                     $attribute->stock = $data['stock'][$key];
                     $attribute->save();
                 }
-                
+
             }
              return redirect('/admin/add-attributes/'.$id)->with('flash_success_msg','Product Atrributes Added successfully!');
         }
-           
+
         return view('admin.products.add_attributes')->with(compact('productDetails'));
     }
-         //END FUNCTION TO ADD PRODUCT ATTRIBUTES  
+         //END FUNCTION TO ADD PRODUCT ATTRIBUTES
 
          //START FUNCTION TO EDIT/UPDATE PRODUCT ATTRIBUTES
-    public function  editAttributes(Request $request, $id=null){      
+    public function  editAttributes(Request $request, $id=null){
         if($request->ismethod('post')){
             $data = $request->all();
             //echo "<pre>"; print_r($data); die;
@@ -339,9 +341,9 @@ class ProductsController extends Controller
                 ProductsAttribute::where(['id'=>$data['idAttr'][$key]])->update(['price'=>$data['price'][$key],'stock'=>$data['stock'][$key]]);
             }
             return redirect()->back()->with('flash_success_msg','Product Attribute Updated successfully!');
-            
+
         }
-  
+
     }
         //END FUNCTION TO EDIT/UPDATE PRODUCT ATTRIBUTES
 
@@ -349,11 +351,11 @@ class ProductsController extends Controller
          //START FUNCTION TO ADD PRODUCT ALTERNATE IMAGES
     public function  addImages(Request $request, $id=null){
         $productDetails = Product::with('attributes')->where(['id'=>$id])->first();
-       
+
         if($request->ismethod('post')){
             // add alternate image
             $data = $request->all();
-            
+
             if($request->hasFile('image')){
                 $files = $request->file('image');
                 foreach ($files as $file) {
@@ -392,7 +394,7 @@ class ProductsController extends Controller
             ProductsAttribute::where(['id'=>$id])->delete();
             return redirect()->back()->with('flash_success_msg','Product Attribute Deleted successfully!');
         }
-           
+
     }
          //END--FUNCTION TO DELETE PRODUCT ATTRIBUTES
 
@@ -436,7 +438,7 @@ class ProductsController extends Controller
         $meta_description=$categoriesDetails->meta_description;
         $meta_keywords=$categoriesDetails->meta_keywords;
         //Ends--Catgeories/subcategories Meta tags for SEO
-        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords'));         
+        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords'));
     }
          //END--CATEGORY LISTING FUNCTION
 
@@ -449,11 +451,11 @@ class ProductsController extends Controller
             $categories = Category::with('categories')->where(['parent_id'=>0])->get();
             //$categories = Category::with('categories')->where(['parent_id'=>0])->get();
             $search_product = $data['product'];// search variable
-            //Start --This compare users to either select main/subcategory field when adding product
+            //Start --This compare user to enter a search item name
             if(empty($search_product)){
                  return redirect()->back()->with('flash_err_msg','Please enter search item name!');
-            }               
-             //End --This compare users to either select main/subcategory field when adding product
+            }
+             //End --This compare user to enter a search item name
 
              // Search using product name and code to display only product whose status value=1
             $productsAll = Product::where('product_name','like','%'.$search_product.'%')->orwhere('product_code',$search_product)->where('status',1)->paginate(3);
@@ -515,7 +517,7 @@ class ProductsController extends Controller
        //echo $proArr[0]; echo $proArr[1];die;
         $proAttr = ProductsAttribute::where(['product_id' => $proArr[0],'size' => $proArr[1]])->first();
         echo $proAttr->price;
-        
+
         //get attribute stock
         echo "#";
         echo $proAttr->stock;
@@ -533,7 +535,7 @@ class ProductsController extends Controller
        //If no size is selected before adding to cart then display error message
         if(empty($data['size'])){
             return redirect()->back()->with('flash_err_msg','Please select a size! Thank you!');
-        } 
+        }
         //START----Check if product stock is available or not or less dan user demanded quantity
         $product_size = explode("-",$data['size']);//seperate d size frm id and Display only size name
         $getProductStock = ProductsAttribute::where(['product_id'=>$data['product_id'],'size'=>$product_size[1]])->first();
@@ -548,7 +550,7 @@ class ProductsController extends Controller
         }
         //END----Check if product stock is available or not or less dan user demanded quantity
 
-        /* 
+        /*
             if user mail is empty. This allows products from users cart to be to specific to each user and allowed items added to cart to be displayed immediately. If user is not login submit empty string to user_email field else submit user email to user_email field.
 
             NB: The cart blade is included in the Route::group(['middleware'=>['frontlogin']] function(i.e user must always login before he/she can add items to cart), hence, user email will always be submitted to user_email field
@@ -564,7 +566,7 @@ class ProductsController extends Controller
         if(empty($session_id)){
            $session_id = str_random(40);//die; //generate random strings
            Session::put('session_id',$session_id); // session variable
-            
+
         }
          $sizeArr = explode("-",$data['size']); //send only the size name to cart table not (id-size, e.g 4-medium)
 
@@ -574,21 +576,21 @@ class ProductsController extends Controller
         if(empty(Auth::check())){
             // to prevent duplicate of cart products in thesame session i.e having thesame seesion_id
             $countProducts =DB::table('cart')->where(['product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$sizeArr[1],'session_id'=>$session_id])->count();//die;
-         
+
             //if product does not exist for that session then add product else redirect
             if($countProducts >0){
                 return redirect()->back()->with('flash_err_msg','Product Already Exists in Cart!');
             }
-    
+
         }else{
             // to prevent duplicate of cart products in thesame session i.e having thesame seesion_id
             $countProducts =DB::table('cart')->where(['product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$sizeArr[1],'user_email'=>$data['user_email']])->count();//die;
-         
+
             //if product does not exist for that session then add product else redirect
             if($countProducts >0){
                 return redirect()->back()->with('flash_err_msg','Product Already Exists in Cart!');
             }
-    
+
         }
 
 
@@ -596,7 +598,7 @@ class ProductsController extends Controller
 
          // to prevent duplicate of cart products in thesame session i.e having thesame seesion_id
          $countProducts =DB::table('cart')->where(['product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$sizeArr[1],'session_id'=>$session_id])->count();//die;
-         
+
             //if product does not exist for that session then add product else redirect
         if($countProducts >0){
             return redirect()->back()->with('flash_err_msg','Product Already Exists in Cart!');
@@ -610,10 +612,11 @@ class ProductsController extends Controller
         }
         return redirect('cart')->with('flash_success_msg','Product Added in Cart Successfully!.');
     }
+
     // DISPLAY CART ITEMS AND IMAGES FROM CART TABLE ON CART BLADE FILE
     public function cart(){
-        
-        //Display products from user cart table when user is logged in by comparing user_email, odawize take usersession_id 
+
+        //Display products from user cart table when user is logged in by comparing user_email, odawize take usersession_id
 
         //$session_id = Session::get('session_id');
         if(Auth::check()){
@@ -621,22 +624,22 @@ class ProductsController extends Controller
             $userCart = DB::table('cart')->where(['user_email'=>$user_email])->get();
         }else{
             $session_id = Session::get('session_id');
-            $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();    
+            $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
         }
-        
-        
+
+
         /*
         $session_id = Session::get('session_id');
         $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
         */
-        
+
         // get and display each cart item product image
         foreach ($userCart as $key => $product) {
             //echo $product->product_id;
             $productDetails = Product::where('id',$product->product_id)->first();
             $userCart[$key]->image= $productDetails->image;
         }
-        
+
         //Start--cart Meta tags for SEO
         $meta_title="Shopping Cart - E-com website";
         $meta_description="Viewing Shopping Cart - E-com website";
@@ -644,6 +647,7 @@ class ProductsController extends Controller
         //Ends--cart Meta tags for SEO
         return view('products.cart')->with(compact('userCart','meta_title','meta_description','meta_keywords'));
     }
+
         //UPDATE CART QUANTITY FUNCTION
     public function updateCartQuantity($id=null, $quantity=null){
         // Initially empty/delete 'couponAmount' and 'couponCode' variable values from the session
@@ -652,7 +656,7 @@ class ProductsController extends Controller
 
         $getCartDetails = DB::table('cart')->where('id',$id)->first();//get cart details fron cart table
         $getAttributeStock = ProductsAttribute::where('sku',$getCartDetails->product_code)->first(); //get attribute stock from productAttribute table
-        
+
         $updated_quantity = $getCartDetails->quantity + $quantity;  // get user demanded quantity
 
         // if total sku is greater than or equal to the quantity demanded by user
@@ -660,17 +664,18 @@ class ProductsController extends Controller
             DB::table('cart')->where('id',$id)->increment('quantity',$quantity);
             return redirect('cart')->with('flash_success_msg','Product Quantity has been Update Successfully!');
         }else{
-            return redirect()->back()->with('flash_err_msg','Required product Quantity is not Available!'); 
+            return redirect()->back()->with('flash_err_msg','Required product Quantity is not Available!');
         }
 
 
     }
         //DELETE PRODUCT(S) FROM CART FUNCTION
+
     public function deleteCartProduct($id=null){
         // Initially empty/delete 'couponAmount' and 'couponCode' variable values from the session
         Session::forget('couponAmount');
         Session::forget('couponCode');
-        
+
         //echo $id;die;
         DB::table('cart')->where('id',$id)->delete();
         return redirect('cart')->with('flash_success_msg','Product has been Deleted from Cart Successfully!');
@@ -702,14 +707,14 @@ class ProductsController extends Controller
            if($expiry_date < $current_date){
             return redirect()->back()->with('flash_err_msg','This Coupon has Expired!');
            }
-           // coupon is valid for discount          
-            
+           // coupon is valid for discount
+
             /*
             $session_id = Session::get('session_id');
             $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
             */
-            
-            
+
+
             //Display products from user cart table when user is logged in by comparing user_email, odawize take usersession_id
             //$session_id = Session::get('session_id');
             if(Auth::check()){
@@ -717,12 +722,12 @@ class ProductsController extends Controller
                 $userCart = DB::table('cart')->where(['user_email'=>$user_email])->get();
             }else{
                  $session_id = Session::get('session_id');
-                $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();    
+                $userCart = DB::table('cart')->where(['session_id'=>$session_id])->get();
             }
-            
+
             $total_amount = 0; // get cart total amount
             foreach ($userCart as $item) {
-                $total_amount = $total_amount + ($item->price * $item->quantity); 
+                $total_amount = $total_amount + ($item->price * $item->quantity);
             }
            // check if amout type is fixed or percentage
             if($couponDetails->amount_type=='fixed'){
@@ -730,7 +735,7 @@ class ProductsController extends Controller
             }else{
                 $couponAmount = $total_amount * ($couponDetails->amount/100);
             }
-            
+
              //Add coupon code and amount in session
             Session::put('couponAmount',$couponAmount);
             Session::put('couponCode',$data['coupon_code']);
@@ -739,6 +744,7 @@ class ProductsController extends Controller
 
     }
     //checkout function
+
     public function checkout(Request $request){
         $user_id = Auth::user()->id; // get auth user id
         $user_email = Auth::user()->email; // get auth user email
@@ -766,14 +772,14 @@ class ProductsController extends Controller
                  return redirect()->back()->with('flash_err_msg','Pls fill all fields to checkout!');
 
             }
-            // update user details           
+            // update user details
             User::where('id',$user_id)->update(['name'=>$data['billing_name'],'address'=>$data['billing_address'],'city'=>$data['billing_city'],'state'=>$data['billing_state'],'country'=>$data['billing_country'],'pincode'=>$data['billing_pincode'],'mobile'=>$data['billing_mobile']]);
-            
+
              //return redirect()->back()->with('flash_success_msg','Account details has been Successfully Updated!');
 
 
             if($shippingCount>0){
-                 // update shipping address 
+                 // update shipping address
                 DeliveryAddress::where('user_id',$user_id)->update(['name'=>$data['shipping_name'],'address'=>$data['shipping_address'],'city'=>$data['shipping_city'],'state'=>$data['shipping_state'],'country'=>$data['shipping_country'],'pincode'=>$data['shipping_pincode'],'mobile'=>$data['shipping_mobile']]);
             }else{
                 //add new shipping address
@@ -788,6 +794,12 @@ class ProductsController extends Controller
                 $shipping->pincode = $data['shipping_pincode'];
                 $shipping->mobile = $data['shipping_mobile'];
                 $shipping->save();
+            }
+
+            // compare user entered pincode to determine if shipping location is available or not
+            $pincodeCount = Zipcode::where('zipcode',$data['shipping_pincode'])->count();
+            if($pincodeCount == 0){
+                return redirect()->back()->with('flash_err_msg','Your location is not available for delivery.Please choose another location.');
             }
             //echo "Redirect to order review page";die;
             return redirect()->action('ProductsController@orderReview');
@@ -813,8 +825,14 @@ class ProductsController extends Controller
             $productDetails = Product::where('id',$product->product_id)->first();
             $userCart[$key]->image= $productDetails->image;
         }
+        /*compare user entered COD/Prepaid pincode to determine if shipping location is available or not,
+          if yess, show and allow user to select payment method*/
+        $cod_pincodeCount = CodZipcode::where('zipcode',  $shippingDetails->pincode)->count();
+        $prepaid_pincodeCount = PrepaidZipcode::where('zipcode', $shippingDetails->pincode)->count();
+
+
         $meta_title="Order Review - Ecom website"; //meta tag for SEO
-        return view('products.order_review')->with(compact('userDetails','shippingDetails','countries','userCart','meta_title'));
+        return view('products.order_review')->with(compact('userDetails','shippingDetails','countries','userCart','meta_title','cod_pincodeCount','prepaid_pincodeCount'));
     }
 
     // place order
@@ -825,6 +843,13 @@ class ProductsController extends Controller
             $user_id = Auth::user()->id; // get auth user id
             $user_email = Auth::user()->email; // get auth user email
             $shippingDetails = DeliveryAddress::where(['user_email'=>$user_email])->first(); //get shipping details
+
+            // compare user entered pincode to determine if shipping location is available or not
+            $pincodeCount = Zipcode::where('zipcode',$shippingDetails->pincode)->count();
+            if($pincodeCount == 0){
+                return redirect()->back()->with('flash_err_msg','Your location is not available for delivery.Please choose another location.');
+            }
+
             // get coupon code and amount from session variables
             if(empty(Session::get('couponCode'))){
                 $coupon_code='';
@@ -901,7 +926,7 @@ class ProductsController extends Controller
                 // End....Code for order email
                 return redirect('/thanks'); //redirect user to thank you page after saving order
             }else{
-                return redirect('/paypal'); //redirect to paypal page after saving orders 
+                return redirect('/paypal'); //redirect to paypal page after saving orders
             }
         }
     }
@@ -963,7 +988,7 @@ class ProductsController extends Controller
         $userDetails = User::where('id',$user_id)->first();
         return view('admin.orders.order_invoice')->with(compact('orderDetails','userDetails'));
     }
-    
+
     // Admin update order status
     public function updateOrderStatus(Request $request ){
         if($request->ismethod('post')){
@@ -982,8 +1007,8 @@ class ProductsController extends Controller
         }
 
     }
- 
 
-   
+
+
 
 }

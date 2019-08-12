@@ -11,78 +11,78 @@
 			</div><!--/breadcrums-->
 
 			<div class="shopper-informations">
-				<div class="row">
+				<div class="row"> @include('includes.msg')
 					<div class="col-sm-4 col-sm-offset-1">
 						<div class="signup-form"><!--Billing form-->
 							<h2>Billing Address</h2>
-							      
+
 				            <div class="form-group">
 								{{$userDetails->name}}
 				            </div>
-				                  
+
 				            <div class="form-group">
 				             	{{$userDetails->address}}
 				            </div>
 
-				            <div class="form-group">				             	
+				            <div class="form-group">
 								{{$userDetails->city}}
 				            </div>
 
-				            <div class="form-group">				             	
+				            <div class="form-group">
 								{{$userDetails->state}}
 				            </div>
 
-				            <div class="form-group">				             	
+				            <div class="form-group">
 								{{$userDetails->country}}
 				            </div>
 
-				             <div class="form-group">				          
+				             <div class="form-group">
 								{{$userDetails->pincode}}
 				             </div>
 
 				              <div class="form-group">
 								{{$userDetails->mobile}}
 				             </div>
-				             
+
 						</div><!--/Billing form-->
 					</div>
-					
+
 					<div class="col-sm-4">
 						<div class="signup-form"><!--Shipping form-->
 							<h2>Shipping Address</h2>
-							      
+
 				            <div class="form-group">
 								{{$shippingDetails->name}}
-				             	
+
 				            </div>
-				                  
+
 				            <div class="form-group">
 				             	{{$shippingDetails->address}}
 				            </div>
 
-				            <div class="form-group">				             	
+				            <div class="form-group">
 								{{$shippingDetails->city}}
 				            </div>
 
-				            <div class="form-group">				             	
+				            <div class="form-group">
 								{{$shippingDetails->state}}
 				            </div>
 
-				           <div class="form-group">				             	
+				           <div class="form-group">
 								{{$shippingDetails->country}}
 								</select>
 				            </div>
 
-				              <div class="form-group">				          
+				              <div class="form-group">
 								{{$shippingDetails->pincode}}
 				             </div>
 
 				              <div class="form-group">
 								{{$shippingDetails->mobile}}
 				             </div>
-							
+
 						</div><!--/Shipping form-->
-					</div>					
+					</div>
 				</div>
 			</div>
 			<div class="review-payment">
@@ -111,7 +111,7 @@
 								<td class="cart_description">
 									<h4><a href="">{{$cart->product_name}}</a></h4>
 									<p>{{$cart->product_code}} | {{$cart->size}}</p>
-									
+
 								</td>
 								<td class="cart_price">
 									<p>&#8358;{{$cart->price}}</p>
@@ -146,9 +146,9 @@
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost(+)</td>
-										<td>&#8358;0</td>										
+										<td>&#8358;0</td>
 									</tr>
-									
+
 									<tr class="shipping-cost">
 										<td>Discount Amount(-)</td>
 										<td>
@@ -156,7 +156,7 @@
 											${{ Session::get('couponAmount') }}
 										@else
 											$0
-										@endif										
+										@endif
 										</td>
 									</tr>
 									<tr>
@@ -177,14 +177,20 @@
 					<span>
 						<label><strong> Select Payment Method :</strong></label>
 					</span>
+					<!---If pincode is available, allow user to select payment method---->
+					@if($cod_pincodeCount>0)
 					<span>
 						<label><input type="radio" name="payment_method" id="COD" value="COD"><strong> COD</strong></label>
 					</span>
+					@endif
+						<!---If pincode is available, allow user to select payment method---->
+					@if($prepaid_pincodeCount>0)
 					<span>
 						<label><input type="radio" name="payment_method" id="Paypal" value="Paypal"><strong> Paypal</strong></label>
 					</span>
+					@endif
 					<span style="float:right;">
-						<button type="submit" class="btn btn-default" onclick="return selectPayMethod();">Place order</button>	
+						<button type="submit" class="btn btn-default" onclick="return selectPayMethod();">Place order</button>
 					</span>
 				</div>
 			</form>
