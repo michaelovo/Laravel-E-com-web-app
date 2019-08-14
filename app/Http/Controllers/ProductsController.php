@@ -83,6 +83,16 @@ class ProductsController extends Controller
                 }
             }
             // End ---- Image upload
+
+            // Start ---- Video upload
+            if($request->hasFile('video')){
+              $video_tmp = Input::file('video');
+              $video_name = $video_tmp->getClientOriginalName();
+              $video_path = 'videos/';
+              $video_tmp->move($video_path,$video_name);
+              $product->video = $video_name;
+            }
+            //End video upload
             //status check
              if(empty($data['status'])){
                 $status=0;
@@ -95,6 +105,7 @@ class ProductsController extends Controller
             }else{
                 $feature_item=1;
             }
+
             $product->status=$status;
             $product->feature_item=$feature_item;
             $product->save();
@@ -173,6 +184,8 @@ class ProductsController extends Controller
                 $filename = $data['current_image'];
             }
             // End ---- Image upload
+
+
             if(empty($data['care'])){
                 $data['care'] ='';
             }
@@ -182,6 +195,22 @@ class ProductsController extends Controller
             }else{
                 $status=1;
             }
+
+            // Start ---- Video upload
+            if($request->hasFile('video')){
+              $video_tmp = Input::file('video');
+              $video_name = $video_tmp->getClientOriginalName();
+              $video_path = 'videos/';
+              $video_tmp->move($video_path,$video_name);
+              $videoName = $video_name;
+            }else if (!empty($data['current_video'])) {
+              $videoName = $data['current_video'];
+              // code...
+            }else{
+                $videoName ='';
+            }
+            //End video upload
+
             //Feature Items check
             if(empty($data['feature_item'])){
                 $feature_item=0;
@@ -190,7 +219,7 @@ class ProductsController extends Controller
             }
 
 
-            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'image'=>$filename,'status'=>$status,'feature_item'=>$feature_item]);
+            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'image'=>$filename,'video'=>$videoName,'status'=>$status,'feature_item'=>$feature_item]);
 
             //return redirect()->back()->with('flash_success_msg','Product Updated successfully!');
              return redirect('/admin/view-product')->with('flash_success_msg','Product Updated successfully!');
@@ -265,6 +294,21 @@ class ProductsController extends Controller
         // delete image from product table
         Product::where(['id'=>$id])->update(['image'=>'']);
             return redirect()->back()->with('flash_success_msg','Product Image Deleted successfully!');
+    }
+
+    //FUNCTION TO DELETE PRODUCT VIDEO
+    public function deleteProductVideo($id=null){
+        //get product video name
+        $productVideo =Product::select('video')->where('id',$id)->first();
+        $video_path = 'videos/';   //get product video paths
+
+        //delete product video if exist in folder
+        if(file_exists($video_path.$productVideo->video)){
+            unlink($video_path.$productVideo->video);
+        }
+        // delete video from product table
+        Product::where(['id'=>$id])->update(['video'=>'']);
+            return redirect()->back()->with('flash_success_msg','Product Video Deleted successfully!');
     }
 
     //START ----FUNCTION TO DELETE PRODUCT ALTERNATE IMAGE
@@ -422,13 +466,13 @@ class ProductsController extends Controller
             }
             //print_r($cat_id); die;
             // get and display only product whose status value=1
-        $productsAll = Product::whereIn('category_id',$cat_id)->where('status',1)->paginate(3);
+        $productsAll = Product::whereIn('category_id',$cat_id)->where('status',1)->orderBy('id','Desc')->paginate(3);
         //$productsAll = json_decode(json_encode($productsAll));
         //echo "<pre>"; print_r($productsAll); die;
 
         }else{
              //if url is sub category url  and status value=1
-            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->where('status',1)->paginate(3);
+            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->where('status',1)->orderBy('id','Desc')->paginate(3);
 
         }
          //end --- check category/subcategory url

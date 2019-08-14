@@ -60,14 +60,14 @@
               <div class="control-group">
                 <label class="control-label">Description</label>
                 <div class="controls">
-                  <textarea name="description" id="description"></textarea> 
+                  <textarea name="description" id="description"></textarea>
                 </div>
               </div>
 
                <div class="control-group">
                 <label class="control-label">Material & Care</label>
                 <div class="controls">
-                  <textarea name="care" id="care"></textarea> 
+                  <textarea name="care" id="care"></textarea>
                 </div>
               </div>
 
@@ -83,10 +83,19 @@
                 <label class="control-label">Image</label>
                 <div class="controls">
                    <input type="file" name="image" id="image">
-                    
+
                 </div>
               </div>
-              
+
+              <div class="control-group">
+                <label class="control-label">Video</label>
+                <div class="controls">
+                   <input type="file" name="video" id="video">
+
+                </div>
+              </div>
+
+
               <div class="control-group">
                 <label class="control-label">Feature Item</label>
                 <div class="controls">
@@ -98,8 +107,8 @@
                 <div class="controls">
                   <input type="checkbox" name="status" id="status" value="1">
                 </div>
-              </div>        
-            
+              </div>
+
               <div class="form-actions">
                 <input type="submit" value="Add product" class="btn btn-success">
               </div>

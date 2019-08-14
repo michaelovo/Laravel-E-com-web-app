@@ -1,7 +1,7 @@
 @extends('layouts.frontend_layout.front_design')
 @section('content')
-	
-	
+
+
 <section>
 		<div class="container">
 			<div class="row">
@@ -10,7 +10,7 @@
 					<!---Left sidebar--->
 					@include('layouts.frontend_layout.front_sidebar')
 				</div>
-				
+
 				<div class="col-sm-9 padding-right">
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
@@ -23,7 +23,7 @@
 								</div>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								
+
 								  <!-- Wrapper for slides -->
 								    <div class="carousel-inner">
 										<div class="item active thumbnails"><!--easyzoom 'thumbnails'-->
@@ -36,9 +36,9 @@
 							                	<a href="{{asset('images/backend_images/products/large/'.$alt_image->image)}}" data-standard="{{asset('images/backend_images/products/small/'.$alt_image->image)}}"><!--easyzoom-->
 							                	  <img class="changeImage" src="{{asset('images/backend_images/products/small/'.$alt_image->image)}}" style="width:80px;cursor:pointer;" alt="">
 							              		</a>
-							                @endforeach     
-										</div>		
-									</div>	
+							                @endforeach
+										</div>
+									</div>
 							</div>
 
 						</div>
@@ -91,14 +91,16 @@
 							<!------//Addtocart form --->
 						</div>
 					</div><!--/product-details-->
-					
+
 					<div class="category-tab shop-details-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#description" data-toggle="tab">Description</a></li>
 								<li><a href="#care" data-toggle="tab">Material & Care</a></li>
 								<li><a href="#delivery" data-toggle="tab">Delivery Option</a></li>
-								<!--li><a href="#reviews" data-toggle="tab">Reviews (5)</a></li-->
+								@if(!empty($productDetails->video))
+									<li><a href="#video" data-toggle="tab">Product video</a></li>
+								@endif
 							</ul>
 						</div>
 						<div class="tab-content">
@@ -107,20 +109,28 @@
 									<p>{{$productDetails->description}}</p>
 								</div>
 							</div>
-							
+
 							<div class="tab-pane fade active in" id="care" >
 								<div class="col-sm-12">
 									<p>{{$productDetails->care}}</p>
 								</div>
 							</div>
-							
+
 							<div class="tab-pane fade active in" id="delivery" >
 								<div class="col-sm-12">
 									<p>100% Original Product
 										<br>Cash on delivery</p>
 								</div>
 							</div>
-							
+							@if(!empty($productDetails->video))
+								<div class="tab-pane fade active in" id="video" ><!--product video -->
+									<div class="col-sm-12">
+										<video controls width="640" height="480">
+											 <source src="{{url('videos/'.$productDetails->video)}}" type="video/mp4">
+										</video>
+									</div>
+								</div>
+							@endif
 							<!--div class="tab-pane fade active in" id="reviews" >
 								<div class="col-sm-12">
 									<ul>
@@ -130,7 +140,7 @@
 									</ul>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 									<p><b>Write Your Review</b></p>
-									
+
 									<form action="#">
 										<span>
 											<input type="text" placeholder="Your Name"/>
@@ -144,20 +154,20 @@
 									</form>
 								</div>
 							</div-->
-							
+
 						</div>
 					</div><!--/category-tab-->
-					
+
 					<div class="recommended_items"><!--recommended_items-->
 						<h2 class="title text-center">recommended items</h2>
-						
+
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<!-- display only three recommended product at a time -->
 							<div class="carousel-inner">
 								<!--counter-->
 								<?php $count=1; ?>
-								@foreach($relatedProducts->chunk(3) as $chunk)	
-									<div <?php if($count==1){ ?> class="item active" <?php } else{?> class="item" <?php }?>>	
+								@foreach($relatedProducts->chunk(3) as $chunk)
+									<div <?php if($count==1){ ?> class="item active" <?php } else{?> class="item" <?php }?>>
 										@foreach($chunk as $item)
 											<div class="col-sm-4">
 												<div class="product-image-wrapper">
@@ -166,7 +176,7 @@
 															<img style="width:200px;" src="{{asset('images/backend_images/products/small/'.$item->image)}}" alt="" />
 															<h2>&#8358;{{$item->price}}</h2>
 															<p>{{$item->product_name}}</p>
-															
+
 															<!--Add to cart link--->
 															<a href="{{url('product/'.$item->id)}}">
 																<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
@@ -185,10 +195,10 @@
 							  </a>
 							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
 								<i class="fa fa-angle-right"></i>
-							  </a>			
+							  </a>
 						</div>
 					</div><!--/recommended_items-->
-					
+
 				</div>
 			</div>
 		</div>

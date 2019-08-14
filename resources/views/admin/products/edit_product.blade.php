@@ -1,17 +1,13 @@
 @extends('layouts.admin_layout.admin_design')
 @section('content')
 
-
-
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Products</a> <a href="#" class="current">Edit product</a> </div>
     <h1>Update product</h1>
   </div>
   <div class="container-fluid"><hr>
-
         @include('includes.msg')
-
       <div class="row-fluid">
         <div class="span12">
           <div class="widget-box">
@@ -59,14 +55,14 @@
                <div class="control-group">
                 <label class="control-label">Description</label>
                 <div class="controls">
-                  <textarea name="description" id="description">{{$productDetails->description}}</textarea> 
+                  <textarea name="description" id="description">{{$productDetails->description}}</textarea>
                 </div>
               </div>
 
                <div class="control-group">
                 <label class="control-label">Material & care</label>
                 <div class="controls">
-                  <textarea name="care" id="care">{{$productDetails->care}}</textarea> 
+                  <textarea name="care" id="care">{{$productDetails->care}}</textarea>
                 </div>
               </div>
 
@@ -86,7 +82,7 @@
                      <!--Start---Not to displayed broken image icon when image is not available on edit_product blade file when editing-->
                     @if(!empty($productDetails->image))
                    <!--start---To display product image from db on this edit_product blade file when editing-->
-                    <img src="{{ asset('/images/backend_images/products/small/'.$productDetails->image) }}" style="width:30px;"> 
+                    <img src="{{ asset('/images/backend_images/products/small/'.$productDetails->image) }}" style="width:30px;">
                      <!--End---To display product image from db on this edit_product blade file when editing-->
 
                       <!--Start---To delete displayed product image from edit_product blade file when editing-->
@@ -94,6 +90,26 @@
                      <!--End---To delete displayed product image from edit_product blade file when editing-->
                     @endif
                     <!--End---Not to displayed broken image icon when image is not available on edit_product blade file when editing-->
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label">Video</label>
+                <div class="controls">
+                   <input type="file" name="video" id="video">
+                    <input type="hidden" name="current_video" value="{{$productDetails->video}}">
+
+                     <!--Start---Not to displayed broken video icon when video is not available on edit_product blade file when editing-->
+                    @if(!empty($productDetails->video))
+                   <!--start---To display product video from db on this edit_product blade file when editing-->
+                    <a href="{{ url('videos/'.$productDetails->video) }}" style="width:30px;" target="_blank">View</a>
+                     <!--End---To display product video from db on this edit_product blade file when editing-->
+
+                      <!--Start---To delete displayed product video from edit_product blade file when editing-->
+                    | <a href="{{url('/admin/delete-product-video/'.$productDetails->id)}}" > Delete </a>
+                     <!--End---To delete displayed product video from edit_product blade file when editing-->
+                    @endif
+                    <!--End---Not to displayed broken video icon when video is not available on edit_product blade file when editing-->
                 </div>
               </div>
 

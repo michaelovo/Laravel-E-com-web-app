@@ -48,7 +48,7 @@ Route::post('/search-products', 'ProductsController@searchProducts');
 
 
 //START--FRONTEND USERS ROUTE
-	
+
 	//login/ register routes
 Route::get('/login-register','UsersController@userLoginRegister');	//register_login page
 Route::post('/user-register','UsersController@register');	//user register form
@@ -58,12 +58,12 @@ Route::get('/user-logout','UsersController@logout');	// user logout
 Route::get('confirm/{code}','UsersController@confirmAccount');	// user Confirm account
 Route::match(['get','post'],'/forgot-password','UsersController@forgotPassword'); //Forgot password
 
-	
+
 	//FRONTEND MIDDLEWARE---All user route after login
 Route::group(['middleware'=>['frontlogin']],function(){
 	Route::match(['get','post'],'account','UsersController@account');//User account page
 	Route::get('/check-user-pwd','UsersController@chkUserPwd'); //check user current against old password
-  	Route::match(['get','post'],'/update-user-pwd','UsersController@updateUserPwd'); //update user pwd 	
+  	Route::match(['get','post'],'/update-user-pwd','UsersController@updateUserPwd'); //update user pwd
 
 	// All cart routes
 	Route::match(['get','post'],'/add-cart','ProductsController@addtocart');//Add to cart route
@@ -72,11 +72,11 @@ Route::group(['middleware'=>['frontlogin']],function(){
 	Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct'); //Delete cart item route
 
 	//checkout page route
-  	Route::match(['get','post'],'checkout','ProductsController@checkout'); 
-  	Route::match(['get','post'],'/order-review','ProductsController@orderReview'); // order review page 
+  	Route::match(['get','post'],'checkout','ProductsController@checkout');
+  	Route::match(['get','post'],'/order-review','ProductsController@orderReview'); // order review page
 
   	//place order
-  	Route::match(['get','post'],'/place-order','ProductsController@placeOrder'); // place order 
+  	Route::match(['get','post'],'/place-order','ProductsController@placeOrder'); // place order
   	Route::get('/orders', 'ProductsController@userOrders'); //User orders page
   	Route::get('/orders/{id}', 'ProductsController@userOrderDetails'); //User orders products page
 
@@ -101,11 +101,12 @@ Route::group(['middleware'=>['adminlogin']],function(){
   Route::match(['get','post'],'/admin/delete-category/{id}','CategoryController@deleteCategory');
 
   //Admin product route
-   Route::match(['get','post'],'/admin/add-product','ProductsController@addProduct');
-   Route::get('/admin/view-product','ProductsController@viewProducts');
-   Route::match(['get','post'],'/admin/edit-product/{id}','ProductsController@editProduct');
-   Route::get('/admin/delete-product-image/{id}','ProductsController@deleteProductImage');
-   Route::match(['get','post'],'/admin/delete-product/{id}','ProductsController@deleteProduct');
+   Route::match(['get','post'],'/admin/add-product','ProductsController@addProduct');//add product
+   Route::get('/admin/view-product','ProductsController@viewProducts');//view products
+   Route::match(['get','post'],'/admin/edit-product/{id}','ProductsController@editProduct');//edit products
+   Route::get('/admin/delete-product-image/{id}','ProductsController@deleteProductImage');//delete product image from folder
+	 Route::get('/admin/delete-product-video/{id}','ProductsController@deleteProductVideo');//delete product video from folder
+   Route::match(['get','post'],'/admin/delete-product/{id}','ProductsController@deleteProduct');//delete product
 
    // Products attributes route
     Route::match(['get','post'],'/admin/add-attributes/{id}','ProductsController@addAttributes');
