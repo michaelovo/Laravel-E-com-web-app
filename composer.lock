@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "443c3d8dfdf81c12d41d608f0d36d384",
+    "content-hash": "b22c584dd23661f2803235f799c29ea0",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -595,6 +595,63 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "julienbourdeau/route-usage",
+            "version": "0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/julienbourdeau/route-usage.git",
+                "reference": "b1e124654bf241311ca68a64ff435a245d8c1748"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/julienbourdeau/route-usage/zipball/b1e124654bf241311ca68a64ff435a245d8c1748",
+                "reference": "b1e124654bf241311ca68a64ff435a245d8c1748",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">= 5.8",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.8.*",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Julienbourdeau\\RouteUsage\\RouteUsageServiceProvider"
+                    ],
+                    "aliases": {
+                        "RouteUsage": "Julienbourdeau\\RouteUsage\\RouteUsageFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Julienbourdeau\\RouteUsage\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Julien Bourdeau",
+                    "email": "julien@sigerr.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Log what routes were used and when. Easily figure out if one hasn't been called in a long time (and delete it! 🥳)",
+            "homepage": "https://github.com/julienbourdeau/route-usage",
+            "keywords": [
+                "julienbourdeau",
+                "route-usage"
+            ],
+            "time": "2019-10-29T19:47:16+00:00"
         },
         {
             "name": "laravel/framework",

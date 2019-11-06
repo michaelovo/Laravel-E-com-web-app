@@ -6,7 +6,7 @@
     <!--php pattern match function to compare urls and highlight active/select url--->
     <li <?php if (preg_match("/dashboard/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/dashboard')}}"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
    <!---Category Management--->
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list icon-2x"></i>
       <span>Categories</span> <span class="label label-important">2</span></a>
 
       <ul <?php if (preg_match("/categories/i",$url)){ ?> style="display:block" <?php } ?>>
@@ -18,7 +18,7 @@
     </li>
 
     <!---Products Management --->
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list icon-2x"></i>
       <span>Products</span> <span class="label label-important">2</span></a>
 
       <ul <?php if (preg_match("/products/i",$url)){ ?> style="display:block" <?php } ?>>
@@ -30,7 +30,7 @@
     </li>
 
     <!---Coupon Management--->
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list icon-2x"></i>
       <span>Coupons</span> <span class="label label-important">2</span></a>
 
       <ul <?php if (preg_match("/coupons/i",$url)){ ?> style="display:block" <?php } ?>>
@@ -42,7 +42,7 @@
     </li>
 
     <!---View users orders--->
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list icon-2x"></i>
       <span>Orders</span> <span class="label label-important">1</span></a>
 
       <ul <?php if (preg_match("/orders/i",$url)){ ?> style="display:block" <?php } ?>>
@@ -53,7 +53,7 @@
     </li>
 
       <!---Slider/Banner Management--->
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list icon-2x"></i>
       <span>Sliders</span> <span class="label label-important">2</span></a>
 
       <ul <?php if (preg_match("/sliders/i",$url)){ ?> style="display:block" <?php } ?>>
@@ -65,7 +65,7 @@
     </li>
 
     <!---CMS Pages Management --->
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list icon-2x"></i>
       <span>CMS Pages</span> <span class="label label-important">2</span></a>
 
       <ul <?php if (preg_match("/cms-page/i",$url)){ ?> style="display:block" <?php } ?>>
@@ -77,7 +77,7 @@
     </li>
 
     <!---View Users--->
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i>
+    <li class="submenu"> <a href="#"><i class="icon-group icon-2x"></i>
       <span>Users</span> <span class="label label-important">1</span></a>
 
       <ul <?php if (preg_match("/users/i",$url)){ ?> style="display:block" <?php } ?>>
@@ -88,16 +88,37 @@
     </li>
 
     <!---Password settings--->
-    <li class="submenu"> <a href="#"><i class="icon icon-cog"></i> <span>Settings</span> <span class="label label-important">1</span></a>
+    <li class="submenu"> <a href="#"><i class="icon icon-cog icon-2x"></i> <span>Settings</span> <span class="label label-important">1</span></a>
       <ul <?php if (preg_match("/settings/i",$url)){ ?> style="display:block" <?php } ?>>
         <li  <?php if (preg_match("/settings/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/settings')}}"><i class="icon icon-edit"></i>Update password</a></li>
         
        
       </ul>
     </li>
+
+     <!---Trash--->
+     <li class="submenu"> <a href="#"><i class="icon icon-trash icon-2x"></i>
+      <span>Trash</span> <span class="label label-important">5</span></a>
+
+      <ul <?php if (preg_match("/users/i",$url)){ ?> style="display:block" <?php } ?>>
+
+          <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Users</a>
+            <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Products</a>
+              <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Category</a>
+                <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Slider</a>
+                  <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Pages</a>
+
+
+
+
+        
+      </ul>
+    </li>
+    <li><a href="{{url('/route-usage')}}" target="_blank"><i class="icon-double-angle-right icon-2x"></i> <span>Route Usage</span></a></li>
+      <li><a href="{{url('/telescope')}}" target="_blank"><i class="icon-stethoscope icon-2x"></i> <span>Telescope</span></a></li>
     
     <!---Logout--->
-    <li  <?php if (preg_match("/logout/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/logout')}}"><i class="icon icon-off"></i> <span>Logout</span></a></li>
+    <li  <?php if (preg_match("/logout/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/logout')}}"><i class="icon icon-off icon-2x"></i> <span>Logout</span></a></li>
   </ul>
 </div>
 <!--sidebar-menu-->
