@@ -96,26 +96,12 @@
       </ul>
     </li>
 
-     <!---Trash--->
-     <li class="submenu"> <a href="#"><i class="icon icon-trash icon-2x"></i>
-      <span>Trash</span> <span class="label label-important">5</span></a>
-
-      <ul <?php if (preg_match("/users/i",$url)){ ?> style="display:block" <?php } ?>>
-
-          <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Users</a>
-            <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Products</a>
-              <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Category</a>
-                <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Slider</a>
-                  <li <?php if (preg_match("/view-users/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-users')}}"><i class="icon icon-eye-open"></i>Pages</a>
-
-
-
-
-        
-      </ul>
-    </li>
+     <!--Route usage -->
     <li><a href="{{url('/route-usage')}}" target="_blank"><i class="icon-double-angle-right icon-2x"></i> <span>Route Usage</span></a></li>
-      <li><a href="{{url('/telescope')}}" target="_blank"><i class="icon-stethoscope icon-2x"></i> <span>Telescope</span></a></li>
+    
+    <!--Telescope -->
+    <li><a href="{{url('/telescope')}}" target="_blank"><i class="icon-stethoscope icon-2x"></i> <span>Telescope</span></a></li>
+      
     
     <!---Logout--->
     <li  <?php if (preg_match("/logout/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/logout')}}"><i class="icon icon-off icon-2x"></i> <span>Logout</span></a></li>
