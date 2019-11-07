@@ -76,6 +76,18 @@
       </ul>
     </li>
 
+    <!---currencies --->
+    <li class="submenu"> <a href="#"><i class="icon-money icon-2x"></i>
+      <span>Currencies</span> <span class="label label-important">2</span></a>
+
+      <ul <?php if (preg_match("/currency/i",$url)){ ?> style="display:block" <?php } ?>>
+
+        <li <?php if (preg_match("/add-currency/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/add-currency')}}"><i class="icon icon-plus-sign"></i>Add curreny</a></li>
+        <li <?php if (preg_match("/view-currencies/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-currencies')}}"><i class="icon icon-eye-open"></i>View currencies</a>
+        
+      </ul>
+    </li>
+
     <!---View Users--->
     <li class="submenu"> <a href="#"><i class="icon-group icon-2x"></i>
       <span>Users</span> <span class="label label-important">1</span></a>
