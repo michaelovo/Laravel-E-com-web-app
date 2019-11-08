@@ -1,6 +1,6 @@
 @extends('layouts.frontend_layout.front_design')
 @section('content')
-
+<?php use App\Product;?>
 
 <section>
 		<div class="container">
@@ -67,7 +67,15 @@
 									</p>
 									<img src="{{asset('images/frontend_images/images/product-details/rating.png')}}" alt="" />
 									<span>
-										<span id="getPrice">&#8358;{{$productDetails->price}}</span>
+										<?php $getcurrencyRate=Product::getcurrencyRate($productDetails->price) ;?>
+										<span id="getPrice">
+											&#8358;{{$productDetails->price}} <br>
+											<h2>
+												USD {{$getcurrencyRate['USD_rates']}}<br>
+												EUR {{$getcurrencyRate['EUR_rates']}}<br>
+												GHC {{$getcurrencyRate['GHC_rates']}}<br>
+											</h2>
+										</span>
 										<label>Quantity:</label>
 										<input type="text" name="quantity" value="1" />
 										<!---if no stock, hide the 'Add to cart' button--->

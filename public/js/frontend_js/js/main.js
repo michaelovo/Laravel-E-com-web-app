@@ -46,7 +46,8 @@ $(document).ready(function(){
 				/*START .....hide/show 'Add to cart' button/'Availability' message 
 				depending on selected size stock value*/
 				var arr = resp.split('#');
-				$("#getPrice").html("&#8358;"+ arr[0]);
+				var arr1 = arr[0].split("-");//getcurrencyRates
+				$("#getPrice").html("&#8358;"+ arr1[0]+"<br><h2>USD "+arr1[1]+"<br>EUR "+arr1[2]+"<br>GHC "+arr1[3]+"</h2>");
 				$("#price").val(arr[0]);// to get and send price to input field wt id='price' in detail blade file
 				if(arr[1]==0){
 					$("#cartButton").hide();

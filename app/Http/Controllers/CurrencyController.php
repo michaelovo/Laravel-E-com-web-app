@@ -41,7 +41,7 @@ class CurrencyController extends Controller
    
     public function viewCurrency()
     {
-        $currencies = Currency::orderBy('id','ASC')->get();
+        $currencies = Currency::orderBy('updated_at','DESC')->latest()->get();
         $page_title ="Currencies";
          return view('admin.currencies.view_currencies')->with(compact('currencies','page_title'));
     }

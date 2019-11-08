@@ -560,7 +560,10 @@ class ProductsController extends Controller
         $proArr = explode("-",$data['idSize']);
        //echo $proArr[0]; echo $proArr[1];die;
         $proAttr = ProductsAttribute::where(['product_id' => $proArr[0],'size' => $proArr[1]])->first();
-        echo $proAttr->price;
+        
+        //get currency conversion rate
+        $getcurrencyRate=Product::getcurrencyRate($proAttr->price);
+        echo $proAttr->price."-".$getcurrencyRate['USD_rates']."-".$getcurrencyRate['EUR_rates']."-".$getcurrencyRate['GHC_rates'];
 
         //get attribute stock
         echo "#";
