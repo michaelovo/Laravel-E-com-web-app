@@ -8,37 +8,52 @@ use Session;
 use App\Currency;
 class CurrencyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $currencies = Currency::all();
-        //$currencies = Permission::latest()->get();
-        $page_title='Currency';
+        $page_title='Add Currency';
         return view('admin.currencies.add_currency')->with(compact('currencies','page_title'));;
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
+    {
+        $this->validate($request,[
+            'currency_code'=>'required',
+            'exchange_rate'=>'required',
+            'country_name'=>'required |unique:currencies'
+
+        ]);
+        $currencies =new Currency;
+        $currencies->currency_code = $request->currency_code;
+        $currencies->exchange_rate = $request->exchange_rate;
+        $currencies->country_name = $request->country_name;
+
+        if(empty($request->status)){
+            $status=0;
+        }else{
+            $status=1;
+        }
+
+        $currencies->save();
+        return back()->with('flash_success_msg','New Currencies Added successfully!');
+    }
+   
+    public function viewCurrency()
+    {
+        $currencies = Currency::orderBy('id','ASC')->get();
+        $page_title ="Currencies";
+         return view('admin.currencies.view_currencies')->with(compact('currencies','page_title'));
+    }
+   
+    public function editCurrency($id)
+    {
+        $currency = Currency::findOrFail($id);
+        $page_title='Update Currency';
+        return view('admin.currencies.edit_currency')->with(compact('currency','page_title'));
+    }
+
+    public function updateCurrency(Request $request, $id)
     {
         $this->validate($request,[
             'currency_code'=>'required',
@@ -46,72 +61,26 @@ class CurrencyController extends Controller
             'country_name'=>'required'
 
          ]);
-      $currencies =new Currency;
-      $currencies->currency_code = $request->currency_code;
-      $currencies->exchange_rate = $request->exchange_rate;
-      $currencies->country_name = $request->country_name;
-     // $currencies->save();
-             //status check
-             if(empty($request->status)){
-                $status=0;
-            }else{
-                $status=1;
-            }
-       // prevent duplicate
-       $currencyCount = Currency::where('currency_code',$request->currency_code)->count();
-       if($currencyCount >0){
-           return redirect()->back()->with('flash_err_msg','Currency Already Exists!');
-       }else{
-           $currencies->save();
-           return back()->with('flash_success_msg','New Currencies Added successfully!');
-         }
-      //return redirect('admin.currencies.add_currency')>with('flash_success_msg','Currency created successfull');
+
+        $currency = Currency::findOrFail($id);
+        $currency->currency_code = $request->currency_code;
+        $currency->exchange_rate = $request->exchange_rate;
+        $currency->country_name = $request->country_name;
+
+         if(empty($currency->status=$request->status)){
+            $status=0;
+        }else{
+            $status=1;
+        }
+        $currency->update();
+       return redirect('/admin/view_currencies')->with('flash_success_msg','Currency Updated successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function viewCurrency()
+    public function deleteCurrency($id)
     {
-        $currencies = Currency::orderBy('id','ASC')->get();
-        $page_title ="currencies";
-         return view('admin.currencies.view_currencies')->with(compact('currencies','page_title'));
-    }
+        $currency = Currency::findOrFail($id);
+        $currency->delete();
+        return redirect()->back()->with('flash_success_msg', 'Operation successfully!');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

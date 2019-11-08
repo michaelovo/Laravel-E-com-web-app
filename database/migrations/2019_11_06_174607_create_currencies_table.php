@@ -17,7 +17,7 @@ class CreateCurrenciesTable extends Migration
             $table->bigIncrements('id');
             $table->string('country_name');
             $table->string('currency_code');
-            $table->float('exchange_rate');
+            $table->float('exchange_rate')->default(0.00);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

@@ -20,40 +20,41 @@
             </div>
             <div class="widget-content nopadding">
 
-              <form class="form-horizontal" method="post" action="{{url('/admin/add-currency')}}" name="add_currency" id="add_currency" novalidate="novalidate">
+              <form class="form-horizontal" method="post" action="{{url('/admib/update-currency/'.$currency->id)}}" name="edit_currency" id="edit_currency" novalidate="novalidate">
                     {{csrf_field()}}
                     
                     <div class="control-group">
                             <label class="control-label">Country</label>
                             <div class="controls">
-                            <input type="text" value="{{ old('country_name') }}" name="country_name" id="country_name" required>
+                            <input type="text" value="{{$currency->country_name}}" name="country_name" id="country_name" required>
                             </div>
                      </div>        
 
                 <div class="control-group">
                     <label class="control-label">Currency code</label>
                     <div class="controls">
-                    <input type="text" value="{{ old('currency_code') }}" name="currency_code" id="currency_code" required>
+                    <input type="text" value="{{$currency->currency_code}}" name="currency_code" id="currency_code" required>
                     </div>
                   </div>
 
                   <div class="control-group">
                     <label class="control-label">Exchange Rate</label>
                     <div class="controls">
-                        <input type="text" value="{{ old('exchange_rate') }}" name="exchange_rate" id="exchange_rate" required>
+                        <input type="text" value="{{$currency->exchange_rate}}" name="exchange_rate" id="exchange_rate" required>
                     </div>
                 </div>                 
 
               <div class="control-group">
                 <label class="control-label">Enable</label>
                 <div class="controls">
-                  <input type="checkbox" name="status" id="status" value="1">
+                    <input type="checkbox" name="status" id="status" @if($currency->status=="1") checked @endif value="1">
                 </div>
               </div>
+              
 
 
               <div class="form-actions">
-                <input type="submit" value="Create Currency" class="btn btn-primary">
+                <input type="submit" value="Update Currency" class="btn btn-primary">
               </div>
             </form>
             </div>
