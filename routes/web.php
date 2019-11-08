@@ -154,7 +154,7 @@ Route::group(['middleware'=>['adminlogin']],function(){
      //Currency pages route
      Route::get('/admin/add-currency','CurrencyController@index');//add cms page
      Route::post('/admin/add-currency','CurrencyController@store'); //view cms pages
-     Route::match(['get','post'],'/admin/edit-cms-page/{id}','CurrencyController@editCmsPage');//Edit cms pages
+     Route::get('/admin/view_currencies','CurrencyController@viewCurrency');//Edit cms pages
      Route::match(['get','post'],'/admin/delete-cms-page/{id}','CurrencyController@deleteCmsPage');//delete cms page
 
 });

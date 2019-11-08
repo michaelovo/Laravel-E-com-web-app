@@ -74,9 +74,11 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function viewCurrency()
     {
-        //
+        $currencies = Currency::orderBy('id','ASC')->get();
+        $page_title ="currencies";
+         return view('admin.currencies.view_currencies')->with(compact('currencies','page_title'));
     }
 
     /**

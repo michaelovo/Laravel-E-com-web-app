@@ -83,7 +83,7 @@
       <ul <?php if (preg_match("/currency/i",$url)){ ?> style="display:block" <?php } ?>>
 
         <li <?php if (preg_match("/add-currency/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/add-currency')}}"><i class="icon icon-plus-sign"></i>Add curreny</a></li>
-        <li <?php if (preg_match("/view-currencies/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view-currencies')}}"><i class="icon icon-eye-open"></i>View currencies</a>
+        <li <?php if (preg_match("/view_currencies/i",$url)){ ?> class="active" <?php } ?>><a href="{{url('/admin/view_currencies')}}"><i class="icon icon-eye-open"></i>View currencies</a>
         
       </ul>
     </li>
