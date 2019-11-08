@@ -55,7 +55,13 @@ class Product extends Model
 				$XOF_rates =round($price/$currency->exchange_rate,2);
 			}
 		} 
-		$currenciesArr=array('USD_rates'=>$USD_rates,'EUR_rates'=>$EUR_rates,'GHC_rates'=>$GHC_rates,'ZAR_rates'=>$ZAR_rates,'XOF_rates'=>$XOF_rates);
+		$currenciesArr=array(
+			'USD_rates'=>$USD_rates,
+			'EUR_rates'=>$EUR_rates,
+			'GHC_rates'=>$GHC_rates,
+			'ZAR_rates'=>$ZAR_rates,
+			'XOF_rates'=>$XOF_rates
+		);
 		return $currenciesArr;
 	}
 }

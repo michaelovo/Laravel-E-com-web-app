@@ -50,8 +50,9 @@
 							</div>
 						</div>
 						@endforeach
-
-						<div align="center"> {{$productsAll->links()}}	</div>
+						@if(empty($search_product))
+							<div align="center"> {{$productsAll->links()}}	</div>
+						@endif
 					</div><!--features_items-->
 
 

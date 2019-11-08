@@ -502,7 +502,12 @@ class ProductsController extends Controller
              //End --This compare user to enter a search item name
 
              // Search using product name and code to display only product whose status value=1
-            $productsAll = Product::where('product_name','like','%'.$search_product.'%')->orwhere('product_code',$search_product)->where('status',1)->paginate(3);
+            
+            $productsAll = product::where(function($query) use ($search_product){
+                $query->where('product_name','like','%'.$search_product.'%')
+                    ->orwhere('product_color','like','%'.$search_product.'%')
+                    ->orwhere('description','like','%'.$search_product.'%');
+            })->where('status',1)->get();
 
              return view('products.listing')->with(compact('search_product','productsAll','categories'));
         }

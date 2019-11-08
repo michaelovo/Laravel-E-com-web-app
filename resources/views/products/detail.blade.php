@@ -56,6 +56,8 @@
 									<img src="{{asset('images/frontend_images/images/product-details/new.jpg')}}" class="newarrival" alt="" />
 									<h2>{{$productDetails->product_name}}</h2>
 									<p>Code: {{$productDetails->product_code}}</p>
+									<p>Color: {{$productDetails->product_color}}</p>
+
 									<p>
 										<!-- to show sizes drop-down-->
 										<select id="selSize" name="size" style="width:150px;">
