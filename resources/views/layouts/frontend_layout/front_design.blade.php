@@ -72,7 +72,13 @@
 <script src="{{asset('js/frontend_js/js/main.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/jquery.validate.js')}}"></script>
 <script src="{{asset('js/frontend_js/js/passtrength.js')}}"></script><!--jquery passtrength-->
-<script src="{{asset('js/app.js')}}"></script><!--Node/vuejs-->
+{{--<script src="{{asset('js/app.js')}}"></script>--}}<!--Node/vuejs-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script><!---bootstrap tooltips--->
+<script>
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 
 
 

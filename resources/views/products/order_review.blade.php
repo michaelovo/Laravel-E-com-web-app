@@ -1,5 +1,6 @@
 @extends('layouts.frontend_layout.front_design')
 @section('content')
+<?php use App\Product;?>
 
 <section id="cart_items" style="margin-top: 20px;">
 		<div class="container">
@@ -159,10 +160,20 @@
 										@endif
 										</td>
 									</tr>
-									<tr>
+									<tr><!---bootstrap tooltip class. getcurrencyrate--->
+											<?php $getcurrencyRate=Product::getcurrencyRate($grand_total) ;?>
 										<td>Grand Total</td>
-										<td><span>&#8358;{{$grand_total = $total_amount - Session::get('couponAmount')}}</span></td>
-
+										<td>
+											<span class="btn btn-secondary" data-toggle="tooltip" data-html="true" 
+											title="
+												USD {{$getcurrencyRate['USD_rates']}}<br>
+												EUR {{$getcurrencyRate['EUR_rates']}}<br>
+												GHC {{$getcurrencyRate['GHC_rates']}}
+											">											
+											&#8358;{{$grand_total = $total_amount - Session::get('couponAmount')}}
+											</span>
+										</td>
+										
 									</tr>
 								</table>
 							</td>

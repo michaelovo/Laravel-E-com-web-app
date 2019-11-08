@@ -1,6 +1,6 @@
 @extends('layouts.frontend_layout.front_design')
 @section('content')
-
+<?php use App\Product;?>
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -90,14 +90,39 @@
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<!---If coupon is valid and session is not timed out-->
+							<!---If coupon is valid and session is not timed out. bootstrap tooltip class. getcurrencyrate-->
 							@if(!empty(Session::get('couponAmount')))
 								<li>Sub Total <span>&#8358;<?php echo $total_amount;?></span></li>
 								<li>Coupon Discount <span>&#8358;<?php echo Session::get('couponAmount');?></span></li>
-								<li>Grand Total <span>&#8358;<?php echo $total_amount - Session::get('couponAmount');?></span></li>
+
+								<?php
+									$total_amount=$total_amount-Session::get('couponAmount');
+									$getcurrencyRate=Product::getcurrencyRate($total_amount) ;
+								?>
+
+								<li>Grand Total 
+										<span class="btn btn-secondary" data-toggle="tooltip" data-html="true" 
+										title="
+											USD {{$getcurrencyRate['USD_rates']}}<br>
+											EUR {{$getcurrencyRate['EUR_rates']}}<br>
+											GHC {{$getcurrencyRate['GHC_rates']}}
+										">
+										&#8358;<?php echo $total_amount - Session::get('couponAmount');?>
+									</span>
+								</li>
 							@else
-								<!---If coupon is not valid -->
-								<li>Grand Total <span>&#8358;<?php echo $total_amount;?></span></li>
+								<!---If coupon is not valid. bootstrap tooltip class. getcurrencyrate -->
+								<?php $getcurrencyRate=Product::getcurrencyRate($total_amount) ;?>
+								<li>Grand Total 
+									<span class="btn btn-secondary" data-toggle="tooltip" data-html="true" 
+										title="
+											USD {{$getcurrencyRate['USD_rates']}}<br>
+											EUR {{$getcurrencyRate['EUR_rates']}}<br>
+											GHC {{$getcurrencyRate['GHC_rates']}}
+										">
+										&#8358;<?php echo $total_amount;?>
+									</span>
+								</li>
 							@endif
 						</ul>
 							<a class="btn btn-default update" href="">Update</a>
