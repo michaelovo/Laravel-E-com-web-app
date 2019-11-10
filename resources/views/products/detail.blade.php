@@ -95,7 +95,9 @@
 									<p><b>Delivery</b>
 									<input type="text" name="zipcode" id="chkzipcode" placeholder="check zipcode"><button type="button" onclick="return checkZipcode();">Go</button>
 									<span id="zipcoderesponse"></span>
-									<a href=""><img src="{{asset('images/frontend_images/images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
+
+									<div class="sharethis-inline-share-buttons"></div><!-- cocial-lite share-->
+            
 								</div><!--/product-information-->
 							</form>
 							<!------//Addtocart form --->

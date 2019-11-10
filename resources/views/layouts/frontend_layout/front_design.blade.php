@@ -80,6 +80,13 @@
     })
 </script>
 
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5dc6480c5a60aae9"></script>
+
+<!-- Go to www.sharethis.com/dashboard to customize your tools for social share inline-->
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5dc655be1011270012d7432c&product=inline-share-buttons" async="async"></script>
+
+
 
 
 
