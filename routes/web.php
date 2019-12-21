@@ -33,6 +33,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Category Listing page route
 Route::get('/products/{url}', 'ProductsController@products');
 
+// products filter
+Route::match(['get','post'],'/products-filter', 'ProductsController@filter');
+
 //product detail page route
 Route::get('/product/{id}', 'ProductsController@product');
 

@@ -54,7 +54,7 @@ class IndexController extends Controller
 	    $banners = Banner::where('status','1')->get(); //get only enabled slider/banner for display on slider blade file
 
 	    //Meta tags for SEO
-	    $meta_title="E-shop Sample Website";
+	    $meta_title="JayLinks.ng.com";
 	    $meta_description="Online shopping site for women, men and children";
 	    $meta_keywords="eshop website, online shopping";
 	    

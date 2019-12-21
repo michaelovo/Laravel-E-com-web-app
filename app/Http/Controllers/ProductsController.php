@@ -482,7 +482,7 @@ class ProductsController extends Controller
         $meta_description=$categoriesDetails->meta_description;
         $meta_keywords=$categoriesDetails->meta_keywords;
         //Ends--Catgeories/subcategories Meta tags for SEO
-        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords'));
+        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords','url'));
     }
          //END--CATEGORY LISTING FUNCTION
 
@@ -555,10 +555,15 @@ class ProductsController extends Controller
         $meta_description=$productDetails->description;
         $meta_keywords=$productDetails->care;
         //Ends--Product detail Meta tags for SEO
-       return view('products.detail')->with(compact('productDetails','categories','productsAltImages','total_stock','relatedProducts','meta_title','meta_description','meta_keywords'));
+       return view('products.detail')->with(compact('productDetails','categories','productsAltImages','total_stock','relatedProducts','meta_title','meta_description','meta_keywords','url'));
     }
 
-    // get product prices according to selected size
+    public function filter(Request $request){
+
+        $data= $request->all();
+        return $data;
+    }
+    // ()get product prices according to selected size
     public function getProductPrice(Request $request){
         $data = $request->all();
         //echo "<pre>"; print_r($data);die;
