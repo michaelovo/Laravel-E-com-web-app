@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use Image;
 use Auth;
 use Session;
@@ -560,8 +561,20 @@ class ProductsController extends Controller
 
     public function filter(Request $request){
 
-        $data= $request->all();
-        return $data;
+        // $data= $request->all();
+        // return $data;
+
+        $colorUrl ="";
+        if(!empty($request['colorFilter'])){
+            foreach($request['colorFilter'] as $colors){
+                if(empty($colorUrl)){
+                    $colorUrl = "&colors=".$colors;
+                }else
+                $colorUrl .= "_".$colors; 
+            }
+            $finalUrl = "products/".$request['url']."?".$colorUrl;
+            return redirect :: to($finalUrl);
+        }
     }
     // ()get product prices according to selected size
     public function getProductPrice(Request $request){

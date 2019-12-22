@@ -49,10 +49,16 @@
 
 		<h2>Colors</h2>
 		<div class="panel-group products-colors">
+			@if(!empty($_GET['colors']))
+				<?php 
+					$colorArray = explode('_',$_GET['colors']);
+					
+				?>
+			@endif
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="black" id="black">&nbsp;&nbsp;<span class="products-colors">Black</span>
+						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="black" id="black" @if(!empty($colorArray) && in_array("black",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">Black</span>
 
 					</h4>
 				</div>
@@ -62,7 +68,7 @@
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						<a>
-							<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="blue" id="blue">&nbsp;&nbsp;<span class="products-colors">Blue</span>
+							<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="blue" id="blue" @if(!empty($colorArray) && in_array("blue",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">Blue</span>
 
 						</a>
 					</h4>
@@ -73,7 +79,7 @@
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						
-						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="white" id="white">&nbsp;&nbsp;<span class="products-colors">White</span>
+						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="white" id="white" @if(!empty($colorArray) && in_array("white",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">White</span>
 						
 						
 					</h4>
@@ -83,7 +89,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="green" id="green">&nbsp;&nbsp;<span class="products-colors">Green</span>
+						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="green" id="green" @if(!empty($colorArray) && in_array("green",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">Green</span>
 
 					</h4>
 				</div>
@@ -92,7 +98,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="red" id="red">&nbsp;&nbsp;<span class="products-colors">Red</span>
+						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="red" id="red" @if(!empty($colorArray) && in_array("red",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">Red</span>
 
 					</h4>
 				</div>
