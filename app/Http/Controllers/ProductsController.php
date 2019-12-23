@@ -473,9 +473,18 @@ class ProductsController extends Controller
 
         }else{
              //if url is sub category url  and status value=1
-            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->where('status',1)->orderBy('id','Desc')->paginate(3);
+            $productsAll = Product::where(['category_id'=>$categoriesDetails->id])->where('status',1)->orderBy('id','Desc');//->paginate(3);
 
         }
+
+        // check for product colors in product table
+       if(!empty($_GET['colors'])){
+        $colorArray = explode('_',$_GET['colors']);
+        $productsAll= $productsAll->wherein('product_color',$colorArray);
+       }
+       
+       $productsAll= $productsAll->paginate(6);
+					
          //end --- check category/subcategory url
 
         //Start--Catgeories/subcategories Meta tags for SEO
