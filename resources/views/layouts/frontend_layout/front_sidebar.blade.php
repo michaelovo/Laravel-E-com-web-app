@@ -3,8 +3,9 @@
 ?>
 <form action="{{ url('/products-filter') }}" method="post">
 	{{csrf_field()}}
-
+	@if(!empty($url))
 	<input name="url"  type="hidden" value="{{ $url }}" id="colors_url">
+	@endif
 	<div class="left-sidebar">
 		<h2>Category</h2>
 		<div class="panel-group category-products" id="accordian"><!--category-productsr-->
@@ -46,37 +47,37 @@
 
 		</div><!--/category-products-->
 
+		@if(!empty($url))
+			<h2>Colors</h2>
+			<div class="panel-group products-colors">
+				@foreach($colorArray as $colors)
 
-		<h2>Colors</h2>
-		<div class="panel-group products-colors">
-			@foreach($colorArray as $colors)
+					@if(!empty($_GET['colors']))
+						<?php $colorArr = explode('_',$_GET['colors']) ?>
 
-				@if(!empty($_GET['colors']))
-					<?php $colorArr = explode('_',$_GET['colors']) ?>
+						@if(in_array($colors,$colorArr))
+							<?php $colorcheck = 'checked'; ?>
+						@else
+							<?php $colorcheck = ""; ?>
+						@endif
 
-					@if(in_array($colors,$colorArr))
-						<?php $colorcheck = 'checked'; ?>
 					@else
 						<?php $colorcheck = ""; ?>
-					@endif
-					
-				@else
-					<?php $colorcheck = ""; ?>
-				@endif				
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" 
-							value="{{$colors}}" id="{{$colors}}" {{ $colorcheck }}>
-							&nbsp;&nbsp;<span class="products-colors">{{$colors}}</span>
-						</h4>
+					@endif				
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" 
+								value="{{$colors}}" id="{{$colors}}" {{ $colorcheck }}>
+								&nbsp;&nbsp;<span class="products-colors">{{$colors}}</span>
+							</h4>
+						</div>
 					</div>
-				</div>
-			@endforeach
+				@endforeach
 
+				
 			
-		
-		</div>
-
+			</div>
+		@endif
 	</div>
 </form>
