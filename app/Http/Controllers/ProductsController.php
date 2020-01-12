@@ -484,8 +484,9 @@ class ProductsController extends Controller
        }
        
        $productsAll= $productsAll->paginate(6);
-       $colorArray = array('Black','Blue','Brown','Green','Yellow','Pink','Purple','Red','Silver','White','Orange','Ash','Gold');
-					
+       //$colorArray = array('Black','Blue','Brown','Green','Yellow','Pink','Purple','Red','Silver','White','Orange','Ash','Gold');
+        $colorArray = Product::select('product_color')->groupBy('product_color')->get();	//return only product colors in db but unique	
+        $colorArray = array_flatten(json_decode(json_encode($colorArray),true));	// convert multiple array to a single array
          //end --- check category/subcategory url
 
         //Start--Catgeories/subcategories Meta tags for SEO
