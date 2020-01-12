@@ -49,60 +49,32 @@
 
 		<h2>Colors</h2>
 		<div class="panel-group products-colors">
-			@if(!empty($_GET['colors']))
-				<?php 
-					$colorArray = explode('_',$_GET['colors']);
+			@foreach($colorArray as $colors)
+
+				@if(!empty($_GET['colors']))
+					<?php $colorArr = explode('_',$_GET['colors']) ?>
+
+					@if(in_array($colors,$colorArr))
+						<?php $colorcheck = 'checked'; ?>
+					@else
+						<?php $colorcheck = ""; ?>
+					@endif
 					
-				?>
-			@endif
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="black" id="black" @if(!empty($colorArray) && in_array("black",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">Black</span>
-
-					</h4>
+				@else
+					<?php $colorcheck = ""; ?>
+				@endif				
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" 
+							value="{{$colors}}" id="{{$colors}}" {{ $colorcheck }}>
+							&nbsp;&nbsp;<span class="products-colors">{{$colors}}</span>
+						</h4>
+					</div>
 				</div>
-			</div>
+			@endforeach
 
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<a>
-							<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="blue" id="blue" @if(!empty($colorArray) && in_array("blue",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">Blue</span>
-
-						</a>
-					</h4>
-				</div>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						
-						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="white" id="white" @if(!empty($colorArray) && in_array("white",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">White</span>
-						
-						
-					</h4>
-				</div>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="green" id="green" @if(!empty($colorArray) && in_array("green",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">Green</span>
-
-					</h4>
-				</div>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" value="red" id="red" @if(!empty($colorArray) && in_array("red",$colorArray)) checked="" @endif>&nbsp;&nbsp;<span class="products-colors">Red</span>
-
-					</h4>
-				</div>
-			</div>
+			
 		
 		</div>
 

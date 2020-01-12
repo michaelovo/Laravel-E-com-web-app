@@ -484,6 +484,7 @@ class ProductsController extends Controller
        }
        
        $productsAll= $productsAll->paginate(6);
+       $colorArray = array('Black','Blue','Brown','Green','Yellow','Pink','Purple','Red','Silver','White','Orange','Ash','Gold');
 					
          //end --- check category/subcategory url
 
@@ -492,7 +493,7 @@ class ProductsController extends Controller
         $meta_description=$categoriesDetails->meta_description;
         $meta_keywords=$categoriesDetails->meta_keywords;
         //Ends--Catgeories/subcategories Meta tags for SEO
-        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords','url'));
+        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords','url','colorArray'));
     }
          //END--CATEGORY LISTING FUNCTION
 
