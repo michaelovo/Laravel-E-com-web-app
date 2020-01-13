@@ -73,6 +73,18 @@
 
 
               <div class="control-group">
+                <label class="control-label"> Sleeve</label>
+                <div class="controls">
+                  <select name="sleeve" style="width:220px;" class="form-control">
+                   <option value="0">Select Sleeve</option>
+                   @foreach($sleeveArray as $sleeve)
+                   <option value="{{$sleeve}}">{{$sleeve}}</option>
+                   @endforeach
+                 </select>
+                </div>
+              </div>
+
+              <div class="control-group">
                 <label class="control-label"> Price</label>
                 <div class="controls">
                   <input type="text" name="price" id="price" placeholder="enter product price here">

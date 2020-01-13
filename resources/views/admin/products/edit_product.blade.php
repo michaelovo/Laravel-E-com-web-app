@@ -114,6 +114,18 @@
               </div>
 
               <div class="control-group">
+                <label class="control-label"> Sleeve</label>
+                <div class="controls">
+                  <select name="sleeve" style="width:220px;" class="form-control">
+                   <option value="">Select Sleeve</option>
+                   @foreach($sleeveArray as $sleeve)
+                   <option value="{{$sleeve}}" @if(!empty($productDetails->sleeve) && $productDetails->sleeve==$sleeve)selected @endif>{{$sleeve}}</option>
+                   @endforeach
+                 </select>
+                </div>
+              </div>
+
+              <div class="control-group">
                 <label class="control-label">Feature Item</label>
                 <div class="controls">
                   <input type="checkbox" name="feature_item" id="feature_item" @if($productDetails->feature_item=="1") checked @endif value="1">

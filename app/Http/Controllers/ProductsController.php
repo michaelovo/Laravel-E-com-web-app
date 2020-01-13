@@ -58,6 +58,12 @@ class ProductsController extends Controller
                      $product->care ='';
                 }
 
+                if(!empty($data['sleeve'])){
+                    $product->sleeve = $data['sleeve'];
+               }else{
+                    $product->sleeve ='';
+               }
+
              //End --If care field is empty or not, submit data
             $product->description =$data['product_color'];
             $product->price = $data['price'];
@@ -106,6 +112,7 @@ class ProductsController extends Controller
             }else{
                 $feature_item=1;
             }
+            
 
             $product->status=$status;
             $product->feature_item=$feature_item;
@@ -129,7 +136,8 @@ class ProductsController extends Controller
 
             }
          // End -- Retrieve and display main categories and subcategories from 'categories' table
-         return view('admin.products.add_product')->with(compact('categories_dropdown'));
+         $sleeveArray = array("Long sleeve","Short slevee","Sleeveless");
+         return view('admin.products.add_product')->with(compact('categories_dropdown','sleeveArray'));
     }
 
 
@@ -196,6 +204,11 @@ class ProductsController extends Controller
             }else{
                 $status=1;
             }
+            if(!empty($data['sleeve'])){
+                $sleeve = $data['sleeve'];
+           }else{
+                $sleeve ='';
+           }
 
             // Start ---- Video upload
             if($request->hasFile('video')){
@@ -220,7 +233,11 @@ class ProductsController extends Controller
             }
 
 
-            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'image'=>$filename,'video'=>$videoName,'status'=>$status,'feature_item'=>$feature_item]);
+            Product::where(['id'=>$id])->update(['category_id'=>$data['category_id'],
+            'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],
+            'product_color'=>$data['product_color'],'description'=>$data['description'],
+            'care'=>$data['care'],'price'=>$data['price'],'image'=>$filename,
+            'video'=>$videoName,'status'=>$status,'feature_item'=>$feature_item,'sleeve'=>$sleeve]);
 
             //return redirect()->back()->with('flash_success_msg','Product Updated successfully!');
              return redirect('/admin/view-product')->with('flash_success_msg','Product Updated successfully!');
@@ -256,8 +273,9 @@ class ProductsController extends Controller
              }
 
         }
+        $sleeveArray = array("Long sleeve","Short slevee","Sleeveless");
          // End -- Retrieve and display main categories and subcategories from 'categories' table
-            return view('admin.products.edit_product')->with(compact('productDetails','categories_dropdown'));//,'levels'));
+            return view('admin.products.edit_product')->with(compact('productDetails','categories_dropdown','sleeveArray'));//,'levels'));
     }
 
 
