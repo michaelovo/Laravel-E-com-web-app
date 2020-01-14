@@ -57,6 +57,10 @@
 									<h2>{{$productDetails->product_name}}</h2>
 									<p>Code: {{$productDetails->product_code}}</p>
 									<p>Color: {{$productDetails->product_color}}</p>
+									@if(!empty($productDetails->sleeve))
+									<p>Sleeve: {{$productDetails->sleeve}}</p>
+									@endif
+
 
 									<p>
 										<!-- to show sizes drop-down-->

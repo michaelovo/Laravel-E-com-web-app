@@ -500,11 +500,21 @@ class ProductsController extends Controller
         $colorArray = explode('_',$_GET['colors']);
         $productsAll= $productsAll->wherein('product_color',$colorArray);
        }
+
+        // check for product sleeves in product table
+        if(!empty($_GET['sleeves'])){
+            $sleeveArray = explode('_',$_GET['sleeves']);
+            $productsAll= $productsAll->wherein('sleeve',$sleeveArray);
+           }
        
        $productsAll= $productsAll->paginate(6);
        //$colorArray = array('Black','Blue','Brown','Green','Yellow','Pink','Purple','Red','Silver','White','Orange','Ash','Gold');
         $colorArray = Product::select('product_color')->groupBy('product_color')->get();	//return only product colors in db but unique	
         $colorArray = array_flatten(json_decode(json_encode($colorArray),true));	// convert multiple array to a single array
+
+        $sleeveArray = Product::select('sleeve')->where('sleeve','!=','')->groupBy('sleeve')->get();	//return only product sleeves in db but unique	
+        $sleeveArray = array_flatten(json_decode(json_encode($sleeveArray),true));
+        //return $sleeveArray;
          //end --- check category/subcategory url
 
         //Start--Catgeories/subcategories Meta tags for SEO
@@ -512,7 +522,7 @@ class ProductsController extends Controller
         $meta_description=$categoriesDetails->meta_description;
         $meta_keywords=$categoriesDetails->meta_keywords;
         //Ends--Catgeories/subcategories Meta tags for SEO
-        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords','url','colorArray'));
+        return view('products.listing')->with(compact('categoriesDetails','productsAll','categories','meta_title','meta_description','meta_keywords','url','colorArray','sleeveArray'));
     }
          //END--CATEGORY LISTING FUNCTION
 
@@ -592,7 +602,7 @@ class ProductsController extends Controller
 
         // $data= $request->all();
         // return $data;
-
+        // Colors filter
         $colorUrl ="";
         if(!empty($request['colorFilter'])){
             foreach($request['colorFilter'] as $colors){
@@ -602,6 +612,18 @@ class ProductsController extends Controller
                 $colorUrl .= "_".$colors; 
             }
             $finalUrl = "products/".$request['url']."?".$colorUrl;
+            return redirect :: to($finalUrl);
+        }
+            // Sleeves filter
+        $sleeveUrl ="";
+        if(!empty($request['sleeveFilter'])){
+            foreach($request['sleeveFilter'] as $sleeves){
+                if(empty($sleeveUrl)){
+                    $sleeveUrl = "&sleeves=".$sleeves;
+                }else
+                $sleeveUrl .= "_".$sleeves; 
+            }
+            $finalUrl = "products/".$request['url']."?".$sleeveUrl;
             return redirect :: to($finalUrl);
         }
     }

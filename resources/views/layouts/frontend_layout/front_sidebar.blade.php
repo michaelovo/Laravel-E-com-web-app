@@ -78,6 +78,37 @@
 				
 			
 			</div>
+
+			<h2>Sleeve</h2>
+			<div class="panel-group products-colors">
+				@foreach($sleeveArray as $sleeves)
+
+					@if(!empty($_GET['sleeves']))
+						<?php $sleeveArr = explode('_',$_GET['sleeves']) ?>
+
+						@if(in_array($sleeves,$sleeveArr))
+							<?php $sleevecheck = 'checked'; ?>
+						@else
+							<?php $sleevecheck = ""; ?>
+						@endif
+
+					@else
+						<?php $sleevecheck = ""; ?>
+					@endif				
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<input type="checkbox" name="sleeveFilter[]" onchange="javascript:this.form.submit();" 
+								value="{{$sleeves}}" id="{{$sleeves}}" {{ $sleevecheck }}>
+								&nbsp;&nbsp;<span class="products-sleeves">{{$sleeves}}</span>
+							</h4>
+						</div>
+					</div>
+				@endforeach
+
+				
+			
+			</div>
 		@endif
 	</div>
 </form>
