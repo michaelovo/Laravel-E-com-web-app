@@ -109,6 +109,37 @@
 				
 			
 			</div>
+
+			<h2>Pattern</h2>
+			<div class="panel-group products-colors">
+				@foreach($patternArray as $patterns)
+
+					@if(!empty($_GET['patterns']))
+						<?php $patternArr = explode('_',$_GET['patterns']) ?>
+
+						@if(in_array($patterns,$patternArr))
+							<?php $patterncheck = 'checked'; ?>
+						@else
+							<?php $patterncheck = ""; ?>
+						@endif
+
+					@else
+						<?php $patterncheck = ""; ?>
+					@endif				
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<input type="checkbox" name="patternFilter[]" onchange="javascript:this.form.submit();" 
+								value="{{$patterns}}" id="{{$patterns}}" {{ $patterncheck }}>
+								&nbsp;&nbsp;<span class="products-patterns">{{$patterns}}</span>
+							</h4>
+						</div>
+					</div>
+				@endforeach
+
+				
+			
+			</div>
 		@endif
 	</div>
 </form>

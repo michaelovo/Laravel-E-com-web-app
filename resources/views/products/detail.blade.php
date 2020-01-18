@@ -60,6 +60,9 @@
 									@if(!empty($productDetails->sleeve))
 									<p>Sleeve: {{$productDetails->sleeve}}</p>
 									@endif
+									@if(!empty($productDetails->pattern))
+									<p>Pattern: {{$productDetails->pattern}}</p>
+									@endif
 
 
 									<p>

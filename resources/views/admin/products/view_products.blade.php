@@ -88,6 +88,9 @@
                         Category id: {{$product->category_id}}<br>                               Category name: {{$product->category_name}}<br>                               Product Code: {{$product->product_code}}<br>                               Product Color:  {{$product->product_color}} <br>                           Price:  &#8358;{{$product->price}}<br>
                         Description:  {{$product->description}}<br>
                         Material & care:  {{$product->care}}<br>
+                        Sleeve:  {{$product->sleeve ?? '--'}}<br>
+                        Pattern{{$product->pattern ?? '--'}}<br>
+
                       </p>
                        Image:
                       <br>

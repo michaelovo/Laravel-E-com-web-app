@@ -126,6 +126,18 @@
               </div>
 
               <div class="control-group">
+                <label class="control-label"> Pattern</label>
+                <div class="controls">
+                  <select name="pattern" style="width:220px;" class="form-control">
+                   <option value="">Select Pattern</option>
+                   @foreach($patternArray as $pattern)
+                   <option value="{{$pattern}}" @if(!empty($productDetails->pattern) && $productDetails->pattern==$pattern)selected @endif>{{$pattern}}</option>
+                   @endforeach
+                 </select>
+                </div>
+              </div>
+
+              <div class="control-group">
                 <label class="control-label">Feature Item</label>
                 <div class="controls">
                   <input type="checkbox" name="feature_item" id="feature_item" @if($productDetails->feature_item=="1") checked @endif value="1">
