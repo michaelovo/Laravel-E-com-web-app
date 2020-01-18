@@ -655,15 +655,15 @@ ul.sub-menu {
 
 .category-products {
   border: 1px solid #F7F7F0;
-  margin-bottom: 35px;
-  padding-bottom: 20px;
-  padding-top: 15px;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  padding-top: 1px;
 }
-.products-colors {
+.products-filter {
   border: 1px solid #F7F7F0;
-  margin-bottom: 35px;
-  padding-bottom: 20px;
-  padding-top: 15px;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  padding-top: 1px;
   color:#696363 !important;
 }
 .left-sidebar h2, .brands_products h2 {

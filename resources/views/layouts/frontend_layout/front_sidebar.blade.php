@@ -49,7 +49,7 @@
 
 		@if(!empty($url))
 			<h2>Colors</h2>
-			<div class="panel-group products-colors">
+			<div class="panel-group products-filter">
 				@foreach($colorArray as $colors)
 
 					@if(!empty($_GET['colors']))
@@ -69,7 +69,7 @@
 							<h4 class="panel-title">
 								<input type="checkbox" name="colorFilter[]" onchange="javascript:this.form.submit();" 
 								value="{{$colors}}" id="{{$colors}}" {{ $colorcheck }}>
-								&nbsp;&nbsp;<span class="products-colors">{{$colors}}</span>
+								&nbsp;&nbsp;<span class="products-filter">{{$colors}}</span>
 							</h4>
 						</div>
 					</div>
@@ -80,7 +80,7 @@
 			</div>
 
 			<h2>Sleeve</h2>
-			<div class="panel-group products-colors">
+			<div class="panel-group products-filter">
 				@foreach($sleeveArray as $sleeves)
 
 					@if(!empty($_GET['sleeves']))
@@ -100,7 +100,7 @@
 							<h4 class="panel-title">
 								<input type="checkbox" name="sleeveFilter[]" onchange="javascript:this.form.submit();" 
 								value="{{$sleeves}}" id="{{$sleeves}}" {{ $sleevecheck }}>
-								&nbsp;&nbsp;<span class="products-sleeves">{{$sleeves}}</span>
+								&nbsp;&nbsp;<span class="products-filter">{{$sleeves}}</span>
 							</h4>
 						</div>
 					</div>
@@ -111,7 +111,7 @@
 			</div>
 
 			<h2>Pattern</h2>
-			<div class="panel-group products-colors">
+			<div class="panel-group products-filter">
 				@foreach($patternArray as $patterns)
 
 					@if(!empty($_GET['patterns']))
@@ -131,7 +131,7 @@
 							<h4 class="panel-title">
 								<input type="checkbox" name="patternFilter[]" onchange="javascript:this.form.submit();" 
 								value="{{$patterns}}" id="{{$patterns}}" {{ $patterncheck }}>
-								&nbsp;&nbsp;<span class="products-patterns">{{$patterns}}</span>
+								&nbsp;&nbsp;<span class="products-filter">{{$patterns}}</span>
 							</h4>
 						</div>
 					</div>
