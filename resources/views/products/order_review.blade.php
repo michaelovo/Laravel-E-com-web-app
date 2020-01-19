@@ -161,7 +161,7 @@
 										</td>
 									</tr>
 									<tr><!---bootstrap tooltip class. getcurrencyrate--->
-											<?php $getcurrencyRate=Product::getcurrencyRate($grand_total) ;?>
+											<?php $getcurrencyRate=Product::getcurrencyRate($total_amount) ;?>
 										<td>Grand Total</td>
 										<td>
 											<span class="btn btn-secondary" data-toggle="tooltip" data-html="true" 
