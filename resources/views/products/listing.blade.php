@@ -21,7 +21,7 @@
 							( {{count($productsAll)}} )
 							<!-- if search found or not, display the quantity of available product--->
 						</h2>
-
+						<div align="left"><?php echo $breadcrumb; ?> </div>
 						@foreach($productsAll as $product)
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">

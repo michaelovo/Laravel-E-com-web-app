@@ -510,9 +510,18 @@ class ProductsController extends Controller
             //$productsAll = json_decode(json_encode($productsAll));
             //echo "<pre>"; print_r($productsAll); die;
 
+              //Breadcrumb
+           $breadcrumb = "<a href ='/'> Home </a> > <a href='" . $categoriesDetails->url ."'> " . $categoriesDetails->name ."</a>";
+
+
         } else {
             //if url is sub category url  and status value=1
             $productsAll = Product::where(['category_id' => $categoriesDetails->id])->where('status', 1)->orderBy('id', 'Desc'); //->paginate(3);
+
+            //Breadcrumb
+            $mainCatBreadcrumb = Category::whereId($categoriesDetails->parent_id)->first();
+            $breadcrumb = "<a href ='/'> Home </a> > <a href='" . $mainCatBreadcrumb->url ."'> " . $mainCatBreadcrumb->name ."</a> > <a href='" . $categoriesDetails->url ."'> " . $categoriesDetails->name ."</a>";
+
 
         }
 
@@ -552,7 +561,7 @@ class ProductsController extends Controller
         $meta_description = $categoriesDetails->meta_description;
         $meta_keywords = $categoriesDetails->meta_keywords;
         //Ends--Catgeories/subcategories Meta tags for SEO
-        return view('products.listing')->with(compact('categoriesDetails', 'productsAll', 'categories', 'meta_title', 'meta_description', 'meta_keywords', 'url', 'colorArray', 'sleeveArray','patternArray'));
+        return view('products.listing')->with(compact('categoriesDetails', 'productsAll', 'categories', 'meta_title', 'meta_description', 'meta_keywords', 'url', 'colorArray', 'sleeveArray','patternArray','breadcrumb'));
     }
     //END--CATEGORY LISTING FUNCTION
 
