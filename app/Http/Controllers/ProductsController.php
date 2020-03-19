@@ -506,7 +506,7 @@ class ProductsController extends Controller
             }
             //print_r($cat_id); die;
             // get and display only product whose status value=1
-            $productsAll = Product::whereIn('category_id', $cat_id)->where('status', 1)->orderBy('id', 'Desc')->paginate(3);
+            $productsAll = Product::whereIn('products.category_id', $cat_id)->where('products.status', 1)->orderBy('products.id', 'Desc');//->paginate(3);
             //$productsAll = json_decode(json_encode($productsAll));
             //echo "<pre>"; print_r($productsAll); die;
 
@@ -516,7 +516,7 @@ class ProductsController extends Controller
 
         } else {
             //if url is sub category url  and status value=1
-            $productsAll = Product::where(['category_id' => $categoriesDetails->id])->where('status', 1)->orderBy('id', 'Desc'); //->paginate(3);
+            $productsAll = Product::where(['products.category_id' => $categoriesDetails->id])->where('products.status', 1)->orderBy('products.id', 'Desc'); //->paginate(3);
 
             //Breadcrumb
             $mainCatBreadcrumb = Category::whereId($categoriesDetails->parent_id)->first();
@@ -528,19 +528,19 @@ class ProductsController extends Controller
         // check for product colors in product table
         if (!empty($_GET['colors'])) {
             $colorArray = explode('_', $_GET['colors']);
-            $productsAll = $productsAll->wherein('product_color', $colorArray);
+            $productsAll = $productsAll->wherein('products.product_color', $colorArray);
         }
 
         // check for product sleeves in product table
         if (!empty($_GET['sleeves'])) {
             $sleeveArray = explode('_', $_GET['sleeves']);
-            $productsAll = $productsAll->wherein('sleeve', $sleeveArray);
+            $productsAll = $productsAll->wherein('products.sleeve', $sleeveArray);
         }
 
         // check for product pattern in product table
         if (!empty($_GET['patterns'])) {
             $patternArray = explode('_', $_GET['patterns']);
-            $productsAll = $productsAll->wherein('pattern', $patternArray);
+            $productsAll = $productsAll->wherein('products.pattern', $patternArray);
         }
 
         $productsAll = $productsAll->paginate(6);
