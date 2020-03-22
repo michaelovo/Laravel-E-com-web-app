@@ -1084,7 +1084,17 @@ class ProductsController extends Controller
                 $cartPro->product_price = $pro->price;
                 $cartPro->product_qty = $pro->quantity;
                 $cartPro->save();
-                # code...
+
+                //Start Reduce product stock quantity after each order
+                
+                $get_product_stock = ProductsAttribute::where('sku',$pro->product_code)->first();
+                $new_stock = $get_product_stock->stock - $pro->quantity;
+                ProductsAttribute::where('sku',$pro->product_code)->update(['stock'=>$new_stock]);
+                
+                //Stop Reduce product stock quantity after each order
+
+
+
             }
 
             // create/ start session variable to get order_id and grand_total on COD thank you page
