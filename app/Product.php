@@ -64,4 +64,12 @@ class Product extends Model
 		);
 		return $currenciesArr;
 	}
+
+	//get current product stock
+	public static function getProductStock($product_id, $product_size){
+		$getProductStock = ProductsAttribute::select('stock')->where(['product_id'=>$product_id,'size'=>$product_size])->first();
+
+		return $getProductStock->stock;
+
+	}
 }

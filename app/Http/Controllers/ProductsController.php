@@ -1026,7 +1026,24 @@ class ProductsController extends Controller
         if ($request->ismethod('post')) {
             $data = $request->all();
             $user_id = Auth::user()->id; // get auth user id
-            $user_email = Auth::user()->email; // get auth user email
+			$user_email = Auth::user()->email; // get auth user email
+			
+			//prevent sold out products to order
+			$userCart = DB::table('cart')->where('user_email',$user_email)->get();
+            
+            foreach($userCart as $cart){
+                $product_stock = Product::getProductStock($cart->product_id, $cart->size);
+                
+                if($product_stock == 0){
+                    return redirect('/cart')->with('flash_err_msg','Product is sold out! Please try another product');
+                }
+                //check product stock against cart stock even at the point of placing order
+                if($cart->quantity > $product_stock){
+                    return redirect('/cart')->with('flash_err_msg','Reduce product quantity and try again!');
+                }
+
+            }
+
             $shippingDetails = DeliveryAddress::where(['user_email' => $user_email])->first(); //get shipping details
 
             // compare user entered pincode to determine if shipping location is available or not
@@ -1089,6 +1106,10 @@ class ProductsController extends Controller
                 
                 $get_product_stock = ProductsAttribute::where('sku',$pro->product_code)->first();
                 $new_stock = $get_product_stock->stock - $pro->quantity;
+                // this prevent minus issue
+                if($new_stock < 0){
+                    $new_stock=0;
+                }
                 ProductsAttribute::where('sku',$pro->product_code)->update(['stock'=>$new_stock]);
                 
                 //Stop Reduce product stock quantity after each order
