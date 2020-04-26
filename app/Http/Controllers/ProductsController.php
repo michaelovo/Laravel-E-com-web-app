@@ -1036,11 +1036,17 @@ class ProductsController extends Controller
                 
                 if($product_stock == 0){
                     Product::removeSoldOutFromCart($cart->product_id,$user_email);
-                    return redirect('/cart')->with('flash_err_msg','Sold out remove from cart! Please choose another product');
+                    return redirect('/cart')->with('flash_err_msg','Sold out removed from cart! Please choose another product');
                 }
                 //check product stock against cart stock even at the point of placing order
                 if($cart->quantity > $product_stock){
                     return redirect('/cart')->with('flash_err_msg','Reduce product quantity and try again!');
+                }
+
+                $product_status = Product::getProductStatus($cart->product_id);
+                if($product_status == 0){
+                    Product::removeSoldOutFromCart($cart->product_id,$user_email);
+                    return redirect('/cart')->with('flash_err_msg','Disabled product removed from cart! Please choose another product');
                 }
 
             }

@@ -71,12 +71,17 @@ class Product extends Model
 		return $getProductStock->stock;
 	}
 
-	// remove sold out product from user's cart
+	// remove sold out product from user's cart order
 	public static function removeSoldOutFromCart($product_id,$user_mail){
 		$removeFromCart = DB::table('cart')->where([
 			['product_id',$product_id],
 			['user_email',$user_mail]
 			])->delete();
 		return $removeFromCart;
+	}
+	//prevent disabled product to order
+	public static function getProductStatus($product_id){
+		$getProductStatus = Product::select('status')->where('id',$product_id)->first();
+		return $getProductStatus->status;
 	}
 }
