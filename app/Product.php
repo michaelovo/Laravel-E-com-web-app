@@ -68,8 +68,15 @@ class Product extends Model
 	//get current product stock
 	public static function getProductStock($product_id, $product_size){
 		$getProductStock = ProductsAttribute::select('stock')->where(['product_id'=>$product_id,'size'=>$product_size])->first();
-
 		return $getProductStock->stock;
+	}
 
+	// remove sold out product from user's cart
+	public static function removeSoldOutFromCart($product_id,$user_mail){
+		$removeFromCart = DB::table('cart')->where([
+			['product_id',$product_id],
+			['user_email',$user_mail]
+			])->delete();
+		return $removeFromCart;
 	}
 }

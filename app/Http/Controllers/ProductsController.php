@@ -1035,7 +1035,8 @@ class ProductsController extends Controller
                 $product_stock = Product::getProductStock($cart->product_id, $cart->size);
                 
                 if($product_stock == 0){
-                    return redirect('/cart')->with('flash_err_msg','Product is sold out! Please try another product');
+                    Product::removeSoldOutFromCart($cart->product_id,$user_email);
+                    return redirect('/cart')->with('flash_err_msg','Sold out remove from cart! Please choose another product');
                 }
                 //check product stock against cart stock even at the point of placing order
                 if($cart->quantity > $product_stock){
