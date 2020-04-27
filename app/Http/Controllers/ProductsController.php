@@ -261,20 +261,20 @@ class ProductsController extends Controller
 
         //retrieve and display data for editing from db on edit-category blade file
         $productDetails = Product::where(['id' => $id])->first(); //get product details
-
+       // return $productDetails->category_id;
         // start -- Retrieve and display main categories and subcategories from 'categories' table
-        $categories = Category::where(['parent_id' => 0])->get();
-        $categories_dropdown = "<option value='' selected disabled>selected</option>";
+        $categories = Category::where('parent_id','0')->get();
+        $categories_dropdown = "<option value='' disabled>select</option>";
         foreach ($categories as $cat) {
             // Start ...Compare and auto-select category for product
-            if ($cat->id == $productDetails->category_id) {
+            if($cat->id == $productDetails->category_id) {
                 $selected = "selected";
-            } else {
+            }else {
                 $selected = "";
             }
             // End ...Compare and auto-select category for product
-            $categories_dropdown .= "<option value='" . $cat->id . "' " . $selected . ">" . $cat->name . "</option>";
-            $sub_categories = Category::where(['parent_id' => $cat->id])->get();
+           $categories_dropdown .= "<option value='" . $cat->id . "' " . $selected . ">" . $cat->name . "</option>";
+           $sub_categories = Category::where(['parent_id' => $cat->id])->get();
             foreach ($sub_categories as $sub_cat) {
                 // Start ...Compare and auto-select subcategory for product
                 if ($sub_cat->id == $productDetails->category_id) {
@@ -283,7 +283,8 @@ class ProductsController extends Controller
                     $selected = "";
                 }
                 // End ...Compare and auto-select category for product
-                $categories_dropdown .= "<option value='" . $sub_cat->id . "'>&nbsp;--&nbsp" . $sub_cat->name . "</option>";
+            $categories_dropdown .= "<option value='" . $sub_cat->id . "' " . $selected . ">" . $sub_cat->name . "</option>";
+
 
             }
 
