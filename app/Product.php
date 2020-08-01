@@ -84,4 +84,10 @@ class Product extends Model
 		$getProductStatus = Product::select('status')->where('id',$product_id)->first();
 		return $getProductStatus->status;
 	}
+
+	//prevent deleted product attribute to order
+	public static function getAttributeCount($product_id, $product_size){
+		$getAttributeCount = ProductsAttribute::where(['product_id'=>$product_id,'size'=>$product_size])->count();
+		return $getAttributeCount;
+	}
 }

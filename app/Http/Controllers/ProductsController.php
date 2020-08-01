@@ -1029,10 +1029,17 @@ class ProductsController extends Controller
             $user_id = Auth::user()->id; // get auth user id
 			$user_email = Auth::user()->email; // get auth user email
 			
-			//prevent sold out products to order
+			//prevent sold out products and deleted attribute(s) to order
 			$userCart = DB::table('cart')->where('user_email',$user_email)->get();
             
             foreach($userCart as $cart){
+
+                $getAttributeCount = Product::getAttributeCount($cart->product_id, $cart->size);
+                if($getAttributeCount == 0){
+                    Product::removeSoldOutFromCart($cart->product_id,$user_email);
+                    return redirect('/cart')->with('flash_err_msg','One of the product is not available! Please choose another product');
+                }
+
                 $product_stock = Product::getProductStock($cart->product_id, $cart->size);
                 
                 if($product_stock == 0){
