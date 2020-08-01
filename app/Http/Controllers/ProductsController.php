@@ -1041,7 +1041,6 @@ class ProductsController extends Controller
                 }
 
                 $product_stock = Product::getProductStock($cart->product_id, $cart->size);
-                
                 if($product_stock == 0){
                     Product::removeSoldOutFromCart($cart->product_id,$user_email);
                     return redirect('/cart')->with('flash_err_msg','Sold out removed from cart! Please choose another product');
@@ -1051,10 +1050,19 @@ class ProductsController extends Controller
                     return redirect('/cart')->with('flash_err_msg','Reduce product quantity and try again!');
                 }
 
+                // check product  status at the point of placing order
                 $product_status = Product::getProductStatus($cart->product_id);
                 if($product_status == 0){
                     Product::removeSoldOutFromCart($cart->product_id,$user_email);
                     return redirect('/cart')->with('flash_err_msg','Disabled product removed from cart! Please choose another product');
+                }
+
+                // check product category status at the point of placing order
+                $getCategoryId = Product::select('category_id')->where('id',$cart->product_id)->first();
+                $category_status = Product::getCategoryStatus($getCategoryId->category_id);
+                if($category_status == 0){
+                    Product::removeSoldOutFromCart($cart->product_id,$user_email);
+                    return redirect('/cart')->with('flash_err_msg','Product(s) removed from cart as category is disabled! Please choose another product');
                 }
 
             }
