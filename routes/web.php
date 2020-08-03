@@ -162,6 +162,16 @@ Route::group(['middleware'=>['adminlogin']],function(){
      Route::post('/admib/update-currency/{id}','CurrencyController@updateCurrency');
      Route::get('/admin/delete-currency/{id}','CurrencyController@deleteCurrency');
 
+
+
+     //shipping charges route
+     Route::get('/admin/add-charges','ShippingChargeController@index');
+     Route::post('/admin/add-charges','ShippingChargeController@store');
+     Route::get('/admin/view_charges','ShippingChargeController@viewCharges');
+     Route::get('/admin/edit-charges/{id}','ShippingChargeController@editCharges');
+     Route::post('/admin/update-charges/{id}','ShippingChargeController@updateCharges');
+     Route::get('/admin/delete-charges/{id}','ShippingChargeController@deleteCharges');
+
 });
 
 Route::get('/logout','AdminController@logout');
