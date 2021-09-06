@@ -13,7 +13,7 @@ class CurrencyController extends Controller
     {
         $currencies = Currency::all();
         $page_title='Add Currency';
-        return view('admin.currencies.add_currency')->with(compact('currencies','page_title'));;
+        return view('admin.currencies.add_currency')->with(compact('currencies','page_title'));
     }
 
     public function store(Request $request)
